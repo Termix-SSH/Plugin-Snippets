@@ -1,3 +1,9 @@
+/**
+ * $HOST, $USER, $PORT, $NAME and $INPUT_n in a command. The one copy: the
+ * frontend, the backend and other plugins (fleets, through the
+ * "snippets.variables" registry entry and action) all use this.
+ */
+
 export interface SnippetInput {
   key: string;
   label: string;
