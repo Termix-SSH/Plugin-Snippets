@@ -15,11 +15,10 @@ import {
   ExternalLink,
   FolderPlus,
   MoreHorizontal,
+  Code2,
   Plus,
-  Search,
   SlidersHorizontal,
   Upload,
-  X,
 } from "lucide-react";
 import {
   Button,
@@ -28,8 +27,10 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
+  EmptyState,
+  PanelSearch,
   copyToClipboard,
-  useConfirmation,
+  useConfirm,
 } from "@termix/plugin-sdk/ui";
 import { createSnippetsApi } from "./snippets-api";
 import { useSnippetRunner, type TargetHost } from "./use-snippet-runner";
@@ -76,7 +77,7 @@ function matchesQuery(snippet: Snippet, query: string): boolean {
   );
 }
 
-export function SnippetsPanel({ active: _active }: PanelProps) {
+export function SnippetsPanel({ active, setEditing }: PanelProps) {
   const { t } = useTranslation();
   const api = usePluginApi();
   const client = useMemo(() => createSnippetsApi(api), [api]);
@@ -105,7 +106,7 @@ export function SnippetsPanel({ active: _active }: PanelProps) {
     });
   }, [openTerminals]);
   const { hosts } = useHosts();
-  const { confirmWithToast } = useConfirmation();
+  const confirm = useConfirm();
 
   const [snippets, setSnippets] = useState<Snippet[]>([]);
   const [folders, setFolders] = useState<SnippetFolder[]>([]);
@@ -335,20 +336,23 @@ export function SnippetsPanel({ active: _active }: PanelProps) {
   }
 
   function handleDeleteSnippet(snippet: Snippet) {
-    void confirmWithToast(
-      t("deleteSnippetConfirm", { name: snippet.name }),
-      async () => {
-        try {
-          await client.remove(snippet.id);
-          toast.success(t("deleteSuccess"));
-          await load();
-        } catch (err) {
-          toast.error(errorMessage(err, t("deleteFailed")));
-        }
-      },
-      t("delete"),
-      t("cancel"),
-    );
+    void confirm({
+      title: t("deleteSnippetConfirm", { name: snippet.name }),
+      confirmLabel: t("delete"),
+      cancelLabel: t("cancel"),
+    }).then((ok) => {
+      if (ok)
+        void (async () => {
+          try {
+            await client.remove(snippet.id);
+            toast.success(t("deleteSuccess"));
+            await load();
+          } catch (err) {
+            toast.error(errorMessage(err, t("deleteFailed")));
+          }
+        })();
+      return ok;
+    });
   }
 
   async function handleMoveSnippet(snippet: Snippet, folder: string | null) {
@@ -406,20 +410,23 @@ export function SnippetsPanel({ active: _active }: PanelProps) {
   }
 
   function handleDeleteFolder(name: string) {
-    void confirmWithToast(
-      t("deleteFolderConfirm", { name }),
-      async () => {
-        try {
-          await client.deleteFolder(name);
-          toast.success(t("folderDeleteSuccess"));
-          await load();
-        } catch (err) {
-          toast.error(errorMessage(err, t("folderDeleteFailed")));
-        }
-      },
-      t("delete"),
-      t("cancel"),
-    );
+    void confirm({
+      title: t("deleteFolderConfirm", { name }),
+      confirmLabel: t("delete"),
+      cancelLabel: t("cancel"),
+    }).then((ok) => {
+      if (ok)
+        void (async () => {
+          try {
+            await client.deleteFolder(name);
+            toast.success(t("folderDeleteSuccess"));
+            await load();
+          } catch (err) {
+            toast.error(errorMessage(err, t("folderDeleteFailed")));
+          }
+        })();
+      return ok;
+    });
   }
 
   async function handleExport() {
@@ -490,342 +497,354 @@ export function SnippetsPanel({ active: _active }: PanelProps) {
     return null;
   }
 
-  if (view.kind === "edit") {
+  return (
+    <SnippetsBody
+      view={view}
+      active={active}
+      setEditing={setEditing}
+      render={renderView}
+    />
+  );
+
+  function renderView() {
+    if (view.kind === "edit") {
+      return (
+        <div className="flex flex-col flex-1 min-h-0 overflow-hidden">
+          <SnippetEditor
+            snippet={view.snippet}
+            defaultFolder={view.folder}
+            folders={folders}
+            onBack={() => setView({ kind: "list" })}
+            onSave={handleSaveSnippet}
+          />
+          {runnerDialog}
+        </div>
+      );
+    }
+
+    if (view.kind === "share") {
+      return (
+        <div className="flex flex-col flex-1 min-h-0 overflow-hidden">
+          <SnippetShareView
+            target={view.target}
+            client={client}
+            onBack={() => setView({ kind: "list" })}
+          />
+        </div>
+      );
+    }
+
+    if (view.kind === "settings") {
+      return (
+        <div className="flex flex-col flex-1 min-h-0 overflow-hidden">
+          <SnippetSettings
+            settings={settings}
+            onBack={() => setView({ kind: "list" })}
+          />
+        </div>
+      );
+    }
+
+    const renderSnippet = (snippet: Snippet) => (
+      <SnippetRow
+        key={snippet.id}
+        snippet={snippet}
+        showCommand={display.showCommands}
+        folderNames={folderNames}
+        targetHostNames={targetHostsOf(snippet).map(
+          (host) => host.name || host.ip || String(host.id),
+        )}
+        canEdit={canEdit}
+        canDelete={canDelete}
+        canShare={canShare}
+        draggable={canEdit && !snippet.isShared && !query}
+        dragActive={dragged !== null}
+        isDragging={dragged?.id === snippet.id}
+        dropIndicator={
+          dropTarget?.id === snippet.id && dragged?.id !== snippet.id
+            ? dropTarget.position
+            : null
+        }
+        onRun={() => handleRun(snippet)}
+        onCopy={() => void handleCopy(snippet)}
+        onEdit={() => setView({ kind: "edit", snippet })}
+        onShare={() =>
+          setView({ kind: "share", target: { kind: "snippet", snippet } })
+        }
+        onMove={(folder) => void handleMoveSnippet(snippet, folder)}
+        onDelete={() => handleDeleteSnippet(snippet)}
+        onDragStart={() => setDragged(snippet)}
+        onDragEnd={endDrag}
+        onDragOverRow={(position) =>
+          setDropTarget((prev) =>
+            prev?.id === snippet.id && prev.position === position
+              ? prev
+              : { id: snippet.id, position },
+          )
+        }
+        onDropRow={() => void handleDropOnRow(snippet)}
+      />
+    );
+
+    const isEmpty = groups.length === 0 && rootSnippets.length === 0;
+
     return (
       <div className="flex flex-col flex-1 min-h-0 overflow-hidden">
-        <SnippetEditor
-          snippet={view.snippet}
-          defaultFolder={view.folder}
-          folders={folders}
-          onBack={() => setView({ kind: "list" })}
-          onSave={handleSaveSnippet}
-        />
+        <div className="flex flex-col px-2 py-1.5 shrink-0 border-b border-border/60 gap-1.5">
+          <PanelSearch
+            value={search}
+            onChange={setSearch}
+            placeholder={t("searchPlaceholder")}
+            fill
+          />
+
+          <TargetTerminals
+            terminals={openTerminals}
+            selected={selectedTerminals}
+            onChange={setSelectedTerminals}
+          />
+
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept=".json,application/json"
+            className="hidden"
+            onChange={(e) => {
+              const file = e.target.files?.[0];
+              e.target.value = "";
+              if (file) void handleImport(file);
+            }}
+          />
+
+          <div className="flex items-center gap-1.5 overflow-x-auto overflow-y-hidden toolbar-scrollbar">
+            <div className="flex items-center border border-border shrink-0">
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="size-7 text-muted-foreground hover:text-foreground"
+                    title={t("importExport")}
+                  >
+                    <Upload className="size-3.5" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="start" className="text-xs">
+                  {canCreate && (
+                    <>
+                      <DropdownMenuItem onClick={() => startImport(false)}>
+                        <Upload className="size-3.5 mr-2" />
+                        {t("importSkipExisting")}
+                      </DropdownMenuItem>
+                      <DropdownMenuItem onClick={() => startImport(true)}>
+                        <Upload className="size-3.5 mr-2" />
+                        {t("importOverwrite")}
+                      </DropdownMenuItem>
+                      <DropdownMenuSeparator />
+                    </>
+                  )}
+                  <DropdownMenuItem
+                    onClick={() => void handleExport()}
+                    disabled={snippets.length === 0}
+                  >
+                    <Download className="size-3.5 mr-2" />
+                    {t("exportSnippets")}
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+              <div className="w-px self-stretch bg-border" />
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="size-7 text-muted-foreground hover:text-foreground"
+                    title={t("moreActions")}
+                  >
+                    <MoreHorizontal className="size-3.5" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="start" className="text-xs min-w-44">
+                  {canCreate && (
+                    <>
+                      <DropdownMenuItem
+                        onClick={() =>
+                          setFolderDialog({ folder: null, editName: null })
+                        }
+                      >
+                        <FolderPlus className="size-3.5 mr-2" />
+                        {t("newFolder")}
+                      </DropdownMenuItem>
+                      <DropdownMenuSeparator />
+                    </>
+                  )}
+                  <DropdownMenuItem onClick={() => setAllFolders(true)}>
+                    <ChevronsUpDown className="size-3.5 mr-2" />
+                    {t("expandAll")}
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => setAllFolders(false)}>
+                    <ChevronsDownUp className="size-3.5 mr-2" />
+                    {t("collapseAll")}
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+              <div className="w-px self-stretch bg-border" />
+              <a
+                href={DOCS_URL}
+                target="_blank"
+                rel="noreferrer"
+                title={t("docsLink")}
+                className="flex items-center justify-center size-7 text-muted-foreground hover:text-foreground shrink-0 transition-colors"
+              >
+                <ExternalLink className="size-3.5" />
+              </a>
+            </div>
+            <div className="flex items-center border border-border shrink-0">
+              <button
+                onClick={() => setView({ kind: "settings" })}
+                title={t("settingsTitle")}
+                className="flex items-center justify-center size-7 text-muted-foreground hover:text-foreground hover:bg-muted transition-colors shrink-0"
+              >
+                <SlidersHorizontal className="size-3.5" />
+              </button>
+            </div>
+            {canCreate && (
+              <div className="flex items-center border border-accent-brand/30 ml-auto shrink-0">
+                <button
+                  onClick={() => setView({ kind: "edit", snippet: null })}
+                  title={t("newSnippet")}
+                  className="flex items-center justify-center gap-1 h-7 px-2 text-[10px] font-medium text-accent-brand hover:bg-accent-brand/10 transition-colors"
+                >
+                  <Plus className="size-3 shrink-0" />
+                  <span className="hidden min-[280px]:inline">
+                    {t("newSnippet")}
+                  </span>
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
+
+        <div className="flex flex-1 min-h-0 flex-col gap-2 overflow-y-auto p-2.5">
+          {loading ? (
+            <div className="p-4 text-xs text-muted-foreground">
+              {t("loading")}
+            </div>
+          ) : isEmpty ? (
+            <EmptyState
+              icon={Code2}
+              title={t(query ? "noSearchResults" : "emptyTitle")}
+              hint={query ? undefined : t("emptyDescription")}
+            />
+          ) : (
+            <>
+              {rootSnippets.map(renderSnippet)}
+              {groups.map((group, index) => {
+                const open = isOpen(group.name);
+                return (
+                  <SnippetFolderRow
+                    key={group.name}
+                    name={group.name}
+                    folder={group.folder}
+                    count={group.snippets.length}
+                    open={open}
+                    stripeIndex={index}
+                    canCreate={canCreate}
+                    canEdit={canEdit}
+                    canDelete={canDelete}
+                    canShare={canShare}
+                    acceptsDrop={
+                      dragged !== null && dragged.folder !== group.name
+                    }
+                    onToggle={() => toggleFolder(group.name)}
+                    onAddSnippet={() =>
+                      setView({
+                        kind: "edit",
+                        snippet: null,
+                        folder: group.name,
+                      })
+                    }
+                    onEdit={() =>
+                      setFolderDialog({
+                        folder: group.folder,
+                        editName: group.name,
+                      })
+                    }
+                    onShare={() =>
+                      setView({
+                        kind: "share",
+                        target: { kind: "folder", name: group.name },
+                      })
+                    }
+                    onDelete={() => handleDeleteFolder(group.name)}
+                    onDropSnippet={() => void handleDropOnFolder(group.name)}
+                  >
+                    {open && group.snippets.map(renderSnippet)}
+                  </SnippetFolderRow>
+                );
+              })}
+              {dragged?.folder && (
+                <div
+                  onDragOver={(e) => e.preventDefault()}
+                  onDrop={(e) => {
+                    e.preventDefault();
+                    const source = dragged;
+                    endDrag();
+                    void saveOrder(
+                      [
+                        ...snippets.filter((s) => !s.folder),
+                        { ...source, folder: null },
+                      ],
+                      null,
+                    );
+                  }}
+                  className="px-3 py-3 text-center text-[11px] text-muted-foreground border border-dashed border-border"
+                >
+                  {t("dropToRemoveFromFolder")}
+                </div>
+              )}
+            </>
+          )}
+        </div>
+
+        {folderDialog && (
+          <SnippetFolderDialog
+            folder={
+              folderDialog.folder ??
+              (folderDialog.editName
+                ? ({
+                    name: folderDialog.editName,
+                    color: null,
+                    icon: null,
+                  } as SnippetFolder)
+                : null)
+            }
+            onClose={() => setFolderDialog(null)}
+            onSave={handleSaveFolder}
+          />
+        )}
         {runnerDialog}
       </div>
     );
   }
+}
 
-  if (view.kind === "share") {
-    return (
-      <div className="flex flex-col flex-1 min-h-0 overflow-hidden">
-        <SnippetShareView
-          target={view.target}
-          client={client}
-          onBack={() => setView({ kind: "list" })}
-        />
-      </div>
-    );
-  }
-
-  if (view.kind === "settings") {
-    return (
-      <div className="flex flex-col flex-1 min-h-0 overflow-hidden">
-        <SnippetSettings
-          settings={settings}
-          onBack={() => setView({ kind: "list" })}
-        />
-      </div>
-    );
-  }
-
-  let stripe = 0;
-  const renderSnippet = (snippet: Snippet) => (
-    <SnippetRow
-      key={snippet.id}
-      snippet={snippet}
-      stripeIndex={stripe++}
-      showCommand={display.showCommands}
-      folderNames={folderNames}
-      targetHostNames={targetHostsOf(snippet).map(
-        (host) => host.name || host.ip || String(host.id),
-      )}
-      canEdit={canEdit}
-      canDelete={canDelete}
-      canShare={canShare}
-      draggable={canEdit && !snippet.isShared && !query}
-      dragActive={dragged !== null}
-      isDragging={dragged?.id === snippet.id}
-      dropIndicator={
-        dropTarget?.id === snippet.id && dragged?.id !== snippet.id
-          ? dropTarget.position
-          : null
-      }
-      onRun={() => handleRun(snippet)}
-      onCopy={() => void handleCopy(snippet)}
-      onEdit={() => setView({ kind: "edit", snippet })}
-      onShare={() =>
-        setView({ kind: "share", target: { kind: "snippet", snippet } })
-      }
-      onMove={(folder) => void handleMoveSnippet(snippet, folder)}
-      onDelete={() => handleDeleteSnippet(snippet)}
-      onDragStart={() => setDragged(snippet)}
-      onDragEnd={endDrag}
-      onDragOverRow={(position) =>
-        setDropTarget((prev) =>
-          prev?.id === snippet.id && prev.position === position
-            ? prev
-            : { id: snippet.id, position },
-        )
-      }
-      onDropRow={() => void handleDropOnRow(snippet)}
-    />
-  );
-
-  const isEmpty = groups.length === 0 && rootSnippets.length === 0;
-
-  return (
-    <div className="flex flex-col flex-1 min-h-0 overflow-hidden">
-      <div className="flex flex-col px-2 py-1.5 shrink-0 border-b border-border/60 gap-1.5">
-        <div className="flex items-center gap-2 px-2.5 h-7 bg-muted/60 border border-border/60">
-          <Search className="size-3 text-muted-foreground/60 shrink-0" />
-          <input
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            placeholder={t("searchPlaceholder")}
-            className="flex-1 text-xs bg-transparent outline-none placeholder:text-muted-foreground/50 text-foreground min-w-0"
-          />
-          {search && (
-            <button
-              onClick={() => setSearch("")}
-              title={t("clearSearch")}
-              className="text-muted-foreground/60 hover:text-muted-foreground transition-colors"
-            >
-              <X className="size-3" />
-            </button>
-          )}
-        </div>
-
-        <TargetTerminals
-          terminals={openTerminals}
-          selected={selectedTerminals}
-          onChange={setSelectedTerminals}
-        />
-
-        <input
-          ref={fileInputRef}
-          type="file"
-          accept=".json,application/json"
-          className="hidden"
-          onChange={(e) => {
-            const file = e.target.files?.[0];
-            e.target.value = "";
-            if (file) void handleImport(file);
-          }}
-        />
-
-        <div className="flex items-center gap-1.5 overflow-x-auto overflow-y-hidden toolbar-scrollbar">
-          <div className="flex items-center border border-border shrink-0">
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="size-7 text-muted-foreground hover:text-foreground"
-                  title={t("importExport")}
-                >
-                  <Upload className="size-3.5" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="start" className="text-xs">
-                {canCreate && (
-                  <>
-                    <DropdownMenuItem onClick={() => startImport(false)}>
-                      <Upload className="size-3.5 mr-2" />
-                      {t("importSkipExisting")}
-                    </DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => startImport(true)}>
-                      <Upload className="size-3.5 mr-2" />
-                      {t("importOverwrite")}
-                    </DropdownMenuItem>
-                    <DropdownMenuSeparator />
-                  </>
-                )}
-                <DropdownMenuItem
-                  onClick={() => void handleExport()}
-                  disabled={snippets.length === 0}
-                >
-                  <Download className="size-3.5 mr-2" />
-                  {t("exportSnippets")}
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-            <div className="w-px self-stretch bg-border" />
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="size-7 text-muted-foreground hover:text-foreground"
-                  title={t("moreActions")}
-                >
-                  <MoreHorizontal className="size-3.5" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="start" className="text-xs min-w-44">
-                {canCreate && (
-                  <>
-                    <DropdownMenuItem
-                      onClick={() =>
-                        setFolderDialog({ folder: null, editName: null })
-                      }
-                    >
-                      <FolderPlus className="size-3.5 mr-2" />
-                      {t("newFolder")}
-                    </DropdownMenuItem>
-                    <DropdownMenuSeparator />
-                  </>
-                )}
-                <DropdownMenuItem onClick={() => setAllFolders(true)}>
-                  <ChevronsUpDown className="size-3.5 mr-2" />
-                  {t("expandAll")}
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => setAllFolders(false)}>
-                  <ChevronsDownUp className="size-3.5 mr-2" />
-                  {t("collapseAll")}
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-            <div className="w-px self-stretch bg-border" />
-            <a
-              href={DOCS_URL}
-              target="_blank"
-              rel="noreferrer"
-              title={t("docsLink")}
-              className="flex items-center justify-center size-7 text-muted-foreground hover:text-foreground shrink-0 transition-colors"
-            >
-              <ExternalLink className="size-3.5" />
-            </a>
-          </div>
-          <div className="flex items-center border border-border shrink-0">
-            <button
-              onClick={() => setView({ kind: "settings" })}
-              title={t("settingsTitle")}
-              className="flex items-center justify-center size-7 text-muted-foreground hover:text-foreground hover:bg-muted transition-colors shrink-0"
-            >
-              <SlidersHorizontal className="size-3.5" />
-            </button>
-          </div>
-          {canCreate && (
-            <div className="flex items-center border border-accent-brand/30 ml-auto shrink-0">
-              <button
-                onClick={() => setView({ kind: "edit", snippet: null })}
-                title={t("newSnippet")}
-                className="flex items-center justify-center gap-1 h-7 px-2 text-[10px] font-medium text-accent-brand hover:bg-accent-brand/10 transition-colors"
-              >
-                <Plus className="size-3 shrink-0" />
-                <span className="hidden min-[280px]:inline">
-                  {t("newSnippet")}
-                </span>
-              </button>
-            </div>
-          )}
-        </div>
-      </div>
-
-      <div className="flex-1 min-h-0 overflow-y-auto">
-        {loading ? (
-          <div className="p-4 text-xs text-muted-foreground">
-            {t("loading")}
-          </div>
-        ) : isEmpty ? (
-          <div className="flex flex-col items-center gap-1 px-4 py-8 text-center">
-            <span className="text-xs font-medium text-muted-foreground">
-              {t(query ? "noSearchResults" : "emptyTitle")}
-            </span>
-            {!query && (
-              <span className="text-[11px] text-muted-foreground/60">
-                {t("emptyDescription")}
-              </span>
-            )}
-          </div>
-        ) : (
-          <>
-            {groups.map((group, index) => {
-              const open = isOpen(group.name);
-              return (
-                <SnippetFolderRow
-                  key={group.name}
-                  name={group.name}
-                  folder={group.folder}
-                  count={group.snippets.length}
-                  open={open}
-                  stripeIndex={index}
-                  canCreate={canCreate}
-                  canEdit={canEdit}
-                  canDelete={canDelete}
-                  canShare={canShare}
-                  acceptsDrop={
-                    dragged !== null && dragged.folder !== group.name
-                  }
-                  onToggle={() => toggleFolder(group.name)}
-                  onAddSnippet={() =>
-                    setView({
-                      kind: "edit",
-                      snippet: null,
-                      folder: group.name,
-                    })
-                  }
-                  onEdit={() =>
-                    setFolderDialog({
-                      folder: group.folder,
-                      editName: group.name,
-                    })
-                  }
-                  onShare={() =>
-                    setView({
-                      kind: "share",
-                      target: { kind: "folder", name: group.name },
-                    })
-                  }
-                  onDelete={() => handleDeleteFolder(group.name)}
-                  onDropSnippet={() => void handleDropOnFolder(group.name)}
-                >
-                  {open && group.snippets.map(renderSnippet)}
-                </SnippetFolderRow>
-              );
-            })}
-            {rootSnippets.map(renderSnippet)}
-            {dragged?.folder && (
-              <div
-                onDragOver={(e) => e.preventDefault()}
-                onDrop={(e) => {
-                  e.preventDefault();
-                  const source = dragged;
-                  endDrag();
-                  void saveOrder(
-                    [
-                      ...snippets.filter((s) => !s.folder),
-                      { ...source, folder: null },
-                    ],
-                    null,
-                  );
-                }}
-                className="m-2 px-3 py-3 text-center text-[11px] text-muted-foreground border border-dashed border-border"
-              >
-                {t("dropToRemoveFromFolder")}
-              </div>
-            )}
-          </>
-        )}
-      </div>
-
-      {folderDialog && (
-        <SnippetFolderDialog
-          folder={
-            folderDialog.folder ??
-            (folderDialog.editName
-              ? ({
-                  name: folderDialog.editName,
-                  color: null,
-                  icon: null,
-                } as SnippetFolder)
-              : null)
-          }
-          onClose={() => setFolderDialog(null)}
-          onSave={handleSaveFolder}
-        />
-      )}
-      {runnerDialog}
-    </div>
-  );
+/** Widens the sidebar while an editor, share or settings view is open. */
+function SnippetsBody({
+  view,
+  active,
+  setEditing,
+  render,
+}: {
+  view: View;
+  active: boolean;
+  setEditing?: PanelProps["setEditing"];
+  render: () => React.ReactNode;
+}) {
+  const editing = view.kind !== "list";
+  useEffect(() => {
+    if (active) setEditing?.(editing);
+  }, [active, editing, setEditing]);
+  useEffect(() => () => setEditing?.(false), [setEditing]);
+  return <>{render()}</>;
 }

@@ -2,12 +2,10 @@ import { useState, useEffect, useMemo } from "react";
 import { useTranslation } from "@termix/plugin-sdk/frontend";
 import {
   Button,
+  InlineView,
   Input,
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
+  PanePrompt,
+  useSurfaceKind,
 } from "@termix/plugin-sdk/ui";
 import {
   extractSnippetInputs,
@@ -41,6 +39,7 @@ export function SnippetVariablesDialog({
   ) => void;
 }) {
   const { t } = useTranslation();
+  const surface = useSurfaceKind();
   const inputs = useMemo(
     () => extractSnippetInputs(snippet.content),
     [snippet.content],
@@ -53,55 +52,86 @@ export function SnippetVariablesDialog({
 
   const preview = resolveSnippetContent(snippet.content, host, values);
 
+  const fields = (
+    <div className="flex flex-col gap-4">
+      {inputs.map((input) => (
+        <div key={input.key} className="flex flex-col gap-1.5">
+          <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
+            {input.label}
+          </label>
+          <Input
+            autoFocus={inputs[0]?.key === input.key}
+            value={values[input.key] ?? ""}
+            onChange={(e) =>
+              setValues((prev) => ({
+                ...prev,
+                [input.key]: e.target.value,
+              }))
+            }
+            onKeyDown={(e) => {
+              if (e.key === "Enter") onConfirm(preview, values);
+            }}
+          />
+        </div>
+      ))}
+      <div className="flex flex-col gap-1.5">
+        <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
+          {t("variablesPreviewLabel")}
+        </label>
+        <span className="min-w-0 whitespace-pre-wrap break-all border border-border bg-muted/20 px-2.5 py-2 font-mono text-xs text-muted-foreground">
+          {preview}
+        </span>
+      </div>
+    </div>
+  );
+
+  const actions = (
+    <>
+      <Button variant="ghost" size="sm" onClick={onCancel}>
+        {t("cancel")}
+      </Button>
+      <Button
+        variant="outline"
+        size="sm"
+        className="border-accent-brand/40 text-accent-brand hover:bg-accent-brand/10 hover:text-accent-brand"
+        onClick={() => onConfirm(preview, values)}
+      >
+        {t("variablesConfirmButton")}
+      </Button>
+    </>
+  );
+
+  const title = t("variablesDialogTitle", { name: snippet.name });
+
+  // Started from a panel, the prompt takes over the panel. Started from a
+  // keybinding or the palette, it is a card over the app.
+  if (surface) {
+    return (
+      <InlineView
+        open
+        onOpenChange={(open) => !open && onCancel()}
+        title={title}
+        footer={<div className="ml-auto flex gap-2">{actions}</div>}
+      >
+        <p className="text-xs text-muted-foreground">
+          {t("variablesDialogDescription")}
+        </p>
+        {fields}
+      </InlineView>
+    );
+  }
+
   return (
-    <Dialog open onOpenChange={(v) => !v && onCancel()}>
-      <DialogContent className="sm:max-w-lg">
-        <DialogHeader>
-          <DialogTitle className="text-lg font-bold">
-            {t("variablesDialogTitle", { name: snippet.name })}
-          </DialogTitle>
-          <DialogDescription className="text-xs text-muted-foreground">
-            {t("variablesDialogDescription")}
-          </DialogDescription>
-        </DialogHeader>
-        <div className="flex flex-col gap-4 mt-1">
-          {inputs.map((input) => (
-            <div key={input.key} className="flex flex-col gap-1.5">
-              <label className="text-xs font-semibold">{input.label}</label>
-              <Input
-                autoFocus={inputs[0]?.key === input.key}
-                value={values[input.key] ?? ""}
-                onChange={(e) =>
-                  setValues((prev) => ({
-                    ...prev,
-                    [input.key]: e.target.value,
-                  }))
-                }
-              />
-            </div>
-          ))}
-          <div className="flex flex-col gap-1.5">
-            <label className="text-xs font-semibold text-muted-foreground">
-              {t("variablesPreviewLabel")}
-            </label>
-            <span className="text-xs text-muted-foreground font-mono px-2.5 py-2 border border-border bg-muted/20 min-w-0 break-all whitespace-pre-wrap">
-              {preview}
-            </span>
-          </div>
-        </div>
-        <div className="flex items-center justify-end gap-2 mt-2">
-          <Button variant="ghost" onClick={onCancel}>
-            {t("cancel")}
-          </Button>
-          <Button
-            variant="outline"
-            className="border-accent-brand/40 text-accent-brand hover:bg-accent-brand/10 hover:text-accent-brand"
-            onClick={() => onConfirm(preview, values)}
-          >
-            {t("variablesConfirmButton")}
-          </Button>
-        </div>
-      </DialogContent>
-    </Dialog>
+    <div className="fixed inset-0 z-[150]">
+      <PanePrompt
+        open
+        title={title}
+        description={t("variablesDialogDescription")}
+        onCancel={onCancel}
+        actions={actions}
+      >
+        {fields}
+      </PanePrompt>
+    </div>
   );
 }

@@ -6,7 +6,7 @@ import {
   usePluginApi,
   useTranslation,
 } from "@termix/plugin-sdk/frontend";
-import { Button, Separator } from "@termix/plugin-sdk/ui";
+import { Button, Separator, useConfirm } from "@termix/plugin-sdk/ui";
 import {
   readQuickActions,
   snippetHostSettings,
@@ -34,6 +34,7 @@ interface ToolbarHost {
 export function QuickActionButtons(props: Record<string, unknown>) {
   const host = props.host as ToolbarHost | undefined;
   const { t } = useTranslation();
+  const confirm = useConfirm();
   const api = usePluginApi();
   const client = useMemo(() => createSnippetsApi(api), [api]);
   const canView = usePermission("view");
@@ -115,9 +116,12 @@ export function QuickActionButtons(props: Record<string, unknown>) {
       go();
       return;
     }
-    toast(t("confirmRunMessage", { name: action.name }), {
-      action: { label: t("confirmRunButton"), onClick: go },
-      duration: 6000,
+    void confirm({
+      title: t("confirmRunMessage", { name: action.name }),
+      confirmLabel: t("confirmRunButton"),
+      destructive: false,
+    }).then((ok) => {
+      if (ok) go();
     });
   }
 

@@ -72,7 +72,7 @@ export function validateRunSnippet(action: KeybindingAction): string | null {
 
 /** Runs a bound snippet in the terminal the key was pressed in. */
 export function runSnippetBinding(
-  app: Pick<TermixApp, "api" | "t">,
+  app: Pick<TermixApp, "api" | "t" | "confirm">,
   action: KeybindingAction,
   context: KeybindingRunContext,
 ): void {

@@ -19,6 +19,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
   Input,
+  useConfirm,
 } from "@termix/plugin-sdk/ui";
 import type {
   ShareableRole,
@@ -45,6 +46,7 @@ export function SnippetShareView({
   onBack: () => void;
 }) {
   const { t } = useTranslation();
+  const confirm = useConfirm();
   const [users, setUsers] = useState<ShareableUser[]>([]);
   const [roles, setRoles] = useState<ShareableRole[]>([]);
   const [access, setAccess] = useState<SnippetAccessEntry[]>([]);
@@ -150,6 +152,13 @@ export function SnippetShareView({
 
   async function handleRevoke(entry: SnippetAccessEntry) {
     if (snippetId === null) return;
+    const ok = await confirm({
+      title: t("revokeConfirm", {
+        name: entry.username ?? entry.roleDisplayName ?? entry.roleName ?? "",
+      }),
+      confirmLabel: t("revokeAccess"),
+    });
+    if (!ok) return;
     try {
       await client.revokeAccess(snippetId, entry.id);
       setAccess((prev) => prev.filter((a) => a.id !== entry.id));

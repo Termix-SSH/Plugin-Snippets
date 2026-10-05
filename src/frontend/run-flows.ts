@@ -39,7 +39,7 @@ export async function resolveForRun(
 
 /** Runs `execute` now, or after the user confirms when they asked to. */
 export function confirmThenRun(
-  app: Pick<TermixApp, "t">,
+  app: Pick<TermixApp, "t" | "confirm">,
   name: string,
   execute: () => void,
 ): void {
@@ -47,10 +47,15 @@ export function confirmThenRun(
     execute();
     return;
   }
-  toast(app.t("confirmRunMessage", { name }), {
-    action: { label: app.t("confirmRunButton"), onClick: execute },
-    duration: 6000,
-  });
+  void app
+    .confirm({
+      title: app.t("confirmRunMessage", { name }),
+      confirmLabel: app.t("confirmRunButton"),
+      destructive: false,
+    })
+    .then((ok) => {
+      if (ok) execute();
+    });
 }
 
 /**
@@ -59,7 +64,7 @@ export function confirmThenRun(
  * is pasted without running.
  */
 export async function runInSession(
-  app: Pick<TermixApp, "t">,
+  app: Pick<TermixApp, "t" | "confirm">,
   snippet: RunnableSnippet,
   target: RunTarget,
   host: SnippetHostContext | null,

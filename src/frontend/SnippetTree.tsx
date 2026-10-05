@@ -1,6 +1,7 @@
-import { useState, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { useTranslation } from "@termix/plugin-sdk/frontend";
 import {
+  Check,
   ChevronRight,
   ClipboardPaste,
   Copy,
@@ -18,6 +19,7 @@ import {
   Zap,
 } from "lucide-react";
 import {
+  Button,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
@@ -30,14 +32,13 @@ import {
 import { FolderIcon } from "./folder-icons";
 import type { Snippet, SnippetFolder } from "./types";
 
-const trayButtonClass =
-  "flex items-center justify-center size-[22.75px] text-muted-foreground/60 hover:text-foreground hover:bg-muted transition-colors";
+const actionButtonClass =
+  "flex size-7 shrink-0 items-center justify-center text-muted-foreground transition-colors hover:bg-muted hover:text-foreground";
 
 export type DropPosition = "above" | "below";
 
 export function SnippetRow({
   snippet,
-  stripeIndex,
   showCommand,
   folderNames,
   targetHostNames,
@@ -60,7 +61,6 @@ export function SnippetRow({
   onDropRow,
 }: {
   snippet: Snippet;
-  stripeIndex: number;
   showCommand: boolean;
   folderNames: string[];
   /** Hosts a command snippet runs on directly, instead of the active terminal. */
@@ -86,6 +86,12 @@ export function SnippetRow({
 }) {
   const { t } = useTranslation();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [copied, setCopied] = useState(false);
+  useEffect(() => {
+    if (!copied) return;
+    const id = setTimeout(() => setCopied(false), 1400);
+    return () => clearTimeout(id);
+  }, [copied]);
   const owned = !snippet.isShared;
   const editable = canEdit && owned;
   const deletable = canDelete && owned;
@@ -126,106 +132,111 @@ export function SnippetRow({
         setMenuOpen(true);
       }}
       title={t("doubleClickToRun")}
-      className={`group relative flex items-stretch select-none border-b border-border/40 transition-colors hover:bg-muted/50 ${
-        draggable ? "cursor-grab active:cursor-grabbing" : ""
-      } ${
-        menuOpen ? "bg-muted/50" : stripeIndex % 2 === 1 ? "bg-muted/15" : ""
-      } ${isDragging ? "opacity-40" : ""}`}
+      className={`group relative flex flex-col gap-2 border bg-background p-2.5 select-none transition-colors ${
+        menuOpen ? "border-accent-brand/40" : "border-border"
+      } ${draggable ? "cursor-grab active:cursor-grabbing" : ""} ${
+        isDragging ? "opacity-40" : ""
+      }`}
     >
       {dropIndicator && (
         <div
-          className={`absolute left-0 right-0 h-0.5 bg-accent-brand z-10 pointer-events-none ${dropIndicator === "above" ? "-top-px" : "-bottom-px"}`}
+          className={`absolute left-0 right-0 h-0.5 bg-accent-brand z-10 pointer-events-none ${dropIndicator === "above" ? "-top-[5px]" : "-bottom-[5px]"}`}
         />
       )}
-      <div
-        className={`w-[3px] shrink-0 ${snippet.isNote ? "bg-muted-foreground/30" : "bg-accent-brand/60"}`}
-      />
-      {draggable && (
-        <div className="flex items-center justify-center w-3.5 shrink-0 -mr-1.5 text-muted-foreground/30 group-hover:text-muted-foreground/70 transition-colors">
-          <GripVertical className="size-3" />
-        </div>
-      )}
-      <div className="flex flex-col flex-1 min-w-0 pl-[8.75px] pr-[7px] py-[7px] gap-[3.5px]">
-        <div className="flex items-center gap-1.5 min-w-0">
-          <TypeIcon className="size-3 shrink-0 text-muted-foreground/60" />
-          <span className="text-[13px] font-semibold truncate text-foreground leading-none tracking-tight">
-            {snippet.name}
-          </span>
-          {snippet.isNote && (
-            <span className="text-[9px] px-1 py-px border border-border bg-muted/40 text-muted-foreground shrink-0 leading-none uppercase tracking-wider">
-              {t("typeNote")}
-            </span>
-          )}
-          {snippet.isShared && (
-            <span className="flex items-center gap-0.5 text-[9px] px-1 py-px border border-accent-brand/30 bg-accent-brand/10 text-accent-brand shrink-0 leading-none uppercase tracking-wider">
-              <Users className="size-2.5" />
-              {t("sharedBadge")}
-            </span>
-          )}
-        </div>
-        {snippet.description && (
-          <span className="text-[11px] text-muted-foreground/80 truncate leading-tight">
-            {snippet.description}
-          </span>
+      <div className="flex min-w-0 items-start gap-1.5">
+        {draggable && (
+          <GripVertical className="mt-0.5 size-3 shrink-0 text-muted-foreground/30 transition-colors group-hover:text-muted-foreground/70" />
         )}
-        {showCommand && (
-          <span className="text-[11px] text-muted-foreground/60 truncate leading-tight font-mono">
-            {snippet.content.split("\n")[0]}
-          </span>
-        )}
-        {hasTargets && (
-          <div className="flex items-center gap-1 min-w-0 overflow-hidden">
-            <Zap className="size-2.5 shrink-0 text-accent-brand/70" />
-            {targetHostNames.slice(0, 3).map((name) => (
-              <span
-                key={name}
-                className="text-[9px] px-1.5 py-[1px] bg-accent-brand/10 text-accent-brand shrink-0 leading-[1.4] truncate max-w-28"
-              >
-                {name}
+        <TypeIcon className="mt-0.5 size-3 shrink-0 text-muted-foreground/60" />
+        <div className="flex min-w-0 flex-1 flex-col">
+          <div className="flex min-w-0 flex-wrap items-center gap-1.5">
+            <span className="min-w-0 break-words text-xs font-semibold">
+              {snippet.name}
+            </span>
+            {snippet.isNote && (
+              <span className="shrink-0 border border-border bg-muted/40 px-1 py-px text-[9px] uppercase leading-none tracking-wider text-muted-foreground">
+                {t("typeNote")}
               </span>
-            ))}
-            {targetHostNames.length > 3 && (
-              <span className="text-[9px] text-muted-foreground/50 shrink-0">
-                +{targetHostNames.length - 3}
+            )}
+            {snippet.isShared && (
+              <span className="flex shrink-0 items-center gap-0.5 border border-accent-brand/30 bg-accent-brand/10 px-1 py-px text-[9px] uppercase leading-none tracking-wider text-accent-brand">
+                <Users className="size-2.5" />
+                {t("sharedBadge")}
               </span>
             )}
           </div>
-        )}
+          {snippet.description && (
+            <span className="break-words text-xs text-muted-foreground">
+              {snippet.description}
+            </span>
+          )}
+        </div>
       </div>
 
-      <div
-        className={`absolute right-1.5 top-1.5 items-center border border-border bg-background shadow-sm ${
-          menuOpen ? "flex" : "hidden group-hover:flex pointer-coarse:flex"
-        }`}
-      >
-        <button
+      {showCommand && (
+        <span className="line-clamp-3 min-w-0 whitespace-pre-wrap break-all px-1 font-mono text-xs text-muted-foreground">
+          {snippet.content}
+        </span>
+      )}
+
+      {hasTargets && (
+        <div className="flex min-w-0 items-center gap-1 overflow-hidden">
+          <Zap className="size-2.5 shrink-0 text-accent-brand/70" />
+          {targetHostNames.slice(0, 3).map((name) => (
+            <span
+              key={name}
+              className="max-w-28 shrink-0 truncate bg-accent-brand/10 px-1.5 py-[1px] text-[9px] leading-[1.4] text-accent-brand"
+            >
+              {name}
+            </span>
+          ))}
+          {targetHostNames.length > 3 && (
+            <span className="shrink-0 text-[9px] text-muted-foreground/50">
+              +{targetHostNames.length - 3}
+            </span>
+          )}
+        </div>
+      )}
+
+      <div className="flex items-center gap-1">
+        <Button
+          variant="outline"
+          size="sm"
           title={runLabel}
           onClick={(e) => {
             e.stopPropagation();
             onRun();
           }}
-          className={`${trayButtonClass} text-accent-brand/80 hover:text-accent-brand`}
+          className="h-7 min-w-0 flex-1 gap-1.5 text-xs"
         >
-          <RunIcon className="size-3.5" />
-        </button>
+          <RunIcon className="size-3 shrink-0" />
+          <span className="truncate">{runLabel}</span>
+        </Button>
         <button
           title={t("copyToClipboard")}
+          aria-label={t("copyToClipboard")}
           onClick={(e) => {
             e.stopPropagation();
             onCopy();
+            setCopied(true);
           }}
-          className={trayButtonClass}
+          className={`${actionButtonClass} ${copied ? "text-accent-brand" : ""}`}
         >
-          <Copy className="size-3.5" />
+          {copied ? (
+            <Check className="size-3.5" />
+          ) : (
+            <Copy className="size-3.5" />
+          )}
         </button>
         {editable && (
           <button
             title={t("editSnippetTitle")}
+            aria-label={t("editSnippetTitle")}
             onClick={(e) => {
               e.stopPropagation();
               onEdit();
             }}
-            className={trayButtonClass}
+            className={actionButtonClass}
           >
             <Pencil className="size-3.5" />
           </button>
@@ -233,11 +244,12 @@ export function SnippetRow({
         {shareable && (
           <button
             title={t("shareSnippet")}
+            aria-label={t("shareSnippet")}
             onClick={(e) => {
               e.stopPropagation();
               onShare();
             }}
-            className={trayButtonClass}
+            className={actionButtonClass}
           >
             <Share2 className="size-3.5" />
           </button>
@@ -246,8 +258,9 @@ export function SnippetRow({
           <DropdownMenuTrigger asChild>
             <button
               title={t("moreOptions")}
+              aria-label={t("moreOptions")}
               onClick={(e) => e.stopPropagation()}
-              className={trayButtonClass}
+              className={actionButtonClass}
             >
               <MoreHorizontal className="size-3.5" />
             </button>
@@ -361,7 +374,7 @@ export function SnippetFolderRow({
   const hasActions = canCreate || canEdit || canDelete || canShare;
 
   return (
-    <div className="border-b border-border/40">
+    <div className="flex flex-col">
       <div
         role="button"
         tabIndex={0}
@@ -455,9 +468,9 @@ export function SnippetFolderRow({
         )}
       </div>
       {open && (
-        <div className="border-l border-border/50 ml-[27px] border-t border-t-border/40 [&>*:last-child]:border-b-0">
+        <div className="ml-[13px] flex flex-col gap-2 border-l border-border/50 py-2 pl-2">
           {count === 0 ? (
-            <div className="px-3 py-2 text-[11px] text-muted-foreground/60">
+            <div className="px-1 text-[11px] text-muted-foreground/60">
               {t("noSnippetsInFolder")}
             </div>
           ) : (

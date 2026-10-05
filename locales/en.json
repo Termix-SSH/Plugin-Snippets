@@ -234,5 +234,6 @@
   "selectNone": "None",
   "plugin": {
     "name": "Snippets"
-  }
+  },
+  "revokeConfirm": "Remove access for {{name}}?"
 }

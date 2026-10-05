@@ -1,4 +1,5 @@
 import { useCallback, useMemo, useState } from "react";
+import { useConfirm } from "@termix/plugin-sdk/ui";
 import {
   invokeAction,
   usePluginApi,
@@ -42,6 +43,7 @@ export interface RunTarget {
  */
 export function useSnippetRunner(confirmExecution = false) {
   const { t } = useTranslation();
+  const confirm = useConfirm();
   const api = usePluginApi();
   const client = useMemo(() => createSnippetsApi(api), [api]);
   const [execution, setExecution] = useState<{
@@ -63,15 +65,15 @@ export function useSnippetRunner(confirmExecution = false) {
         execute();
         return;
       }
-      toast(t("confirmRunMessage", { name: snippet.name }), {
-        action: {
-          label: t("confirmRunButton"),
-          onClick: execute,
-        },
-        duration: 6000,
+      void confirm({
+        title: t("confirmRunMessage", { name: snippet.name }),
+        confirmLabel: t("confirmRunButton"),
+        destructive: false,
+      }).then((ok) => {
+        if (ok) execute();
       });
     },
-    [confirmExecution, t],
+    [confirmExecution, confirm, t],
   );
 
   async function sendResolvedToTarget(

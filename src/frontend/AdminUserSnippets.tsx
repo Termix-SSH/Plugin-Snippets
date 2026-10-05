@@ -6,7 +6,7 @@ import {
   useTranslation,
   type PluginApiClient,
 } from "@termix/plugin-sdk/frontend";
-import { Button, Input, useConfirmation } from "@termix/plugin-sdk/ui";
+import { Button, Input, useConfirm } from "@termix/plugin-sdk/ui";
 
 // Core's admin routes act on another user's data when this header names them.
 export const ADMIN_TARGET_USER_HEADER = "X-Admin-Target-User";
@@ -53,7 +53,7 @@ export function AdminUserSnippets({
 }) {
   const { t } = useTranslation();
   const api = usePluginApi();
-  const { confirmWithToast } = useConfirmation();
+  const confirm = useConfirm();
   const [snippets, setSnippets] = useState<ManagedSnippet[]>([]);
   const [loading, setLoading] = useState(true);
   const [editing, setEditing] = useState<ManagedSnippet | "new" | null>(null);
@@ -100,18 +100,24 @@ export function AdminUserSnippets({
   }
 
   function remove(snippet: ManagedSnippet) {
-    confirmWithToast(
-      t("admin.deleteConfirm", { name: snippet.name, username: user.username }),
-      async () => {
-        try {
-          await api.delete(`/${snippet.id}`, adminOptions(user.id));
-          setSnippets((prev) => prev.filter((s) => s.id !== snippet.id));
-          toast.success(t("admin.deleted"));
-        } catch (error) {
-          toast.error(errorMessage(error, t("admin.deleteFailed")));
-        }
-      },
-    );
+    confirm({
+      title: t("admin.deleteConfirm", {
+        name: snippet.name,
+        username: user.username,
+      }),
+    }).then((ok) => {
+      if (ok)
+        void (async () => {
+          try {
+            await api.delete(`/${snippet.id}`, adminOptions(user.id));
+            setSnippets((prev) => prev.filter((s) => s.id !== snippet.id));
+            toast.success(t("admin.deleted"));
+          } catch (error) {
+            toast.error(errorMessage(error, t("admin.deleteFailed")));
+          }
+        })();
+      return ok;
+    });
   }
 
   return (
