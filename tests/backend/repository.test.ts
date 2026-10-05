@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
-import { createTestDb, type TestDb } from "@termix/plugin-sdk/testing";
+import { createTestDb, type TestDb } from "@termix-ssh/plugin-sdk/testing";
 import {
   snippetAccess,
   snippetFolders,

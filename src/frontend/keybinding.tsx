@@ -4,7 +4,7 @@ import {
   type KeybindingActionEditorProps,
   type KeybindingRunContext,
   type TermixApp,
-} from "@termix/plugin-sdk/frontend";
+} from "@termix-ssh/plugin-sdk/frontend";
 import { fetchSnippet, runInSession } from "./run-flows";
 import { useSnippetOptions } from "./use-snippet-options";
 

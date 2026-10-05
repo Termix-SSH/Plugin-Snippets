@@ -1,11 +1,11 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { act, fireEvent, screen } from "@testing-library/react";
-import { runKeybindingAction } from "@termix/plugin-sdk/frontend";
+import { runKeybindingAction } from "@termix-ssh/plugin-sdk/frontend";
 import {
   renderWithApp,
   type RenderedPluginApp,
-} from "@termix/plugin-sdk/testing";
-import type { PluginManifest } from "@termix/plugin-sdk/manifest";
+} from "@termix-ssh/plugin-sdk/testing";
+import type { PluginManifest } from "@termix-ssh/plugin-sdk/manifest";
 import * as plugin from "../../src/frontend/index";
 import manifestJson from "../../manifest.json";
 import locales from "../../locales/en.json";

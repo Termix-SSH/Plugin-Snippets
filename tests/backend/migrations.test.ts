@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it } from "vitest";
-import { createTestDb, type TestDb } from "@termix/plugin-sdk/testing";
+import { createTestDb, type TestDb } from "@termix-ssh/plugin-sdk/testing";
 import { pluginDir } from "./helpers";
 
 // snippets / snippet_folders / snippet_access as core's schema.ts declared

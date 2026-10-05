@@ -1,5 +1,5 @@
 import type { Router } from "express";
-import type { PluginContext } from "@termix/plugin-sdk/backend";
+import type { PluginContext } from "@termix-ssh/plugin-sdk/backend";
 import { snippetAccess, snippetFolders, snippets } from "./tables.js";
 import { createSnippetRepository } from "./repository.js";
 import { registerSnippetRoutes } from "./routes.js";

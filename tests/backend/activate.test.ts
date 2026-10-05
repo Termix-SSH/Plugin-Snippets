@@ -4,8 +4,8 @@ import {
   createMockCtx,
   createTestDb,
   type TestDb,
-} from "@termix/plugin-sdk/testing";
-import { PluginCapabilityError } from "@termix/plugin-sdk/backend";
+} from "@termix-ssh/plugin-sdk/testing";
+import { PluginCapabilityError } from "@termix-ssh/plugin-sdk/backend";
 import { activate } from "../../src/backend/index.js";
 import { manifest, pluginDir, startServer, type TestServer } from "./helpers";
 

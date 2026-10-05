@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useSettings } from "@termix/plugin-sdk/frontend";
+import { useSettings } from "@termix-ssh/plugin-sdk/frontend";
 import { SnippetVariablesDialog } from "./SnippetVariablesDialog";
 import { readSnippetSettings } from "./settings";
 import { setConfirmExecution, usePendingPrompt } from "./prompt-store";

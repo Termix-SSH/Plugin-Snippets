@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { useTranslation } from "@termix/plugin-sdk/frontend";
+import { useTranslation } from "@termix-ssh/plugin-sdk/frontend";
 import { toast } from "sonner";
 import {
   ArrowLeft,
@@ -20,7 +20,7 @@ import {
   DropdownMenuTrigger,
   Input,
   useConfirm,
-} from "@termix/plugin-sdk/ui";
+} from "@termix-ssh/plugin-sdk/ui";
 import type {
   ShareableRole,
   ShareableUser,

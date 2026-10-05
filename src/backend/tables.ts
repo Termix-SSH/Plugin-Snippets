@@ -8,7 +8,7 @@ import {
   text,
   timestamp,
   varchar,
-} from "@termix/plugin-sdk/db";
+} from "@termix-ssh/plugin-sdk/db";
 
 export const snippets = adoptLegacyTable(
   "snippets",

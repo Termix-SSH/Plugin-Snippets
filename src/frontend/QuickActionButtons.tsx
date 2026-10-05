@@ -5,8 +5,8 @@ import {
   usePermission,
   usePluginApi,
   useTranslation,
-} from "@termix/plugin-sdk/frontend";
-import { Button, Separator, useConfirm } from "@termix/plugin-sdk/ui";
+} from "@termix-ssh/plugin-sdk/frontend";
+import { Button, Separator, useConfirm } from "@termix-ssh/plugin-sdk/ui";
 import {
   readQuickActions,
   snippetHostSettings,

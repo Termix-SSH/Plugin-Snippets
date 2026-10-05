@@ -6,7 +6,7 @@ import {
   useSettings,
   useTranslation,
   type PanelProps,
-} from "@termix/plugin-sdk/frontend";
+} from "@termix-ssh/plugin-sdk/frontend";
 import { toast } from "sonner";
 import {
   ChevronsDownUp,
@@ -31,7 +31,7 @@ import {
   PanelSearch,
   copyToClipboard,
   useConfirm,
-} from "@termix/plugin-sdk/ui";
+} from "@termix-ssh/plugin-sdk/ui";
 import { createSnippetsApi } from "./snippets-api";
 import { useSnippetRunner, type TargetHost } from "./use-snippet-runner";
 import {

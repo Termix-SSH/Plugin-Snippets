@@ -1,6 +1,6 @@
-import { useTranslation } from "@termix/plugin-sdk/frontend";
+import { useTranslation } from "@termix-ssh/plugin-sdk/frontend";
 import { Loader2, Server } from "lucide-react";
-import { Button, InlineView } from "@termix/plugin-sdk/ui";
+import { Button, InlineView } from "@termix-ssh/plugin-sdk/ui";
 
 export interface HostExecutionResult {
   hostId: number;

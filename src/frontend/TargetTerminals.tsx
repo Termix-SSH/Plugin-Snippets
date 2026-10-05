@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Terminal } from "lucide-react";
-import { invokeAction, useTranslation } from "@termix/plugin-sdk/frontend";
+import { invokeAction, useTranslation } from "@termix-ssh/plugin-sdk/frontend";
 import type { RunTarget } from "./use-snippet-runner";
 
 export interface OpenTerminal {

@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
-import { useHosts, useTranslation } from "@termix/plugin-sdk/frontend";
+import { useHosts, useTranslation } from "@termix-ssh/plugin-sdk/frontend";
 import { ArrowLeft, Check, FileText, Search, Server, Zap } from "lucide-react";
-import { Button, Input, SectionCard, Select2 } from "@termix/plugin-sdk/ui";
+import { Button, Input, SectionCard, Select2 } from "@termix-ssh/plugin-sdk/ui";
 import { parseHostFilter, type Snippet, type SnippetFolder } from "./types";
 
 export interface SnippetFormValues {

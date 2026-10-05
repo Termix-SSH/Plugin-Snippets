@@ -2,7 +2,7 @@ import { Plus, Play, Trash2, Zap } from "lucide-react";
 import {
   useTranslation,
   type HostEditorSectionProps,
-} from "@termix/plugin-sdk/frontend";
+} from "@termix-ssh/plugin-sdk/frontend";
 import {
   Button,
   HostDefaultBadge,
@@ -10,7 +10,7 @@ import {
   Input,
   SectionCard,
   Select2,
-} from "@termix/plugin-sdk/ui";
+} from "@termix-ssh/plugin-sdk/ui";
 import { PLUGIN_ID, readStartupSnippetId } from "../shared/host-settings.js";
 import { useSnippetOptions } from "./use-snippet-options";
 

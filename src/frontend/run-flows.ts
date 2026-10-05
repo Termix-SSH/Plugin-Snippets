@@ -1,5 +1,5 @@
 import { toast } from "sonner";
-import { invokeAction, type TermixApp } from "@termix/plugin-sdk/frontend";
+import { invokeAction, type TermixApp } from "@termix-ssh/plugin-sdk/frontend";
 import {
   hasSnippetInputs,
   resolveSnippetContent,

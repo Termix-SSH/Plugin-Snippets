@@ -4,7 +4,7 @@ import type {
   PanelProps,
   PluginHostRecord,
   TermixApp,
-} from "@termix/plugin-sdk/frontend";
+} from "@termix-ssh/plugin-sdk/frontend";
 import type { Snippet } from "./types";
 import { SnippetsPanel } from "./SnippetsPanel";
 import { createSnippetsApi } from "./snippets-api";

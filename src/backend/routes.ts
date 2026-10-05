@@ -1,5 +1,5 @@
 import type { Request, Response, Router } from "express";
-import type { PluginContext } from "@termix/plugin-sdk/backend";
+import type { PluginContext } from "@termix-ssh/plugin-sdk/backend";
 import type { SnippetRepository } from "./repository.js";
 import { extractSnippetReorderUpdates } from "./reorder.js";
 import {

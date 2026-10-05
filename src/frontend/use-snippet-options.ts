@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { usePluginApi } from "@termix/plugin-sdk/frontend";
+import { usePluginApi } from "@termix-ssh/plugin-sdk/frontend";
 import { adminOptions } from "./AdminUserSnippets";
 
 export interface SnippetOption {

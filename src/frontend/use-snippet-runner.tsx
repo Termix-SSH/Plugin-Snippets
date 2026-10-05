@@ -1,10 +1,10 @@
 import { useCallback, useMemo, useState } from "react";
-import { useConfirm } from "@termix/plugin-sdk/ui";
+import { useConfirm } from "@termix-ssh/plugin-sdk/ui";
 import {
   invokeAction,
   usePluginApi,
   useTranslation,
-} from "@termix/plugin-sdk/frontend";
+} from "@termix-ssh/plugin-sdk/frontend";
 import { toast } from "sonner";
 import {
   hasSnippetInputs,

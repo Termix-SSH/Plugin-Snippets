@@ -1,5 +1,5 @@
 import { useEffect, useState, type ReactNode } from "react";
-import { useTranslation } from "@termix/plugin-sdk/frontend";
+import { useTranslation } from "@termix-ssh/plugin-sdk/frontend";
 import {
   Check,
   ChevronRight,
@@ -28,7 +28,7 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
-} from "@termix/plugin-sdk/ui";
+} from "@termix-ssh/plugin-sdk/ui";
 import { FolderIcon } from "./folder-icons";
 import type { Snippet, SnippetFolder } from "./types";
 

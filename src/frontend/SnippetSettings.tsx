@@ -1,9 +1,9 @@
 import {
   useTranslation,
   type SettingsState,
-} from "@termix/plugin-sdk/frontend";
+} from "@termix-ssh/plugin-sdk/frontend";
 import { ArrowLeft, Rows3, SquareStack } from "lucide-react";
-import { FakeSwitch, SectionCard, SettingRow } from "@termix/plugin-sdk/ui";
+import { FakeSwitch, SectionCard, SettingRow } from "@termix-ssh/plugin-sdk/ui";
 import { readSnippetSettings, type SnippetDisplaySettings } from "./settings";
 
 export function SnippetSettings({

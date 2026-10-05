@@ -5,8 +5,8 @@ import {
   usePluginApi,
   useTranslation,
   type PluginApiClient,
-} from "@termix/plugin-sdk/frontend";
-import { Button, Input, useConfirm } from "@termix/plugin-sdk/ui";
+} from "@termix-ssh/plugin-sdk/frontend";
+import { Button, Input, useConfirm } from "@termix-ssh/plugin-sdk/ui";
 
 // Core's admin routes act on another user's data when this header names them.
 export const ADMIN_TARGET_USER_HEADER = "X-Admin-Target-User";
