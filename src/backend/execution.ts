@@ -5,8 +5,6 @@ export interface SnippetExecutionResult {
 }
 
 export { resolveSnippetContent as resolveSnippetCommand } from "../shared/variables.js";
-export type { SnippetHostContext as SnippetHostVars } from "../shared/variables.js";
-
 export function getSnippetExecutionTimeoutMs(
   value = process.env.SNIPPET_EXECUTION_TIMEOUT_SECONDS,
 ): number | undefined {

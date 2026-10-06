@@ -25,7 +25,7 @@ export interface RunTarget {
  * The snippet with its variables filled in, asking for $INPUT_n values when
  * it has any. Null when the user cancels.
  */
-export async function resolveForRun(
+async function resolveForRun(
   snippet: { name: string; content: string },
   host: SnippetHostContext | null,
 ): Promise<string | null> {
@@ -38,7 +38,7 @@ export async function resolveForRun(
 }
 
 /** Runs `execute` now, or after the user confirms when they asked to. */
-export function confirmThenRun(
+function confirmThenRun(
   app: Pick<TermixApp, "t" | "confirm">,
   name: string,
   execute: () => void,

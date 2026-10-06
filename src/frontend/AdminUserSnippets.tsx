@@ -9,7 +9,7 @@ import {
 import { Button, Input, useConfirm } from "@termix-ssh/plugin-sdk/ui";
 
 // Core's admin routes act on another user's data when this header names them.
-export const ADMIN_TARGET_USER_HEADER = "X-Admin-Target-User";
+const ADMIN_TARGET_USER_HEADER = "X-Admin-Target-User";
 
 export function adminOptions(targetUserId: string) {
   return { headers: { [ADMIN_TARGET_USER_HEADER]: targetUserId } };
@@ -22,7 +22,7 @@ interface ManagedSnippet {
   folder?: string | null;
 }
 
-export function mapSnippets(res: unknown): ManagedSnippet[] {
+function mapSnippets(res: unknown): ManagedSnippet[] {
   const list = Array.isArray(res)
     ? res
     : ((res as { snippets?: unknown[] })?.snippets ?? []);
