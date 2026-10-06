@@ -2,10 +2,6 @@
   "nav": {
     "snippets": "Snippets"
   },
-  "onboarding": {
-    "feature_snippets": "Snippets",
-    "feature_snippets_desc": "Save commands you run often and send them to a terminal in one click."
-  },
   "permissions": {
     "view": {
       "title": "View snippets",

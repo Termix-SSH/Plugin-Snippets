@@ -139,13 +139,6 @@ export function activate(app: TermixApp): void {
     component: QuickActionButtons,
   });
 
-  app.registerSlotContribution("onboarding.features", {
-    actionId: "snippets.feature",
-    titleKey: "onboarding.feature_snippets",
-    descriptionKey: "onboarding.feature_snippets_desc",
-    icon: Play,
-  });
-
   // The admin "manage user" panel's Snippets tab.
   app.registerSlotContribution("admin.userTabs", {
     actionId: "snippets.adminUserTab",
