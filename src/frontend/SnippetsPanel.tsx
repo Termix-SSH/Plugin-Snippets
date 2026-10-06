@@ -16,11 +16,11 @@ import {
   FolderPlus,
   MoreHorizontal,
   Code2,
-  Plus,
   SlidersHorizontal,
   Upload,
 } from "lucide-react";
 import {
+  AddButton,
   Button,
   DropdownMenu,
   DropdownMenuContent,
@@ -28,6 +28,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
   EmptyState,
+  PanelList,
   PanelSearch,
   copyToClipboard,
   useConfirm,
@@ -77,7 +78,7 @@ function matchesQuery(snippet: Snippet, query: string): boolean {
   );
 }
 
-export function SnippetsPanel({ active, setEditing }: PanelProps) {
+export function SnippetsPanel(_props: PanelProps) {
   const { t } = useTranslation();
   const api = usePluginApi();
   const client = useMemo(() => createSnippetsApi(api), [api]);
@@ -497,58 +498,36 @@ export function SnippetsPanel({ active, setEditing }: PanelProps) {
     return null;
   }
 
-  return (
-    <SnippetsBody
-      view={view}
-      active={active}
-      setEditing={setEditing}
-      render={renderView}
-    />
-  );
+  return renderView();
 
   function renderView() {
-    if (view.kind === "edit") {
-      return (
-        <div className="flex flex-col flex-1 min-h-0 overflow-hidden">
-          <SnippetEditor
-            snippet={view.snippet}
-            defaultFolder={view.folder}
-            folders={folders}
-            onBack={() => setView({ kind: "list" })}
-            onSave={handleSaveSnippet}
-          />
-          {runnerDialog}
-        </div>
-      );
-    }
+    const overlay =
+      view.kind === "edit" ? (
+        <SnippetEditor
+          snippet={view.snippet}
+          defaultFolder={view.folder}
+          folders={folders}
+          onBack={() => setView({ kind: "list" })}
+          onSave={handleSaveSnippet}
+        />
+      ) : view.kind === "share" ? (
+        <SnippetShareView
+          target={view.target}
+          client={client}
+          onBack={() => setView({ kind: "list" })}
+        />
+      ) : view.kind === "settings" ? (
+        <SnippetSettings
+          settings={settings}
+          onBack={() => setView({ kind: "list" })}
+        />
+      ) : null;
 
-    if (view.kind === "share") {
-      return (
-        <div className="flex flex-col flex-1 min-h-0 overflow-hidden">
-          <SnippetShareView
-            target={view.target}
-            client={client}
-            onBack={() => setView({ kind: "list" })}
-          />
-        </div>
-      );
-    }
-
-    if (view.kind === "settings") {
-      return (
-        <div className="flex flex-col flex-1 min-h-0 overflow-hidden">
-          <SnippetSettings
-            settings={settings}
-            onBack={() => setView({ kind: "list" })}
-          />
-        </div>
-      );
-    }
-
-    const renderSnippet = (snippet: Snippet) => (
+    const renderSnippet = (snippet: Snippet, index: number) => (
       <SnippetRow
         key={snippet.id}
         snippet={snippet}
+        stripe={index}
         showCommand={display.showCommands}
         folderNames={folderNames}
         targetHostNames={targetHostsOf(snippet).map(
@@ -590,13 +569,84 @@ export function SnippetsPanel({ active, setEditing }: PanelProps) {
 
     return (
       <div className="flex flex-col flex-1 min-h-0 overflow-hidden">
-        <div className="flex flex-col px-2 py-1.5 shrink-0 border-b border-border/60 gap-1.5">
-          <PanelSearch
-            value={search}
-            onChange={setSearch}
-            placeholder={t("searchPlaceholder")}
-            fill
-          />
+        <div className="flex shrink-0 flex-col gap-2 border-b border-border px-3 py-2">
+          <div className="flex items-center gap-2">
+            <PanelSearch
+              value={search}
+              onChange={setSearch}
+              placeholder={t("searchPlaceholder")}
+              fill
+            />
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  variant="outline"
+                  size="icon"
+                  title={t("moreActions")}
+                  aria-label={t("moreActions")}
+                >
+                  <MoreHorizontal className="size-3.5" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="min-w-48 text-xs">
+                {canCreate && (
+                  <DropdownMenuItem
+                    onClick={() =>
+                      setFolderDialog({ folder: null, editName: null })
+                    }
+                  >
+                    <FolderPlus className="mr-2 size-3.5" />
+                    {t("newFolder")}
+                  </DropdownMenuItem>
+                )}
+                <DropdownMenuItem onClick={() => setAllFolders(true)}>
+                  <ChevronsUpDown className="mr-2 size-3.5" />
+                  {t("expandAll")}
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => setAllFolders(false)}>
+                  <ChevronsDownUp className="mr-2 size-3.5" />
+                  {t("collapseAll")}
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                {canCreate && (
+                  <>
+                    <DropdownMenuItem onClick={() => startImport(false)}>
+                      <Upload className="mr-2 size-3.5" />
+                      {t("importSkipExisting")}
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => startImport(true)}>
+                      <Upload className="mr-2 size-3.5" />
+                      {t("importOverwrite")}
+                    </DropdownMenuItem>
+                  </>
+                )}
+                <DropdownMenuItem
+                  onClick={() => void handleExport()}
+                  disabled={snippets.length === 0}
+                >
+                  <Download className="mr-2 size-3.5" />
+                  {t("exportSnippets")}
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onClick={() => setView({ kind: "settings" })}>
+                  <SlidersHorizontal className="mr-2 size-3.5" />
+                  {t("settingsTitle")}
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <a href={DOCS_URL} target="_blank" rel="noreferrer">
+                    <ExternalLink className="mr-2 size-3.5" />
+                    {t("docsLink")}
+                  </a>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+            {canCreate && (
+              <AddButton
+                label={t("newSnippet")}
+                onClick={() => setView({ kind: "edit", snippet: null })}
+              />
+            )}
+          </div>
 
           <TargetTerminals
             terminals={openTerminals}
@@ -615,117 +665,9 @@ export function SnippetsPanel({ active, setEditing }: PanelProps) {
               if (file) void handleImport(file);
             }}
           />
-
-          <div className="flex items-center gap-1.5 overflow-x-auto overflow-y-hidden toolbar-scrollbar">
-            <div className="flex items-center border border-border shrink-0">
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="size-7 text-muted-foreground hover:text-foreground"
-                    title={t("importExport")}
-                  >
-                    <Upload className="size-3.5" />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="start" className="text-xs">
-                  {canCreate && (
-                    <>
-                      <DropdownMenuItem onClick={() => startImport(false)}>
-                        <Upload className="size-3.5 mr-2" />
-                        {t("importSkipExisting")}
-                      </DropdownMenuItem>
-                      <DropdownMenuItem onClick={() => startImport(true)}>
-                        <Upload className="size-3.5 mr-2" />
-                        {t("importOverwrite")}
-                      </DropdownMenuItem>
-                      <DropdownMenuSeparator />
-                    </>
-                  )}
-                  <DropdownMenuItem
-                    onClick={() => void handleExport()}
-                    disabled={snippets.length === 0}
-                  >
-                    <Download className="size-3.5 mr-2" />
-                    {t("exportSnippets")}
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-              <div className="w-px self-stretch bg-border" />
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="size-7 text-muted-foreground hover:text-foreground"
-                    title={t("moreActions")}
-                  >
-                    <MoreHorizontal className="size-3.5" />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="start" className="text-xs min-w-44">
-                  {canCreate && (
-                    <>
-                      <DropdownMenuItem
-                        onClick={() =>
-                          setFolderDialog({ folder: null, editName: null })
-                        }
-                      >
-                        <FolderPlus className="size-3.5 mr-2" />
-                        {t("newFolder")}
-                      </DropdownMenuItem>
-                      <DropdownMenuSeparator />
-                    </>
-                  )}
-                  <DropdownMenuItem onClick={() => setAllFolders(true)}>
-                    <ChevronsUpDown className="size-3.5 mr-2" />
-                    {t("expandAll")}
-                  </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => setAllFolders(false)}>
-                    <ChevronsDownUp className="size-3.5 mr-2" />
-                    {t("collapseAll")}
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-              <div className="w-px self-stretch bg-border" />
-              <a
-                href={DOCS_URL}
-                target="_blank"
-                rel="noreferrer"
-                title={t("docsLink")}
-                className="flex items-center justify-center size-7 text-muted-foreground hover:text-foreground shrink-0 transition-colors"
-              >
-                <ExternalLink className="size-3.5" />
-              </a>
-            </div>
-            <div className="flex items-center border border-border shrink-0">
-              <button
-                onClick={() => setView({ kind: "settings" })}
-                title={t("settingsTitle")}
-                className="flex items-center justify-center size-7 text-muted-foreground hover:text-foreground hover:bg-muted transition-colors shrink-0"
-              >
-                <SlidersHorizontal className="size-3.5" />
-              </button>
-            </div>
-            {canCreate && (
-              <div className="flex items-center border border-accent-brand/30 ml-auto shrink-0">
-                <button
-                  onClick={() => setView({ kind: "edit", snippet: null })}
-                  title={t("newSnippet")}
-                  className="flex items-center justify-center gap-1 h-7 px-2 text-[10px] font-medium text-accent-brand hover:bg-accent-brand/10 transition-colors"
-                >
-                  <Plus className="size-3 shrink-0" />
-                  <span className="hidden min-[280px]:inline">
-                    {t("newSnippet")}
-                  </span>
-                </button>
-              </div>
-            )}
-          </div>
         </div>
 
-        <div className="flex flex-1 min-h-0 flex-col gap-2 overflow-y-auto p-2.5">
+        <PanelList>
           {loading ? (
             <div className="p-4 text-xs text-muted-foreground">
               {t("loading")}
@@ -748,7 +690,7 @@ export function SnippetsPanel({ active, setEditing }: PanelProps) {
                     folder={group.folder}
                     count={group.snippets.length}
                     open={open}
-                    stripeIndex={index}
+                    stripe={rootSnippets.length + index}
                     canCreate={canCreate}
                     canEdit={canEdit}
                     canDelete={canDelete}
@@ -798,14 +740,14 @@ export function SnippetsPanel({ active, setEditing }: PanelProps) {
                       null,
                     );
                   }}
-                  className="px-3 py-3 text-center text-[11px] text-muted-foreground border border-dashed border-border"
+                  className="m-2 border border-dashed border-border px-3 py-3 text-center text-[11px] text-muted-foreground"
                 >
                   {t("dropToRemoveFromFolder")}
                 </div>
               )}
             </>
           )}
-        </div>
+        </PanelList>
 
         {folderDialog && (
           <SnippetFolderDialog
@@ -824,27 +766,8 @@ export function SnippetsPanel({ active, setEditing }: PanelProps) {
           />
         )}
         {runnerDialog}
+        {overlay}
       </div>
     );
   }
-}
-
-/** Widens the sidebar while an editor, share or settings view is open. */
-function SnippetsBody({
-  view,
-  active,
-  setEditing,
-  render,
-}: {
-  view: View;
-  active: boolean;
-  setEditing?: PanelProps["setEditing"];
-  render: () => React.ReactNode;
-}) {
-  const editing = view.kind !== "list";
-  useEffect(() => {
-    if (active) setEditing?.(editing);
-  }, [active, editing, setEditing]);
-  useEffect(() => () => setEditing?.(false), [setEditing]);
-  return <>{render()}</>;
 }

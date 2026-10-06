@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useTranslation } from "@termix-ssh/plugin-sdk/frontend";
 import {
-  Button,
   FOLDER_COLORS,
+  FormFooter,
   Input,
   InlineView,
 } from "@termix-ssh/plugin-sdk/ui";
@@ -51,19 +51,13 @@ export function SnippetFolderDialog({
       onOpenChange={(open) => !open && onClose()}
       title={t(isEdit ? "editFolderTitle" : "createFolderTitle")}
       footer={
-        <div className="ml-auto flex flex-wrap items-center justify-end gap-2">
-          <Button variant="ghost" onClick={onClose}>
-            {t("cancel")}
-          </Button>
-          <Button
-            variant="outline"
-            className="border-accent-brand/40 text-accent-brand hover:bg-accent-brand/10 hover:text-accent-brand"
-            disabled={saving || !name.trim()}
-            onClick={() => void handleSave()}
-          >
-            {t(isEdit ? "saveFolderButton" : "createFolderButton")}
-          </Button>
-        </div>
+        <FormFooter
+          saving={saving}
+          disabled={!name.trim()}
+          onCancel={onClose}
+          onSave={() => void handleSave()}
+          saveLabel={t(isEdit ? "saveFolderButton" : "createFolderButton")}
+        />
       }
     >
       <p className="text-xs text-muted-foreground">

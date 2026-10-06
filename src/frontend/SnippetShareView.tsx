@@ -2,10 +2,8 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "@termix-ssh/plugin-sdk/frontend";
 import { toast } from "sonner";
 import {
-  ArrowLeft,
   Check,
   ListChecks,
-  Search,
   Share2,
   Shield,
   User,
@@ -14,11 +12,14 @@ import {
 } from "lucide-react";
 import {
   Button,
+  Checkbox,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-  Input,
+  InlineView,
+  PanelSearch,
+  Segmented,
   useConfirm,
 } from "@termix-ssh/plugin-sdk/ui";
 import type {
@@ -172,27 +173,26 @@ export function SnippetShareView({
     `flex items-center gap-2 px-2.5 py-1.5 text-xs text-left border-b border-border/50 last:border-0 transition-colors shrink-0 ${selected ? "bg-accent-brand/10 text-accent-brand" : "hover:bg-muted/40"}`;
 
   const checkbox = (selected: boolean) => (
-    <div
-      className={`size-3.5 border flex items-center justify-center shrink-0 transition-colors ${selected ? "border-accent-brand bg-accent-brand" : "border-border bg-background"}`}
-    >
-      {selected && <Check className="size-2.5 text-background" />}
-    </div>
+    <Checkbox
+      checked={selected}
+      tabIndex={-1}
+      className="pointer-events-none"
+    />
   );
 
   return (
-    <div className="flex flex-col flex-1 min-h-0">
-      <button
-        onClick={onBack}
-        className="flex items-center gap-2 px-3 py-2 shrink-0 border-b border-border text-xs text-muted-foreground hover:text-foreground transition-colors w-full text-left"
-      >
-        <ArrowLeft className="size-3.5 shrink-0" />
-        <span className="truncate">
-          {target.kind === "snippet"
-            ? t("shareSnippetTitle", { name: target.snippet.name })
-            : t("shareFolderTitle", { name: target.name })}
-        </span>
-      </button>
-
+    <InlineView
+      open
+      onOpenChange={(open) => !open && onBack()}
+      icon={<Share2 className="size-4" />}
+      title={
+        target.kind === "snippet"
+          ? t("shareSnippetTitle", { name: target.snippet.name })
+          : t("shareFolderTitle", { name: target.name })
+      }
+      scroll={false}
+      bare
+    >
       {loadError && (
         <div className="flex items-start gap-2 px-3 py-2 shrink-0 border-b border-destructive/30 bg-destructive/5 text-xs text-destructive">
           <Shield className="size-3.5 shrink-0 mt-0.5" />
@@ -216,37 +216,32 @@ export function SnippetShareView({
           </a>
         </div>
 
-        <div className="flex gap-1.5">
-          {(["user", "role"] as const).map((key) => {
-            const count =
-              key === "user" ? selectedUsers.size : selectedRoles.size;
-            return (
-              <button
-                key={key}
-                onClick={() => setTab(key)}
-                className={`flex-1 flex items-center justify-center gap-1 px-2 py-1.5 text-[10px] font-bold uppercase tracking-widest border transition-colors ${tab === key ? "border-accent-brand/40 bg-accent-brand/10 text-accent-brand" : "border-border text-muted-foreground hover:text-foreground"}`}
-              >
-                {key === "user" ? (
-                  <User className="size-3 shrink-0" />
-                ) : (
-                  <Shield className="size-3 shrink-0" />
-                )}
-                {t(key === "user" ? "usersTab" : "rolesTab")}
-                {count > 0 && <span>({count})</span>}
-              </button>
-            );
-          })}
-        </div>
+        <Segmented<"user" | "role">
+          value={tab}
+          onChange={setTab}
+          className="w-full [&>button]:flex-1"
+          options={[
+            {
+              value: "user",
+              label: t("usersTab"),
+              icon: <User className="size-3" />,
+              count: selectedUsers.size || undefined,
+            },
+            {
+              value: "role",
+              label: t("rolesTab"),
+              icon: <Shield className="size-3" />,
+              count: selectedRoles.size || undefined,
+            },
+          ]}
+        />
 
-        <div className="relative">
-          <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 size-3.5 text-muted-foreground/50" />
-          <Input
-            placeholder={t("shareSearchPlaceholder")}
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            className="pl-8"
-          />
-        </div>
+        <PanelSearch
+          value={search}
+          onChange={setSearch}
+          placeholder={t("shareSearchPlaceholder")}
+          fill
+        />
 
         <div className="flex flex-col border border-border h-28 overflow-y-auto">
           {tab === "user" &&
@@ -433,6 +428,6 @@ export function SnippetShareView({
           </div>
         </div>
       )}
-    </div>
+    </InlineView>
   );
 }

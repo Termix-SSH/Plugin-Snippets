@@ -1,6 +1,6 @@
 import { useTranslation } from "@termix-ssh/plugin-sdk/frontend";
 import { Loader2, Server } from "lucide-react";
-import { Button, InlineView } from "@termix-ssh/plugin-sdk/ui";
+import { InlineView, FormFooter } from "@termix-ssh/plugin-sdk/ui";
 
 export interface HostExecutionResult {
   hostId: number;
@@ -27,13 +27,7 @@ export function ExecutionResultsDialog({
       open={true}
       onOpenChange={(open) => !open && onClose()}
       title={t("executionResultTitle", { name: snippetName })}
-      footer={
-        <div className="ml-auto flex flex-wrap items-center justify-end gap-2">
-          <Button variant="ghost" onClick={onClose}>
-            {t("close")}
-          </Button>
-        </div>
-      }
+      footer={<FormFooter onCancel={onClose} cancelLabel={t("close")} />}
     >
       <p className="text-xs text-muted-foreground">
         {t("executionResultDescription")}

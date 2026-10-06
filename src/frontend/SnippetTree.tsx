@@ -2,7 +2,6 @@ import { useEffect, useState, type ReactNode } from "react";
 import { useTranslation } from "@termix-ssh/plugin-sdk/frontend";
 import {
   Check,
-  ChevronRight,
   ClipboardPaste,
   Copy,
   FolderInput,
@@ -19,7 +18,6 @@ import {
   Zap,
 } from "lucide-react";
 import {
-  Button,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
@@ -28,17 +26,19 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
+  ListBadge,
+  ListRow,
+  ListRowAction,
+  ListRowFolder,
 } from "@termix-ssh/plugin-sdk/ui";
 import { FolderIcon } from "./folder-icons";
 import type { Snippet, SnippetFolder } from "./types";
-
-const actionButtonClass =
-  "flex size-7 shrink-0 items-center justify-center text-muted-foreground transition-colors hover:bg-muted hover:text-foreground";
 
 export type DropPosition = "above" | "below";
 
 export function SnippetRow({
   snippet,
+  stripe,
   showCommand,
   folderNames,
   targetHostNames,
@@ -61,6 +61,7 @@ export function SnippetRow({
   onDropRow,
 }: {
   snippet: Snippet;
+  stripe: number;
   showCommand: boolean;
   folderNames: string[];
   /** Hosts a command snippet runs on directly, instead of the active terminal. */
@@ -102,9 +103,13 @@ export function SnippetRow({
   const runLabel = t(
     hasTargets ? "runOnTargets" : snippet.isNote ? "pasteToTerminal" : "run",
   );
+  const copy = () => {
+    onCopy();
+    setCopied(true);
+  };
 
   return (
-    <div
+    <ListRow
       draggable={draggable}
       onDragStart={(e) => {
         e.dataTransfer.effectAllowed = "move";
@@ -131,54 +136,135 @@ export function SnippetRow({
         e.preventDefault();
         setMenuOpen(true);
       }}
-      title={t("doubleClickToRun")}
-      className={`group relative flex flex-col gap-2 border bg-background p-2.5 select-none transition-colors ${
-        menuOpen ? "border-accent-brand/40" : "border-border"
-      } ${draggable ? "cursor-grab active:cursor-grabbing" : ""} ${
-        isDragging ? "opacity-40" : ""
-      }`}
-    >
-      {dropIndicator && (
-        <div
-          className={`absolute left-0 right-0 h-0.5 bg-accent-brand z-10 pointer-events-none ${dropIndicator === "above" ? "-top-[5px]" : "-bottom-[5px]"}`}
-        />
-      )}
-      <div className="flex min-w-0 items-start gap-1.5">
-        {draggable && (
-          <GripVertical className="mt-0.5 size-3 shrink-0 text-muted-foreground/30 transition-colors group-hover:text-muted-foreground/70" />
-        )}
-        <TypeIcon className="mt-0.5 size-3 shrink-0 text-muted-foreground/60" />
-        <div className="flex min-w-0 flex-1 flex-col">
-          <div className="flex min-w-0 flex-wrap items-center gap-1.5">
-            <span className="min-w-0 break-words text-xs font-semibold">
-              {snippet.name}
-            </span>
-            {snippet.isNote && (
-              <span className="shrink-0 border border-border bg-muted/40 px-1 py-px text-[9px] uppercase leading-none tracking-wider text-muted-foreground">
-                {t("typeNote")}
-              </span>
-            )}
-            {snippet.isShared && (
-              <span className="flex shrink-0 items-center gap-0.5 border border-accent-brand/30 bg-accent-brand/10 px-1 py-px text-[9px] uppercase leading-none tracking-wider text-accent-brand">
-                <Users className="size-2.5" />
-                {t("sharedBadge")}
-              </span>
-            )}
-          </div>
-          {snippet.description && (
-            <span className="break-words text-xs text-muted-foreground">
-              {snippet.description}
-            </span>
+      title={snippet.name}
+      stripe={stripe}
+      tone={snippet.isNote ? "muted" : "brand"}
+      active={menuOpen}
+      dimmed={isDragging}
+      className={draggable ? "cursor-grab active:cursor-grabbing" : undefined}
+      icon={<TypeIcon />}
+      leading={
+        <>
+          {dropIndicator && (
+            <div
+              className={`pointer-events-none absolute left-0 right-0 z-10 h-0.5 bg-accent-brand ${dropIndicator === "above" ? "-top-px" : "-bottom-px"}`}
+            />
           )}
-        </div>
-      </div>
-
+          {draggable && (
+            <div className="-mr-1.5 flex w-3.5 shrink-0 items-center justify-center text-muted-foreground/30 transition-colors group-hover/row:text-muted-foreground/70">
+              <GripVertical className="size-3" />
+            </div>
+          )}
+        </>
+      }
+      badges={
+        <>
+          {snippet.isNote && <ListBadge>{t("typeNote")}</ListBadge>}
+          {snippet.isShared && (
+            <ListBadge tone="brand">
+              <Users />
+              {t("sharedBadge")}
+            </ListBadge>
+          )}
+        </>
+      }
+      meta={snippet.description || undefined}
+      actions={
+        <>
+          <ListRowAction label={runLabel} tone="brand" onClick={onRun}>
+            <RunIcon />
+          </ListRowAction>
+          <ListRowAction
+            label={t("copyToClipboard")}
+            onClick={copy}
+            className={copied ? "text-accent-brand" : undefined}
+          >
+            {copied ? <Check /> : <Copy />}
+          </ListRowAction>
+          {editable && (
+            <ListRowAction label={t("editSnippetTitle")} onClick={onEdit}>
+              <Pencil />
+            </ListRowAction>
+          )}
+          {shareable && (
+            <ListRowAction label={t("shareSnippet")} onClick={onShare}>
+              <Share2 />
+            </ListRowAction>
+          )}
+          <DropdownMenu open={menuOpen} onOpenChange={setMenuOpen}>
+            <DropdownMenuTrigger asChild>
+              <ListRowAction label={t("moreOptions")}>
+                <MoreHorizontal />
+              </ListRowAction>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="min-w-44 text-xs">
+              <DropdownMenuItem onClick={onRun}>
+                <RunIcon className="mr-2 size-3.5" />
+                {runLabel}
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={copy}>
+                <Copy className="mr-2 size-3.5" />
+                {t("copyToClipboard")}
+              </DropdownMenuItem>
+              {editable && (
+                <DropdownMenuItem onClick={onEdit}>
+                  <Pencil className="mr-2 size-3.5" />
+                  {t("editSnippetTitle")}
+                </DropdownMenuItem>
+              )}
+              {shareable && (
+                <DropdownMenuItem onClick={onShare}>
+                  <Share2 className="mr-2 size-3.5" />
+                  {t("shareSnippet")}
+                </DropdownMenuItem>
+              )}
+              {editable && (
+                <DropdownMenuSub>
+                  <DropdownMenuSubTrigger>
+                    <FolderInput className="mr-2 size-3.5" />
+                    {t("moveToFolder")}
+                  </DropdownMenuSubTrigger>
+                  <DropdownMenuSubContent className="max-w-72 text-xs">
+                    <DropdownMenuItem
+                      disabled={!snippet.folder}
+                      onClick={() => onMove(null)}
+                    >
+                      {t("noFolder")}
+                    </DropdownMenuItem>
+                    {folderNames.map((name) => (
+                      <DropdownMenuItem
+                        key={name}
+                        disabled={snippet.folder === name}
+                        onClick={() => onMove(name)}
+                      >
+                        <span className="truncate">{name}</span>
+                      </DropdownMenuItem>
+                    ))}
+                  </DropdownMenuSubContent>
+                </DropdownMenuSub>
+              )}
+              {deletable && (
+                <>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem
+                    onClick={onDelete}
+                    className="text-destructive focus:text-destructive"
+                  >
+                    <Trash2 className="mr-2 size-3.5" />
+                    {t("deleteSnippet")}
+                  </DropdownMenuItem>
+                </>
+              )}
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </>
+      }
+    >
       {showCommand && (
-        <span className="line-clamp-3 min-w-0 whitespace-pre-wrap break-all px-1 font-mono text-xs text-muted-foreground">
-          {snippet.content}
+        <span className="truncate font-mono text-[11px] leading-tight text-muted-foreground/60">
+          {snippet.content.split("\n")[0]}
         </span>
       )}
-
       {hasTargets && (
         <div className="flex min-w-0 items-center gap-1 overflow-hidden">
           <Zap className="size-2.5 shrink-0 text-accent-brand/70" />
@@ -197,136 +283,7 @@ export function SnippetRow({
           )}
         </div>
       )}
-
-      <div className="flex items-center gap-1">
-        <Button
-          variant="outline"
-          size="sm"
-          title={runLabel}
-          onClick={(e) => {
-            e.stopPropagation();
-            onRun();
-          }}
-          className="h-7 min-w-0 flex-1 gap-1.5 text-xs"
-        >
-          <RunIcon className="size-3 shrink-0" />
-          <span className="truncate">{runLabel}</span>
-        </Button>
-        <button
-          title={t("copyToClipboard")}
-          aria-label={t("copyToClipboard")}
-          onClick={(e) => {
-            e.stopPropagation();
-            onCopy();
-            setCopied(true);
-          }}
-          className={`${actionButtonClass} ${copied ? "text-accent-brand" : ""}`}
-        >
-          {copied ? (
-            <Check className="size-3.5" />
-          ) : (
-            <Copy className="size-3.5" />
-          )}
-        </button>
-        {editable && (
-          <button
-            title={t("editSnippetTitle")}
-            aria-label={t("editSnippetTitle")}
-            onClick={(e) => {
-              e.stopPropagation();
-              onEdit();
-            }}
-            className={actionButtonClass}
-          >
-            <Pencil className="size-3.5" />
-          </button>
-        )}
-        {shareable && (
-          <button
-            title={t("shareSnippet")}
-            aria-label={t("shareSnippet")}
-            onClick={(e) => {
-              e.stopPropagation();
-              onShare();
-            }}
-            className={actionButtonClass}
-          >
-            <Share2 className="size-3.5" />
-          </button>
-        )}
-        <DropdownMenu open={menuOpen} onOpenChange={setMenuOpen}>
-          <DropdownMenuTrigger asChild>
-            <button
-              title={t("moreOptions")}
-              aria-label={t("moreOptions")}
-              onClick={(e) => e.stopPropagation()}
-              className={actionButtonClass}
-            >
-              <MoreHorizontal className="size-3.5" />
-            </button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="text-xs min-w-44">
-            <DropdownMenuItem onClick={onRun}>
-              <RunIcon className="size-3.5 mr-2" />
-              {runLabel}
-            </DropdownMenuItem>
-            <DropdownMenuItem onClick={onCopy}>
-              <Copy className="size-3.5 mr-2" />
-              {t("copyToClipboard")}
-            </DropdownMenuItem>
-            {editable && (
-              <DropdownMenuItem onClick={onEdit}>
-                <Pencil className="size-3.5 mr-2" />
-                {t("editSnippetTitle")}
-              </DropdownMenuItem>
-            )}
-            {shareable && (
-              <DropdownMenuItem onClick={onShare}>
-                <Share2 className="size-3.5 mr-2" />
-                {t("shareSnippet")}
-              </DropdownMenuItem>
-            )}
-            {editable && (
-              <DropdownMenuSub>
-                <DropdownMenuSubTrigger>
-                  <FolderInput className="size-3.5 mr-2" />
-                  {t("moveToFolder")}
-                </DropdownMenuSubTrigger>
-                <DropdownMenuSubContent className="text-xs max-w-72">
-                  <DropdownMenuItem
-                    disabled={!snippet.folder}
-                    onClick={() => onMove(null)}
-                  >
-                    {t("noFolder")}
-                  </DropdownMenuItem>
-                  {folderNames.map((name) => (
-                    <DropdownMenuItem
-                      key={name}
-                      disabled={snippet.folder === name}
-                      onClick={() => onMove(name)}
-                    >
-                      <span className="truncate">{name}</span>
-                    </DropdownMenuItem>
-                  ))}
-                </DropdownMenuSubContent>
-              </DropdownMenuSub>
-            )}
-            {deletable && (
-              <>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem
-                  onClick={onDelete}
-                  className="text-destructive focus:text-destructive"
-                >
-                  <Trash2 className="size-3.5 mr-2" />
-                  {t("deleteSnippet")}
-                </DropdownMenuItem>
-              </>
-            )}
-          </DropdownMenuContent>
-        </DropdownMenu>
-      </div>
-    </div>
+    </ListRow>
   );
 }
 
@@ -335,7 +292,7 @@ export function SnippetFolderRow({
   folder,
   count,
   open,
-  stripeIndex,
+  stripe,
   canCreate,
   canEdit,
   canDelete,
@@ -354,7 +311,7 @@ export function SnippetFolderRow({
   folder: SnippetFolder | null;
   count: number;
   open: boolean;
-  stripeIndex: number;
+  stripe: number;
   canCreate: boolean;
   canEdit: boolean;
   canDelete: boolean;
@@ -370,84 +327,48 @@ export function SnippetFolderRow({
   children: ReactNode;
 }) {
   const { t } = useTranslation();
-  const [dragOver, setDragOver] = useState(false);
   const hasActions = canCreate || canEdit || canDelete || canShare;
 
   return (
-    <div className="flex flex-col">
-      <div
-        role="button"
-        tabIndex={0}
-        onClick={onToggle}
-        onKeyDown={(e) => {
-          if (e.key === "Enter" || e.key === " ") {
-            e.preventDefault();
-            onToggle();
-          }
-        }}
-        onDragOver={(e) => {
-          if (!acceptsDrop) return;
-          e.preventDefault();
-          setDragOver(true);
-        }}
-        onDragLeave={(e) => {
-          if (e.currentTarget === e.target) setDragOver(false);
-        }}
-        onDrop={(e) => {
-          if (!acceptsDrop) return;
-          e.preventDefault();
-          setDragOver(false);
-          onDropSnippet();
-        }}
-        className={`group/folder flex items-center gap-2 w-full pl-2.5 pr-2 py-1.5 cursor-pointer select-none transition-colors ${
-          open ? "bg-muted/40" : "hover:bg-muted/30"
-        } ${stripeIndex % 2 === 1 && !open ? "bg-muted/[0.08]" : ""} ${
-          dragOver && acceptsDrop
-            ? "ring-1 ring-inset ring-accent-brand bg-accent-brand/10"
-            : ""
-        }`}
-      >
-        <ChevronRight
-          className={`size-3.5 shrink-0 text-muted-foreground/60 transition-transform ${open ? "rotate-90" : ""}`}
-        />
+    <ListRowFolder
+      name={name}
+      count={count}
+      open={open}
+      onToggle={onToggle}
+      stripe={stripe}
+      dropActive={acceptsDrop}
+      onDropItem={onDropSnippet}
+      emptyText={t("noSnippetsInFolder")}
+      icon={
         <FolderIcon
           icon={folder?.icon}
-          className={`size-4 shrink-0 ${folder?.color ? "" : open ? "text-accent-brand" : "text-muted-foreground/70"}`}
           style={folder?.color ? { color: folder.color } : undefined}
         />
-        <span className="min-w-0 flex-1 truncate text-[13px] font-bold text-foreground tracking-tight">
-          {name}
-        </span>
-        <span className="text-[10px] tabular-nums shrink-0 px-1.5 py-[1px] bg-muted/70 text-muted-foreground/70">
-          {count}
-        </span>
-        {hasActions && (
+      }
+      actions={
+        hasActions && (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <button
-                title={t("folderActions")}
-                onClick={(e) => e.stopPropagation()}
-                className="flex items-center justify-center size-5 shrink-0 text-muted-foreground/60 hover:text-foreground hover:bg-muted opacity-0 group-hover/folder:opacity-100 focus:opacity-100 pointer-coarse:opacity-100 data-[state=open]:opacity-100 transition-opacity"
-              >
-                <MoreHorizontal className="size-3.5" />
-              </button>
+              <ListRowAction label={t("folderActions")}>
+                <MoreHorizontal />
+              </ListRowAction>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="text-xs min-w-40">
+            <DropdownMenuContent align="end" className="min-w-40 text-xs">
               {canCreate && (
                 <DropdownMenuItem onClick={onAddSnippet}>
-                  <Plus className="size-3.5 mr-2" />
+                  <Plus className="mr-2 size-3.5" />
                   {t("addSnippetHere")}
                 </DropdownMenuItem>
               )}
               {canEdit && (
                 <DropdownMenuItem onClick={onEdit}>
-                  <Pencil className="size-3.5 mr-2" />
+                  <Pencil className="mr-2 size-3.5" />
                   {t("editFolderTitle")}
                 </DropdownMenuItem>
               )}
               {canShare && count > 0 && (
                 <DropdownMenuItem onClick={onShare}>
-                  <Share2 className="size-3.5 mr-2" />
+                  <Share2 className="mr-2 size-3.5" />
                   {t("shareFolder")}
                 </DropdownMenuItem>
               )}
@@ -458,26 +379,17 @@ export function SnippetFolderRow({
                     onClick={onDelete}
                     className="text-destructive focus:text-destructive"
                   >
-                    <Trash2 className="size-3.5 mr-2" />
+                    <Trash2 className="mr-2 size-3.5" />
                     {t("deleteFolder")}
                   </DropdownMenuItem>
                 </>
               )}
             </DropdownMenuContent>
           </DropdownMenu>
-        )}
-      </div>
-      {open && (
-        <div className="ml-[13px] flex flex-col gap-2 border-l border-border/50 py-2 pl-2">
-          {count === 0 ? (
-            <div className="px-1 text-[11px] text-muted-foreground/60">
-              {t("noSnippetsInFolder")}
-            </div>
-          ) : (
-            children
-          )}
-        </div>
-      )}
-    </div>
+        )
+      }
+    >
+      {children}
+    </ListRowFolder>
   );
 }

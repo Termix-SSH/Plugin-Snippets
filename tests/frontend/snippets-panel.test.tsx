@@ -143,12 +143,20 @@ describe("snippets panel", () => {
   it("opens the settings page and goes back", async () => {
     await renderPanel(fakeApi([]));
     await screen.findByText(locales.emptyTitle);
-    fireEvent.click(screen.getByTitle(locales.settingsTitle));
-    expect(
-      await screen.findByText(locales.settings.foldersCollapsed.label),
-    ).toBeTruthy();
-    fireEvent.click(screen.getByText(locales.backToSnippets));
-    expect(await screen.findByText(locales.emptyTitle)).toBeTruthy();
+    fireEvent.pointerDown(screen.getByTitle(locales.moreActions), {
+      button: 0,
+      ctrlKey: false,
+    });
+    fireEvent.click(await screen.findByText(locales.settingsTitle));
+    const label = await screen.findByText(
+      locales.settings.foldersCollapsed.label,
+    );
+    fireEvent.keyDown(label, { key: "Escape" });
+    await waitFor(() =>
+      expect(
+        screen.queryByText(locales.settings.foldersCollapsed.label),
+      ).toBeNull(),
+    );
   });
 
   it("shares a snippet with a user", async () => {
@@ -165,9 +173,11 @@ describe("snippets panel", () => {
         expiresAt: null,
       }),
     );
-    expect(await screen.findByText(locales.notSharedYet)).toBeTruthy();
-    fireEvent.click(screen.getByText(/share "list files"/i));
-    expect(await screen.findByText("List files")).toBeTruthy();
+    const notShared = await screen.findByText(locales.notSharedYet);
+    fireEvent.keyDown(notShared, { key: "Escape" });
+    await waitFor(() =>
+      expect(screen.queryByText(locales.notSharedYet)).toBeNull(),
+    );
   });
 
   it("runs a snippet with target hosts on those hosts", async () => {

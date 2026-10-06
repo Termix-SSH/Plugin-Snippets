@@ -1,12 +1,20 @@
 import { useCallback, useEffect, useState } from "react";
-import { Pencil, Plus, RefreshCw, Trash2 } from "lucide-react";
+import { Pencil, Plus, RefreshCw, Terminal, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 import {
   usePluginApi,
   useTranslation,
   type PluginApiClient,
 } from "@termix-ssh/plugin-sdk/frontend";
-import { Button, Input, useConfirm } from "@termix-ssh/plugin-sdk/ui";
+import {
+  Button,
+  FormFooter,
+  Input,
+  ListRow,
+  ListRowAction,
+  Textarea,
+  useConfirm,
+} from "@termix-ssh/plugin-sdk/ui";
 
 // Core's admin routes act on another user's data when this header names them.
 const ADMIN_TARGET_USER_HEADER = "X-Admin-Target-User";
@@ -157,14 +165,14 @@ export function AdminUserSnippets({
             value={form.name}
             onChange={(e) => setForm((p) => ({ ...p, name: e.target.value }))}
           />
-          <textarea
+          <Textarea
             rows={4}
             placeholder={t("admin.contentPlaceholder")}
             value={form.content}
             onChange={(e) =>
               setForm((p) => ({ ...p, content: e.target.value }))
             }
-            className="w-full px-3 py-2 text-[10px] bg-background border border-border text-foreground placeholder:text-muted-foreground resize-none outline-none focus:ring-1 focus:ring-ring font-mono"
+            className="resize-none font-mono text-xs"
           />
           <Input
             className="h-8 text-xs"
@@ -172,25 +180,12 @@ export function AdminUserSnippets({
             value={form.folder}
             onChange={(e) => setForm((p) => ({ ...p, folder: e.target.value }))}
           />
-          <div className="flex justify-end gap-2">
-            <Button
-              variant="ghost"
-              size="sm"
-              className="h-6 text-[10px]"
-              onClick={() => setEditing(null)}
-            >
-              {t("cancel")}
-            </Button>
-            <Button
-              variant="outline"
-              size="sm"
-              className="h-6 text-[10px] border-accent-brand/40 text-accent-brand hover:bg-accent-brand/10 hover:text-accent-brand"
-              disabled={saving}
-              onClick={save}
-            >
-              {saving ? t("admin.saving") : t("admin.save")}
-            </Button>
-          </div>
+          <FormFooter
+            saving={saving}
+            onCancel={() => setEditing(null)}
+            onSave={save}
+            saveLabel={t("admin.save")}
+          />
         </div>
       )}
       {!loading && snippets.length === 0 && !editing && (
@@ -198,45 +193,38 @@ export function AdminUserSnippets({
           {t("admin.empty")}
         </span>
       )}
-      {snippets.map((snippet) => (
-        <div
+      {snippets.map((snippet, index) => (
+        <ListRow
           key={snippet.id}
-          className="flex items-center justify-between py-2.5 border-b border-border last:border-0"
-        >
-          <div className="flex flex-col gap-0.5 min-w-0">
-            <span className="text-xs font-semibold truncate max-w-[180px]">
-              {snippet.name}
-            </span>
-            <span className="text-[10px] font-mono text-muted-foreground truncate max-w-[220px]">
-              {snippet.content}
-            </span>
-          </div>
-          <div className="flex items-center gap-0.5 shrink-0">
-            <Button
-              variant="ghost"
-              size="icon"
-              className="size-6 text-muted-foreground hover:text-foreground"
-              onClick={() => {
-                setForm({
-                  name: snippet.name,
-                  content: snippet.content,
-                  folder: snippet.folder ?? "",
-                });
-                setEditing(snippet);
-              }}
-            >
-              <Pencil className="size-3" />
-            </Button>
-            <Button
-              variant="ghost"
-              size="icon"
-              className="size-6 text-muted-foreground hover:text-destructive"
-              onClick={() => remove(snippet)}
-            >
-              <Trash2 className="size-3" />
-            </Button>
-          </div>
-        </div>
+          stripe={index}
+          icon={<Terminal />}
+          title={snippet.name}
+          meta={<span className="font-mono">{snippet.content}</span>}
+          actions={
+            <>
+              <ListRowAction
+                label={t("editSnippetTitle")}
+                onClick={() => {
+                  setForm({
+                    name: snippet.name,
+                    content: snippet.content,
+                    folder: snippet.folder ?? "",
+                  });
+                  setEditing(snippet);
+                }}
+              >
+                <Pencil />
+              </ListRowAction>
+              <ListRowAction
+                label={t("deleteSnippet")}
+                tone="destructive"
+                onClick={() => remove(snippet)}
+              >
+                <Trash2 />
+              </ListRowAction>
+            </>
+          }
+        />
       ))}
     </div>
   );

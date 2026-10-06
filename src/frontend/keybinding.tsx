@@ -1,3 +1,4 @@
+import { Select2 } from "@termix-ssh/plugin-sdk/ui";
 import {
   useTranslation,
   type KeybindingAction,
@@ -27,7 +28,7 @@ export function RunSnippetEditor({
       <label className="text-xs font-semibold">
         {t("keybindings.snippetLabel")}
       </label>
-      <select
+      <Select2
         aria-label={t("keybindings.snippetLabel")}
         value={snippetIdOf(action)}
         onChange={(e) =>
@@ -45,7 +46,7 @@ export function RunSnippetEditor({
             {snippet.name}
           </option>
         ))}
-      </select>
+      </Select2>
     </div>
   );
 }
