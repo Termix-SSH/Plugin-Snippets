@@ -1,0 +1,12 @@
+# Changelog
+
+## 1.0.0
+
+### Added
+
+- Save commands and notes in folders
+- Run them in one or more terminals, or straight on a set of hosts
+- Variables for the host and your own inputs
+- Run a snippet each time you connect to a host
+- Share snippets with users or roles
+- Import and export as JSON
