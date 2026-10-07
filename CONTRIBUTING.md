@@ -18,6 +18,11 @@ npm run format     # format the code with Prettier
 - **Show commands:** show the first line of each command under its name
 - **Confirm before running:** ask before a command snippet runs in a terminal
 
+### Host
+
+- **Startup Snippet:** run a snippet in the terminal each time it connects to this host
+- **Quick Actions:** snippet buttons in the Host Metrics toolbar for this host
+
 ## Permissions
 
 - `snippets.view`: see your own and shared snippets. Admins and users have it by default.
