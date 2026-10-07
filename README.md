@@ -16,12 +16,6 @@ Snippets keeps the commands and text you use often in one place, ready to run in
 
 <br />
 
-## Install
-
-Snippets ships with [Termix](https://github.com/Termix-SSH/Termix). Admins can turn it on or off, update it or install it again from the Plugins tab. Want to see it first? Try the [demo](https://demo.termix.site/), any username and password works.
-
-<br />
-
 ## Features
 
 - Save commands and notes in folders
