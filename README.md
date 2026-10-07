@@ -27,14 +27,6 @@ Snippets keeps the commands and text you use often in one place, ready to run in
 
 <br />
 
-## Services
-
-Provides to other plugins:
-
-- `snippets.access`: read and run snippets
-
-<br />
-
 ## Sponsors
 
 Interested in a paid placement to support development? Email [mail@termix.site](mailto:mail@termix.site).

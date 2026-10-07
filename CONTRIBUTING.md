@@ -30,3 +30,9 @@ npm run format     # format the code with Prettier
 - `snippets.edit`: change snippets and folders. Admins and users have it by default.
 - `snippets.delete`: delete snippets and folders. Admins and users have it by default.
 - `snippets.share`: share snippets and folders. Admins and users have it by default.
+
+## Services
+
+Provides to other plugins:
+
+- `snippets.access`: read and run snippets
