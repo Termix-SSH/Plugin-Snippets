@@ -10,6 +10,14 @@
   "repository": "https://github.com/Termix-SSH/Plugin-Snippets",
   "category": "Productivity",
   "icon": "Play",
+  "features": [
+    "Save commands and notes in folders",
+    "Run them in one or more terminals, or straight on a set of hosts",
+    "Variables for the host and your own inputs",
+    "Run a snippet each time you connect to a host",
+    "Share snippets with users or roles",
+    "Import and export as JSON"
+  ],
   "engine": {
     "termix": ">=26.10.0",
     "api": "1"
