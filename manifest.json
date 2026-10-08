@@ -8,6 +8,7 @@
   },
   "license": "Apache-2.0",
   "repository": "https://github.com/Termix-SSH/Plugin-Snippets",
+  "docs": "https://docs.termix.site/plugins/snippets",
   "category": "Productivity",
   "icon": "Play",
   "features": [
@@ -18,9 +19,15 @@
     "Share snippets with users or roles",
     "Import and export as JSON"
   ],
+  "env": [
+    {
+      "name": "SNIPPET_EXECUTION_TIMEOUT_SECONDS",
+      "description": "Stop a snippet run on hosts after this many seconds. Unset means no limit."
+    }
+  ],
   "engine": {
     "termix": ">=26.10.0",
-    "api": "1"
+    "api": "^1.2"
   },
   "capabilities": [
     "db:own",

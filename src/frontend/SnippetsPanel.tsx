@@ -55,8 +55,9 @@ import {
   type Snippet,
   type SnippetFolder,
 } from "./types";
+import { docsUrl } from "./docs";
 
-const DOCS_URL = "https://docs.termix.site/features/terminal/snippets";
+const DOCS_URL = docsUrl();
 
 type View =
   | { kind: "list" }

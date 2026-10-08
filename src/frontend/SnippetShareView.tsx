@@ -29,13 +29,14 @@ import type {
   SnippetsApi,
 } from "./snippets-api";
 import { errorMessage, type Snippet, type SnippetAccessEntry } from "./types";
+import { docsUrl } from "./docs";
 
 export type ShareTarget =
   { kind: "snippet"; snippet: Snippet } | { kind: "folder"; name: string };
 
 const EXPIRY_HOURS = [0, 1, 24, 168, 720] as const;
 
-const DOCS_URL = "https://docs.termix.site/features/authentication/rbac";
+const DOCS_URL = docsUrl("", "share");
 
 export function SnippetShareView({
   target,

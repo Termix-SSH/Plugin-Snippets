@@ -14,6 +14,8 @@
 
 Snippets keeps the commands and text you use often in one place, ready to run in a terminal.
 
+Read the [docs](https://docs.termix.site/plugins/snippets) to set it up and use it.
+
 <br />
 
 ## Features

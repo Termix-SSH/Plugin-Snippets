@@ -10,29 +10,6 @@ npm run validate   # check manifest.json
 npm run format     # format the code with Prettier
 ```
 
-## Settings
+## Docs
 
-### User
-
-- **Collapse folders by default:** start each folder closed in the Snippets panel
-- **Show commands:** show the first line of each command under its name
-- **Confirm before running:** ask before a command snippet runs in a terminal
-
-### Host
-
-- **Startup Snippet:** run a snippet in the terminal each time it connects to this host
-- **Quick Actions:** snippet buttons in the Host Metrics toolbar for this host
-
-## Permissions
-
-- `snippets.view`: see your own and shared snippets. Admins and users have it by default.
-- `snippets.create`: create snippets, notes and folders. Admins and users have it by default.
-- `snippets.edit`: change snippets and folders. Admins and users have it by default.
-- `snippets.delete`: delete snippets and folders. Admins and users have it by default.
-- `snippets.share`: share snippets and folders. Admins and users have it by default.
-
-## Services
-
-Provides to other plugins:
-
-- `snippets.access`: read and run snippets
+The docs for this plugin are in [docs/](docs/) and are published at https://docs.termix.site/plugins/snippets. Settings, permissions, services, environment variables and the API reference are made from `manifest.json` and the `@openapi` comments in the code, so keep those up to date instead of writing them by hand. See [writing docs](https://docs.termix.site/develop/docs).
