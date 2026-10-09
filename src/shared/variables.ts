@@ -38,44 +38,40 @@ export function hasSnippetInputs(content: string): boolean {
   return INPUT_PATTERN.test(content);
 }
 
-function replaceVar(
-  content: string,
-  name: string,
-  value: string | undefined,
-): string {
-  if (value === undefined) return content;
-  const pattern = new RegExp(`\\$\\{?${name}\\}?`, "g");
-  return content.replace(pattern, value);
-}
+// $HOSTNAME or $USERPROFILE are left alone, and values are never
+// re-scanned, so a value holding "$INPUT_1" or "$&" stays literal.
+const HOST_VAR_PATTERN =
+  /\$\{(HOST|USER|PORT|NAME)\}|\$(HOST|USER|PORT|NAME)(?![a-zA-Z0-9_])/;
+const RESOLVE_PATTERN = new RegExp(
+  `${HOST_VAR_PATTERN.source}|${INPUT_PATTERN.source}`,
+  "g",
+);
 
 export function resolveSnippetContent(
   content: string,
   host: SnippetHostContext | null,
   inputValues: Record<string, string> = {},
 ): string {
-  let resolved = content;
-
-  resolved = replaceVar(resolved, "HOST", host?.ip);
-  resolved = replaceVar(resolved, "USER", host?.username);
-  resolved = replaceVar(
-    resolved,
-    "PORT",
-    host?.port !== undefined ? String(host.port) : undefined,
-  );
-  resolved = replaceVar(resolved, "NAME", host?.name);
-
-  resolved = resolved.replace(
-    INPUT_PATTERN,
+  const vars: Record<string, string | undefined> = {
+    HOST: host?.ip,
+    USER: host?.username,
+    PORT: host?.port !== undefined ? String(host.port) : undefined,
+    NAME: host?.name,
+  };
+  return content.replace(
+    RESOLVE_PATTERN,
     (
       fullMatch,
+      braceVar: string | undefined,
+      plainVar: string | undefined,
       braceDigits: string | undefined,
       _label,
       plainDigits: string | undefined,
     ) => {
+      const name = braceVar ?? plainVar;
+      if (name) return vars[name] ?? fullMatch;
       const key = `INPUT_${braceDigits ?? plainDigits}`;
-      return key in inputValues ? inputValues[key] : fullMatch;
+      return Object.hasOwn(inputValues, key) ? inputValues[key] : fullMatch;
     },
   );
-
-  return resolved;
 }

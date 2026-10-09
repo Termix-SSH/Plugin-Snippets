@@ -12,6 +12,16 @@ function isNonEmptyString(value: unknown): value is string {
   return typeof value === "string" && value.trim().length > 0;
 }
 
+/** Only string values from a request's inputValues reach the command. */
+export function stringValues(raw: unknown): Record<string, string> {
+  if (!raw || typeof raw !== "object" || Array.isArray(raw)) return {};
+  return Object.fromEntries(
+    Object.entries(raw).filter(
+      (entry): entry is [string, string] => typeof entry[1] === "string",
+    ),
+  );
+}
+
 function paramId(raw: string | string[] | undefined): number {
   const value = Array.isArray(raw) ? raw[0] : raw;
   return value === undefined ? NaN : parseInt(value, 10);
@@ -465,7 +475,7 @@ export function registerSnippetRoutes(
           port: connection.host.port,
           name: connection.host.name as string | undefined,
         },
-        inputValues && typeof inputValues === "object" ? inputValues : {},
+        stringValues(inputValues),
       );
 
       const client = connection.client as import("ssh2").Client;

@@ -17,12 +17,15 @@ afterEach(async () => {
 
 function fakeSshClient(output: string, exitCode: number | null = 0) {
   const client = new EventEmitter() as EventEmitter & {
+    commands: string[];
     exec: (
       command: string,
       cb: (err: Error | null, stream: unknown) => void,
     ) => void;
   };
+  client.commands = [];
   client.exec = (command, cb) => {
+    client.commands.push(command);
     const stream = new EventEmitter() as EventEmitter & {
       stderr: EventEmitter;
     };
@@ -122,6 +125,26 @@ describe("POST /execute", () => {
       });
       expect(result.status).toBe(200);
       expect(result.body.success).toBe(false);
+    } finally {
+      await server.close();
+    }
+  });
+
+  it("fills string input values and leaves other values unresolved", async () => {
+    const client = fakeSshClient("", 0);
+    const server = await startExecuteServer(client);
+    try {
+      const created = await server.request("POST", "/", {
+        name: "Inputs",
+        content: "echo $INPUT_1 $INPUT_2",
+      });
+      const result = await server.request("POST", "/execute", {
+        snippetId: created.body.id,
+        hostId: 42,
+        inputValues: { INPUT_1: "one", INPUT_2: { nested: true } },
+      });
+      expect(result.status).toBe(200);
+      expect(client.commands).toEqual(["echo one $INPUT_2"]);
     } finally {
       await server.close();
     }

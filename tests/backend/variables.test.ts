@@ -76,4 +76,19 @@ describe("resolveSnippetContent", () => {
   it("leaves input placeholders literal when no value was supplied", () => {
     expect(resolveSnippetContent("echo $INPUT_1", null)).toBe("echo $INPUT_1");
   });
+
+  it("leaves longer shell variables like $HOSTNAME alone", () => {
+    expect(
+      resolveSnippetContent("echo $HOSTNAME $USERPROFILE $HOST", host),
+    ).toBe("echo $HOSTNAME $USERPROFILE 10.0.0.5");
+  });
+
+  it("does not re-expand or pattern-expand substituted values", () => {
+    expect(
+      resolveSnippetContent("echo $INPUT_1 $INPUT_2", host, {
+        INPUT_1: "$INPUT_2 $HOST",
+        INPUT_2: "$& $1",
+      }),
+    ).toBe("echo $INPUT_2 $HOST $& $1");
+  });
 });

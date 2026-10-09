@@ -4,6 +4,7 @@
 
 ### Added
 
+- First release
 - Save commands and notes in folders
 - Run them in one or more terminals, or straight on a set of hosts
 - Variables for the host and your own inputs
