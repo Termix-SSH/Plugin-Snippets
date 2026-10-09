@@ -1,5 +1,8 @@
+import fs from "node:fs";
+import path from "node:path";
 import { afterEach, describe, expect, it } from "vitest";
 import { createTestDb, type TestDb } from "@termix-ssh/plugin-sdk/testing";
+import { findUnownedTableWrites } from "@termix-ssh/plugin-sdk/ddl";
 import { pluginDir } from "./helpers";
 
 // snippets / snippet_folders / snippet_access as core's schema.ts declared
@@ -95,7 +98,10 @@ describe("adopting snippets, snippet_folders and snippet_access", () => {
       },
     });
 
-    expect(db.applied).toEqual(["0001_adopt_snippets_tables"]);
+    expect(db.applied).toEqual([
+      "0001_adopt_snippets_tables",
+      "0002_mysql_long_text",
+    ]);
     expect(tableExists("snippets")).toBe(false);
     expect(tableExists("snippet_folders")).toBe(false);
     expect(tableExists("snippet_access")).toBe(false);
@@ -182,5 +188,18 @@ describe("adopting snippets, snippet_folders and snippet_access", () => {
       }[]
     ).map((row) => row.name);
     expect(names).toEqual(["Theirs"]);
+  });
+});
+
+describe("mysql migrations", () => {
+  it("widen snippet content past the 64KB TEXT cap", () => {
+    const sql = fs.readFileSync(
+      path.join(pluginDir, "migrations", "mysql", "0002_mysql_long_text.sql"),
+      "utf8",
+    );
+    expect(sql).toContain(
+      "ALTER TABLE `p_snippets_snippets` MODIFY COLUMN `content` longtext NOT NULL;",
+    );
+    expect(findUnownedTableWrites("snippets", sql)).toEqual([]);
   });
 });
