@@ -571,13 +571,20 @@ export function SnippetsPanel(_props: PanelProps) {
     return (
       <div className="flex flex-col flex-1 min-h-0 overflow-hidden">
         <div className="flex shrink-0 flex-col gap-2 border-b border-border px-3 py-2">
-          <div className="flex items-center gap-2">
-            <PanelSearch
-              value={search}
-              onChange={setSearch}
-              placeholder={t("searchPlaceholder")}
-              fill
-            />
+          <PanelSearch
+            value={search}
+            onChange={setSearch}
+            placeholder={t("searchPlaceholder")}
+            fill
+          />
+          <div className="flex items-center justify-end gap-2">
+            {canCreate && (
+              <AddButton
+                label={t("newSnippet")}
+                onClick={() => setView({ kind: "edit", snippet: null })}
+                className="flex-1"
+              />
+            )}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button
@@ -641,12 +648,6 @@ export function SnippetsPanel(_props: PanelProps) {
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
-            {canCreate && (
-              <AddButton
-                label={t("newSnippet")}
-                onClick={() => setView({ kind: "edit", snippet: null })}
-              />
-            )}
           </div>
 
           <TargetTerminals
