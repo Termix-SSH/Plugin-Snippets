@@ -87,9 +87,11 @@ export function useSnippetRunner(confirmExecution = false) {
       inputValues,
     );
     const run = !snippet.isNote;
-    await invokeAction("terminal.sendToSession", target.sessionId, content, {
-      run,
-    });
+    return (
+      (await invokeAction("terminal.sendToSession", target.sessionId, content, {
+        run,
+      })) === true
+    );
   }
 
   const runSnippet = useCallback(
@@ -101,15 +103,20 @@ export function useSnippetRunner(confirmExecution = false) {
               sendResolvedToTarget(target, snippet, inputValues),
             ),
           )
-            .then(() => {
+            .then((results) => {
+              const sent = results.filter(Boolean).length;
+              if (sent === 0) {
+                toast.error(t("noTerminalTabsOpen"));
+                return;
+              }
               toast.success(
                 t(snippet.isNote ? "pasteSuccess" : "runSuccess", {
                   name: snippet.name,
-                  count: targets.length,
+                  count: sent,
                 }),
               );
             })
-            .catch(() => {});
+            .catch(() => toast.error(t("noTerminalTabsOpen")));
         };
         if (snippet.isNote) doSend();
         else handleConfirmRun(snippet, doSend);
@@ -131,8 +138,9 @@ export function useSnippetRunner(confirmExecution = false) {
     [handleConfirmRun, t],
   );
 
+  // Sends to the given session when it is a live terminal, else the active one.
   const runOnActive = useCallback(
-    (snippet: Snippet, host: SnippetHostContext | null) => {
+    (snippet: Snippet, host: SnippetHostContext | null, sessionId?: string) => {
       const runWithInputs = (inputValues: Record<string, string>) => {
         const doSend = () => {
           const content = resolveSnippetContent(
@@ -140,20 +148,29 @@ export function useSnippetRunner(confirmExecution = false) {
             host,
             inputValues,
           );
-          void invokeAction("terminal.sendToActive", content, {
-            run: !snippet.isNote,
-          }).then((sent) => {
-            if (sent === false) {
-              toast.error(t("noTerminalTabsOpen"));
-              return;
-            }
-            toast.success(
-              t(snippet.isNote ? "pasteSuccess" : "runSuccess", {
-                name: snippet.name,
-                count: 1,
-              }),
-            );
-          });
+          const opts = { run: !snippet.isNote };
+          const sendToTarget = sessionId
+            ? invokeAction("terminal.sendToSession", sessionId, content, opts)
+            : Promise.resolve(false);
+          void sendToTarget
+            .then((sent) =>
+              sent === true
+                ? true
+                : invokeAction("terminal.sendToActive", content, opts),
+            )
+            .catch(() => false)
+            .then((sent) => {
+              if (sent !== true) {
+                toast.error(t("noTerminalTabsOpen"));
+                return;
+              }
+              toast.success(
+                t(snippet.isNote ? "pasteSuccess" : "runSuccess", {
+                  name: snippet.name,
+                  count: 1,
+                }),
+              );
+            });
         };
         if (snippet.isNote) doSend();
         else handleConfirmRun(snippet, doSend);

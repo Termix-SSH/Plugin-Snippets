@@ -6,6 +6,7 @@ describe("readSnippetSettings", () => {
     expect(readSnippetSettings({})).toEqual({
       foldersCollapsed: true,
       showCommands: true,
+      alwaysShowActions: true,
       confirmExecution: false,
     });
   });
@@ -15,11 +16,13 @@ describe("readSnippetSettings", () => {
       readSnippetSettings({
         foldersCollapsed: false,
         showCommands: false,
+        alwaysShowActions: false,
         confirmExecution: true,
       }),
     ).toEqual({
       foldersCollapsed: false,
       showCommands: false,
+      alwaysShowActions: false,
       confirmExecution: true,
     });
   });

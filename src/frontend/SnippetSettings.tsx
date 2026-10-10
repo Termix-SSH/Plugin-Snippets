@@ -53,6 +53,15 @@ export function SnippetSettings({
             onChange={(v) => save({ showCommands: v })}
           />
         </SettingRow>
+        <SettingRow
+          label={t("settings.alwaysShowActions.label")}
+          description={t("settings.alwaysShowActions.description")}
+        >
+          <FakeSwitch
+            checked={current.alwaysShowActions}
+            onChange={(v) => save({ alwaysShowActions: v })}
+          />
+        </SettingRow>
       </SectionCard>
 
       <SectionCard

@@ -33,6 +33,10 @@
       "label": "Show commands",
       "description": "Show the first line of each snippet's command under its name."
     },
+    "alwaysShowActions": {
+      "label": "Always show buttons",
+      "description": "Keep the run, copy and edit buttons under each snippet visible. Turn off to show them only on hover."
+    },
     "confirmExecution": {
       "label": "Confirm before running",
       "description": "Ask before a command snippet runs in a terminal."

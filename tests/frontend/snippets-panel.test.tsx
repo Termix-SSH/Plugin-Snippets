@@ -9,6 +9,7 @@ import type { PluginApiClient } from "@termix-ssh/plugin-sdk/frontend";
 import * as plugin from "../../src/frontend/index";
 import manifestJson from "../../manifest.json";
 import locales from "../../locales/en.json";
+import { toast } from "sonner";
 
 const manifest = manifestJson as unknown as PluginManifest;
 const PERMISSIONS = [
@@ -252,5 +253,66 @@ describe("snippet target terminals", () => {
         ["s2", "ls -la"],
       ]),
     );
+  });
+  it("runs in the panel's target terminal with no terminals picked", async () => {
+    const sent: Array<[string, string]> = [];
+    const sendToActive = vi.fn(() => false);
+    rendered = await renderWithApp(plugin, {
+      manifest,
+      locales,
+      api: fakeApi([snippet({ content: "echo $HOST" })]),
+      permissions: PERMISSIONS,
+      hosts: HOSTS as never,
+    });
+    rendered.app.registerAction("terminal.listSessions", () => [
+      { id: "s1", label: "web-1", hostName: "web-1" },
+    ]);
+    rendered.app.registerAction("terminal.sendToActive", sendToActive as never);
+    rendered.app.registerAction("terminal.sendToSession", ((
+      id: string,
+      text: string,
+    ) => {
+      sent.push([id, text]);
+      return true;
+    }) as never);
+    rendered.renderPanel("snippets", {
+      active: true,
+      targetTab: { id: "s1", type: "terminal", label: "web-1", host: HOSTS[0] },
+    } as never);
+
+    fireEvent.click((await screen.findAllByTitle(locales.run))[0]);
+    await waitFor(() => expect(sent).toEqual([["s1", "echo 10.0.0.5"]]));
+    expect(sendToActive).not.toHaveBeenCalled();
+  });
+
+  it("shows an error when no terminal takes the snippet", async () => {
+    rendered = await renderWithApp(plugin, {
+      manifest,
+      locales,
+      api: fakeApi([snippet({})]),
+      permissions: PERMISSIONS,
+      hosts: HOSTS as never,
+    });
+    rendered.app.registerAction("terminal.listSessions", () => []);
+    rendered.app.registerAction(
+      "terminal.sendToActive",
+      (() => false) as never,
+    );
+    rendered.renderPanel("snippets", { active: true });
+
+    const error = vi.spyOn(toast, "error");
+    fireEvent.click((await screen.findAllByTitle(locales.run))[0]);
+    await waitFor(() =>
+      expect(error).toHaveBeenCalledWith(locales.noTerminalTabsOpen),
+    );
+    error.mockRestore();
+  });
+});
+
+describe("snippet action buttons", () => {
+  it("are always shown by default", async () => {
+    await renderPanel(fakeApi([snippet({})]));
+    const run = (await screen.findAllByTitle(locales.run))[0];
+    expect(run.closest(".hidden")).toBeNull();
   });
 });

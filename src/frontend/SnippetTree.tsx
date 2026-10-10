@@ -40,6 +40,7 @@ export function SnippetRow({
   snippet,
   stripe,
   showCommand,
+  alwaysShowActions,
   folderNames,
   targetHostNames,
   canEdit,
@@ -63,6 +64,8 @@ export function SnippetRow({
   snippet: Snippet;
   stripe: number;
   showCommand: boolean;
+  /** Keep the button tray open instead of showing it on hover. */
+  alwaysShowActions: boolean;
   folderNames: string[];
   /** Hosts a command snippet runs on directly, instead of the active terminal. */
   targetHostNames: string[];
@@ -107,6 +110,97 @@ export function SnippetRow({
     onCopy();
     setCopied(true);
   };
+
+  const actions = (
+    <>
+      <ListRowAction label={runLabel} tone="brand" onClick={onRun}>
+        <RunIcon />
+      </ListRowAction>
+      <ListRowAction
+        label={t("copyToClipboard")}
+        onClick={copy}
+        className={copied ? "text-accent-brand" : undefined}
+      >
+        {copied ? <Check /> : <Copy />}
+      </ListRowAction>
+      {editable && (
+        <ListRowAction label={t("editSnippetTitle")} onClick={onEdit}>
+          <Pencil />
+        </ListRowAction>
+      )}
+      {shareable && (
+        <ListRowAction label={t("shareSnippet")} onClick={onShare}>
+          <Share2 />
+        </ListRowAction>
+      )}
+      <DropdownMenu open={menuOpen} onOpenChange={setMenuOpen}>
+        <DropdownMenuTrigger asChild>
+          <ListRowAction label={t("moreOptions")}>
+            <MoreHorizontal />
+          </ListRowAction>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end" className="min-w-44 text-xs">
+          <DropdownMenuItem onClick={onRun}>
+            <RunIcon className="mr-2 size-3.5" />
+            {runLabel}
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={copy}>
+            <Copy className="mr-2 size-3.5" />
+            {t("copyToClipboard")}
+          </DropdownMenuItem>
+          {editable && (
+            <DropdownMenuItem onClick={onEdit}>
+              <Pencil className="mr-2 size-3.5" />
+              {t("editSnippetTitle")}
+            </DropdownMenuItem>
+          )}
+          {shareable && (
+            <DropdownMenuItem onClick={onShare}>
+              <Share2 className="mr-2 size-3.5" />
+              {t("shareSnippet")}
+            </DropdownMenuItem>
+          )}
+          {editable && (
+            <DropdownMenuSub>
+              <DropdownMenuSubTrigger>
+                <FolderInput className="mr-2 size-3.5" />
+                {t("moveToFolder")}
+              </DropdownMenuSubTrigger>
+              <DropdownMenuSubContent className="max-w-72 text-xs">
+                <DropdownMenuItem
+                  disabled={!snippet.folder}
+                  onClick={() => onMove(null)}
+                >
+                  {t("noFolder")}
+                </DropdownMenuItem>
+                {folderNames.map((name) => (
+                  <DropdownMenuItem
+                    key={name}
+                    disabled={snippet.folder === name}
+                    onClick={() => onMove(name)}
+                  >
+                    <span className="truncate">{name}</span>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuSubContent>
+            </DropdownMenuSub>
+          )}
+          {deletable && (
+            <>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem
+                onClick={onDelete}
+                className="text-destructive focus:text-destructive"
+              >
+                <Trash2 className="mr-2 size-3.5" />
+                {t("deleteSnippet")}
+              </DropdownMenuItem>
+            </>
+          )}
+        </DropdownMenuContent>
+      </DropdownMenu>
+    </>
+  );
 
   return (
     <ListRow
@@ -169,96 +263,7 @@ export function SnippetRow({
         </>
       }
       meta={snippet.description || undefined}
-      actions={
-        <>
-          <ListRowAction label={runLabel} tone="brand" onClick={onRun}>
-            <RunIcon />
-          </ListRowAction>
-          <ListRowAction
-            label={t("copyToClipboard")}
-            onClick={copy}
-            className={copied ? "text-accent-brand" : undefined}
-          >
-            {copied ? <Check /> : <Copy />}
-          </ListRowAction>
-          {editable && (
-            <ListRowAction label={t("editSnippetTitle")} onClick={onEdit}>
-              <Pencil />
-            </ListRowAction>
-          )}
-          {shareable && (
-            <ListRowAction label={t("shareSnippet")} onClick={onShare}>
-              <Share2 />
-            </ListRowAction>
-          )}
-          <DropdownMenu open={menuOpen} onOpenChange={setMenuOpen}>
-            <DropdownMenuTrigger asChild>
-              <ListRowAction label={t("moreOptions")}>
-                <MoreHorizontal />
-              </ListRowAction>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="min-w-44 text-xs">
-              <DropdownMenuItem onClick={onRun}>
-                <RunIcon className="mr-2 size-3.5" />
-                {runLabel}
-              </DropdownMenuItem>
-              <DropdownMenuItem onClick={copy}>
-                <Copy className="mr-2 size-3.5" />
-                {t("copyToClipboard")}
-              </DropdownMenuItem>
-              {editable && (
-                <DropdownMenuItem onClick={onEdit}>
-                  <Pencil className="mr-2 size-3.5" />
-                  {t("editSnippetTitle")}
-                </DropdownMenuItem>
-              )}
-              {shareable && (
-                <DropdownMenuItem onClick={onShare}>
-                  <Share2 className="mr-2 size-3.5" />
-                  {t("shareSnippet")}
-                </DropdownMenuItem>
-              )}
-              {editable && (
-                <DropdownMenuSub>
-                  <DropdownMenuSubTrigger>
-                    <FolderInput className="mr-2 size-3.5" />
-                    {t("moveToFolder")}
-                  </DropdownMenuSubTrigger>
-                  <DropdownMenuSubContent className="max-w-72 text-xs">
-                    <DropdownMenuItem
-                      disabled={!snippet.folder}
-                      onClick={() => onMove(null)}
-                    >
-                      {t("noFolder")}
-                    </DropdownMenuItem>
-                    {folderNames.map((name) => (
-                      <DropdownMenuItem
-                        key={name}
-                        disabled={snippet.folder === name}
-                        onClick={() => onMove(name)}
-                      >
-                        <span className="truncate">{name}</span>
-                      </DropdownMenuItem>
-                    ))}
-                  </DropdownMenuSubContent>
-                </DropdownMenuSub>
-              )}
-              {deletable && (
-                <>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem
-                    onClick={onDelete}
-                    className="text-destructive focus:text-destructive"
-                  >
-                    <Trash2 className="mr-2 size-3.5" />
-                    {t("deleteSnippet")}
-                  </DropdownMenuItem>
-                </>
-              )}
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </>
-      }
+      actions={alwaysShowActions ? undefined : actions}
     >
       {showCommand && (
         <span className="truncate font-mono text-[11px] leading-tight text-muted-foreground/60">
@@ -281,6 +286,15 @@ export function SnippetRow({
               +{targetHostNames.length - 3}
             </span>
           )}
+        </div>
+      )}
+      {alwaysShowActions && (
+        <div
+          onClick={(e) => e.stopPropagation()}
+          onDoubleClick={(e) => e.stopPropagation()}
+          className="flex flex-wrap items-center gap-[1.75px] border-t border-border/30 pt-[3.5px]"
+        >
+          {actions}
         </div>
       )}
     </ListRow>

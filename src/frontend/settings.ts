@@ -1,6 +1,7 @@
 export interface SnippetDisplaySettings {
   foldersCollapsed: boolean;
   showCommands: boolean;
+  alwaysShowActions: boolean;
   confirmExecution: boolean;
 }
 
@@ -10,6 +11,7 @@ export function readSnippetSettings(
   return {
     foldersCollapsed: values.foldersCollapsed !== false,
     showCommands: values.showCommands !== false,
+    alwaysShowActions: values.alwaysShowActions !== false,
     confirmExecution: values.confirmExecution === true,
   };
 }
