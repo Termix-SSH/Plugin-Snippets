@@ -141,6 +141,17 @@ describe("snippets panel", () => {
     expect(await screen.findByPlaceholderText(/search snippets/i)).toBeTruthy();
   });
 
+  it("offers folders that only exist on snippets in the editor", async () => {
+    const api = fakeApi([snippet({ folder: "deploy" })]);
+    await renderPanel(api);
+    await screen.findByText("deploy");
+    fireEvent.click(screen.getByTitle(locales.newSnippet));
+    fireEvent.click(screen.getByRole("button", { name: locales.noFolder }));
+    expect(
+      (await screen.findAllByRole("option", { name: "deploy" })).length,
+    ).toBeGreaterThan(0);
+  });
+
   it("opens the settings page and goes back", async () => {
     await renderPanel(fakeApi([]));
     await screen.findByText(locales.emptyTitle);

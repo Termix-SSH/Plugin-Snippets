@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.1
+
+### Fixed
+
+- Folders that only exist on snippets now show in the folder picker when creating or editing a snippet
+
 ## 1.0.0
 
 ### Added

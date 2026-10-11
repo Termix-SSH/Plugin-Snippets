@@ -519,7 +519,7 @@ export function SnippetsPanel({ targetTab }: PanelProps) {
         <SnippetEditor
           snippet={view.snippet}
           defaultFolder={view.folder}
-          folders={folders}
+          folderNames={folderNames}
           onBack={() => setView({ kind: "list" })}
           onSave={handleSaveSnippet}
         />

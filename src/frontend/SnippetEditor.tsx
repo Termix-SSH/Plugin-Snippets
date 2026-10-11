@@ -11,7 +11,7 @@ import {
   Select2,
   Textarea,
 } from "@termix-ssh/plugin-sdk/ui";
-import { parseHostFilter, type Snippet, type SnippetFolder } from "./types";
+import { parseHostFilter, type Snippet } from "./types";
 
 export interface SnippetFormValues {
   name: string;
@@ -28,14 +28,15 @@ const labelClass =
 export function SnippetEditor({
   snippet,
   defaultFolder,
-  folders,
+  folderNames: knownFolders,
   onBack,
   onSave,
 }: {
   /** The snippet being edited, or null to create one. */
   snippet: Snippet | null;
   defaultFolder?: string;
-  folders: SnippetFolder[];
+  /** Every folder name, including ones only set on snippets. */
+  folderNames: string[];
   onBack: () => void;
   onSave: (values: SnippetFormValues) => Promise<boolean>;
 }) {
@@ -62,10 +63,7 @@ export function SnippetEditor({
   const canSave = !!values.name.trim() && !!values.content.trim() && !saving;
   // A snippet can point at a folder that has no metadata row yet.
   const folderNames = Array.from(
-    new Set([
-      ...folders.map((f) => f.name),
-      ...(values.folder ? [values.folder] : []),
-    ]),
+    new Set([...knownFolders, ...(values.folder ? [values.folder] : [])]),
   ).sort((a, b) => a.localeCompare(b));
 
   const hostQuery = hostSearch.trim().toLowerCase();
