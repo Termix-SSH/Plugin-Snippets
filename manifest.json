@@ -47,11 +47,7 @@
     }
   ],
   "locales": "locales",
-  "platforms": [
-    "linux",
-    "win32",
-    "darwin"
-  ],
+  "platforms": ["linux", "win32", "darwin"],
   "contributes": {
     "panels": [
       {
@@ -65,41 +61,31 @@
         "name": "view",
         "titleKey": "permissions.view.title",
         "descriptionKey": "permissions.view.description",
-        "defaultRoles": [
-          "user"
-        ]
+        "defaultRoles": ["user"]
       },
       {
         "name": "create",
         "titleKey": "permissions.create.title",
         "descriptionKey": "permissions.create.description",
-        "defaultRoles": [
-          "user"
-        ]
+        "defaultRoles": ["user"]
       },
       {
         "name": "edit",
         "titleKey": "permissions.edit.title",
         "descriptionKey": "permissions.edit.description",
-        "defaultRoles": [
-          "user"
-        ]
+        "defaultRoles": ["user"]
       },
       {
         "name": "delete",
         "titleKey": "permissions.delete.title",
         "descriptionKey": "permissions.delete.description",
-        "defaultRoles": [
-          "user"
-        ]
+        "defaultRoles": ["user"]
       },
       {
         "name": "share",
         "titleKey": "permissions.share.title",
         "descriptionKey": "permissions.share.description",
-        "defaultRoles": [
-          "user"
-        ]
+        "defaultRoles": ["user"]
       }
     ],
     "settings": {
@@ -145,10 +131,7 @@
             "hidden": true,
             "min": 1,
             "shareRead": "view",
-            "defaultLevels": [
-              "user",
-              "folder"
-            ]
+            "defaultLevels": ["user", "folder"]
           },
           {
             "key": "quickActions",
@@ -158,18 +141,12 @@
             "hidden": true,
             "default": [],
             "shareRead": "view",
-            "defaultLevels": [
-              "user",
-              "folder"
-            ]
+            "defaultLevels": ["user", "folder"]
           }
         ]
       }
     },
-    "syncEntities": [
-      "snippetFolders",
-      "snippets"
-    ],
+    "syncEntities": ["snippetFolders", "snippets"],
     "keybindingActions": [
       {
         "id": "runSnippet",
