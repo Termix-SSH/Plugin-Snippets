@@ -26,10 +26,10 @@ When a snippet has inputs, Termix asks for them and shows a preview before runni
 
 ## Run one
 
-- **In a terminal.** Click the snippet to send it to the terminal you are in. With several terminals selected, it goes to all of them.
-- **On hosts.** Set Target hosts on the snippet and use Run on target hosts. It runs over SSH on each one, without a terminal, and shows each result.
-- **From a key.** Bind a snippet to a key in Settings, Keybindings.
-- **From the command palette.** Search for it by name.
+- In a terminal: Click the snippet to send it to the terminal you are in. With several terminals selected, it goes to all of them.
+- On hosts: Set Target hosts on the snippet and use Run on target hosts. It runs over SSH on each one, without a terminal, and shows each result.
+- From a key: Bind a snippet to a key in Settings, Keybindings.
+- From the command palette: Search for it by name.
 
 Turn on Confirm before running in your settings to be asked first.
 
