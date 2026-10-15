@@ -6,6 +6,12 @@
 
 <p>Save the commands you run often and run them in a terminal or on many hosts in one click</p>
 
+<!-- VIDEO:START -->
+
+<a href="https://www.youtube.com/watch?v=g2TJdWLKhJI"><img src="https://img.shields.io/badge/Watch_the_demo-f59145?style=for-the-badge&logo=youtube&logoColor=white" alt="Watch the demo on YouTube" /></a>
+
+<!-- VIDEO:END -->
+
 </div>
 
 <br />
