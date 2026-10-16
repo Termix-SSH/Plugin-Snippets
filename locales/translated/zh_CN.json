@@ -229,7 +229,8 @@
   "selectAll": "全部",
   "selectNone": "无",
   "plugin": {
-    "name": "代码片段"
+    "name": "代码片段",
+    "description": "保存常用命令，一键在终端或多台主机上运行。"
   },
   "revokeConfirm": "移除 {{name}} 的访问权限？"
 }
