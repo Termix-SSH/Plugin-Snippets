@@ -265,6 +265,50 @@ describe("POST /execute", () => {
     expect(JSON.stringify(result.body)).not.toContain("hunter2");
   });
 
+  it("answers 504 with the output so far when the command runs too long", async () => {
+    const client = new EventEmitter() as EventEmitter & {
+      exec: (
+        command: string,
+        cb: (err: Error | null, stream: unknown) => void,
+      ) => void;
+    };
+    let closed = false;
+    client.exec = (_command, cb) => {
+      const stream = new EventEmitter() as EventEmitter & {
+        stderr: EventEmitter;
+        close: () => void;
+      };
+      stream.stderr = new EventEmitter();
+      stream.close = () => {
+        closed = true;
+      };
+      cb(null, stream);
+      setImmediate(() => stream.emit("data", Buffer.from("halfway")));
+    };
+    process.env.SNIPPET_EXECUTION_TIMEOUT_SECONDS = "0.05";
+    const server = await startExecuteServer(client);
+    try {
+      const created = await server.request("POST", "/", {
+        name: "Slow",
+        content: "sleep 60",
+      });
+      const result = await server.request("POST", "/execute", {
+        snippetId: created.body.id,
+        hostId: 42,
+      });
+      expect(result.status).toBe(504);
+      expect(result.body).toMatchObject({
+        code: "COMMAND_TIMEOUT",
+        error: "Command timed out after 0.05s",
+        output: "halfway",
+      });
+      expect(closed).toBe(true);
+    } finally {
+      delete process.env.SNIPPET_EXECUTION_TIMEOUT_SECONDS;
+      await server.close();
+    }
+  });
+
   it("keeps 500 for errors that are not connection failures", async () => {
     const result = await executeWithConnectError(new Error("database is gone"));
     expect(result.status).toBe(500);

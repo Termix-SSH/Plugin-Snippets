@@ -72,3 +72,15 @@ export function classifySshError(
   }
   return null;
 }
+
+/** A command that connected but ran past the execution timeout. */
+export class CommandTimeoutError extends Error {
+  constructor(
+    timeoutMs: number,
+    readonly output: string,
+    readonly errorOutput: string,
+  ) {
+    super(`Command timed out after ${timeoutMs / 1000}s`);
+    this.name = "CommandTimeoutError";
+  }
+}

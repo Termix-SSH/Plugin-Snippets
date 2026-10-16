@@ -5,6 +5,7 @@
 ### Fixed
 
 - Running a snippet on a host now says why the connection failed instead of a generic error: failed authentication, an unreachable host, a timeout or a rejected host key each get their own status and message
+- A snippet that runs past the execution timeout answers with a timeout status and the output it printed so far, instead of a generic error
 
 ## 1.0.1
 

@@ -7,7 +7,7 @@ import {
   getSnippetExecutionTimeoutMs,
   resolveSnippetCommand,
 } from "./execution.js";
-import { classifySshError } from "./ssh-errors.js";
+import { classifySshError, CommandTimeoutError } from "./ssh-errors.js";
 
 function isNonEmptyString(value: unknown): value is string {
   return typeof value === "string" && value.trim().length > 0;
@@ -455,7 +455,11 @@ export function registerSnippetRoutes(
    *           connection refused or reset, host or network unreachable, or
    *           the hostname could not be resolved.
    *       504:
-   *         description: Timed out connecting to the host (code SSH_TIMEOUT).
+   *         description: >
+   *           Timed out connecting to the host (code SSH_TIMEOUT), or the
+   *           command ran past SNIPPET_EXECUTION_TIMEOUT_SECONDS (code
+   *           COMMAND_TIMEOUT, with the output printed so far in output and
+   *           errorOutput).
    *       500:
    *         description: Internal error.
    */
@@ -520,9 +524,7 @@ export function registerSnippetRoutes(
           if (timeoutMs) {
             timeout = setTimeout(() => {
               stream.close();
-              reject(
-                new Error(`Command execution timeout (${timeoutMs / 1000}s)`),
-              );
+              reject(new CommandTimeoutError(timeoutMs, output, errorOutput));
             }, timeoutMs);
           }
 
@@ -543,6 +545,16 @@ export function registerSnippetRoutes(
 
       res.json(result);
     } catch (err) {
+      // The command ran but outlived the limit: not an internal error, and
+      // what it printed so far is still worth returning.
+      if (err instanceof CommandTimeoutError) {
+        return res.status(504).json({
+          error: err.message,
+          code: "COMMAND_TIMEOUT",
+          output: err.output,
+          errorOutput: err.errorOutput,
+        });
+      }
       const host = await ctx.ssh
         .resolveHost(parseInt(hostId, 10))
         .catch(() => null);
