@@ -7,6 +7,7 @@ import {
   getSnippetExecutionTimeoutMs,
   resolveSnippetCommand,
 } from "./execution.js";
+import { classifySshError } from "./ssh-errors.js";
 
 function isNonEmptyString(value: unknown): value is string {
   return typeof value === "string" && value.trim().length > 0;
@@ -432,11 +433,31 @@ export function registerSnippetRoutes(
    *                   type: string
    *     responses:
    *       200:
-   *         description: Snippet executed.
+   *         description: >
+   *           Snippet ran. A nonzero exit is not an error here: success is
+   *           false and output/error carry what the command printed.
    *       400:
    *         description: Snippet ID and host ID are required, or the snippet is a note.
    *       404:
    *         description: Snippet or host not found.
+   *       409:
+   *         description: >
+   *           The host key was rejected (code SSH_HOST_KEY_REJECTED), usually
+   *           because it changed. Open a Terminal connection to the host to
+   *           verify and accept the new key.
+   *       422:
+   *         description: >
+   *           Authentication to the host failed (code SSH_AUTH_FAILED), e.g.
+   *           "Authentication failed for root@10.0.0.5".
+   *       502:
+   *         description: >
+   *           The host could not be reached (code SSH_HOST_UNREACHABLE):
+   *           connection refused or reset, host or network unreachable, or
+   *           the hostname could not be resolved.
+   *       504:
+   *         description: Timed out connecting to the host (code SSH_TIMEOUT).
+   *       500:
+   *         description: Internal error.
    */
   router.post("/execute", async (req: Request, res: Response) => {
     const userId = actor(ctx);
@@ -522,6 +543,17 @@ export function registerSnippetRoutes(
 
       res.json(result);
     } catch (err) {
+      const host = await ctx.ssh
+        .resolveHost(parseInt(hostId, 10))
+        .catch(() => null);
+      const target = host ? `${host.username}@${host.ip}` : `host ${hostId}`;
+      const failure = classifySshError(err, target);
+      if (failure) {
+        ctx.log.warn(`Snippet execution failed: ${failure.error}`);
+        return res
+          .status(failure.status)
+          .json({ error: failure.error, code: failure.code });
+      }
       logError(ctx, "Failed to execute snippet", err, "snippet_execute_failed");
       res.status(500).json({ error: "Failed to execute snippet" });
     } finally {

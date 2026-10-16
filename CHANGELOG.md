@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.2
+
+### Fixed
+
+- Running a snippet on a host now says why the connection failed instead of a generic error: failed authentication, an unreachable host, a timeout or a rejected host key each get their own status and message
+
 ## 1.0.1
 
 ### Fixed

@@ -39,7 +39,7 @@ function fakeSshClient(output: string, exitCode: number | null = 0) {
   return client;
 }
 
-async function startExecuteServer(sshClient: unknown) {
+async function startExecuteServer(sshClient: unknown, connectError?: unknown) {
   db = await createTestDb(pluginDir);
   db.sqlite
     .prepare("INSERT INTO users (id, username) VALUES ('user-1', 'user-1')")
@@ -53,8 +53,15 @@ async function startExecuteServer(sshClient: unknown) {
     db: db.database,
     router: () => (router = express.Router()),
     sshClient,
+    sshHosts: [{ id: 42, ip: "10.0.0.5", port: 22, username: "root" }],
     permissions: ["snippets.view", "snippets.create"],
   });
+
+  if (connectError !== undefined) {
+    mock.ctx.ssh.connect = async () => {
+      throw connectError;
+    };
+  }
 
   const { activate } = await import("../../src/backend/index.js");
   await activate(mock.ctx);
@@ -148,5 +155,119 @@ describe("POST /execute", () => {
     } finally {
       await server.close();
     }
+  });
+
+  function sshError(message: string, fields: Record<string, unknown>) {
+    return Object.assign(new Error(message), fields);
+  }
+
+  async function executeWithConnectError(error: unknown) {
+    const server = await startExecuteServer(fakeSshClient(""), error);
+    try {
+      const created = await server.request("POST", "/", {
+        name: "Uptime",
+        content: "uptime",
+      });
+      return await server.request("POST", "/execute", {
+        snippetId: created.body.id,
+        hostId: 42,
+      });
+    } finally {
+      await server.close();
+    }
+  }
+
+  it.each([
+    [
+      "authentication failure",
+      sshError("All configured authentication methods failed", {
+        level: "client-authentication",
+      }),
+      422,
+      "SSH_AUTH_FAILED",
+      "Authentication failed for root@10.0.0.5",
+    ],
+    [
+      "missing credentials",
+      sshError("Password authentication requested but no password provided", {
+        name: "SshConnectError",
+        code: "missing-secret",
+      }),
+      422,
+      "SSH_AUTH_FAILED",
+      "Cannot authenticate to root@10.0.0.5: its stored credentials are missing or unusable",
+    ],
+    [
+      "connection refused",
+      sshError("connect ECONNREFUSED 10.0.0.5:22", {
+        code: "ECONNREFUSED",
+        level: "client-socket",
+      }),
+      502,
+      "SSH_HOST_UNREACHABLE",
+      "Cannot reach root@10.0.0.5: connection refused",
+    ],
+    [
+      "host unreachable",
+      sshError("connect EHOSTUNREACH 10.0.0.5:22", {
+        code: "EHOSTUNREACH",
+        level: "client-socket",
+      }),
+      502,
+      "SSH_HOST_UNREACHABLE",
+      "Cannot reach root@10.0.0.5: host unreachable",
+    ],
+    [
+      "socket timeout",
+      sshError("connect ETIMEDOUT 10.0.0.5:22", {
+        code: "ETIMEDOUT",
+        level: "client-socket",
+      }),
+      504,
+      "SSH_TIMEOUT",
+      "Timed out connecting to root@10.0.0.5",
+    ],
+    [
+      "connect pipeline timeout",
+      new Error("SSH connection timeout"),
+      504,
+      "SSH_TIMEOUT",
+      "Timed out connecting to root@10.0.0.5",
+    ],
+    [
+      "host key rejected",
+      sshError("Host denied (verification failed)", { level: "handshake" }),
+      409,
+      "SSH_HOST_KEY_REJECTED",
+      "Host key for root@10.0.0.5 was rejected. If it changed, open a Terminal connection to the host to verify and accept the new key.",
+    ],
+    [
+      "unknown host",
+      sshError("Host not found or access denied", {
+        name: "SshHostNotFoundError",
+      }),
+      404,
+      "HOST_NOT_FOUND",
+      "Host not found",
+    ],
+  ])("reports %s", async (_label, error, status, code, message) => {
+    const result = await executeWithConnectError(error);
+    expect(result.status).toBe(status);
+    expect(result.body).toEqual({ error: message, code });
+  });
+
+  it("never echoes the underlying error text", async () => {
+    const result = await executeWithConnectError(
+      sshError("All configured authentication methods failed: hunter2", {
+        level: "client-authentication",
+      }),
+    );
+    expect(JSON.stringify(result.body)).not.toContain("hunter2");
+  });
+
+  it("keeps 500 for errors that are not connection failures", async () => {
+    const result = await executeWithConnectError(new Error("database is gone"));
+    expect(result.status).toBe(500);
+    expect(result.body).toEqual({ error: "Failed to execute snippet" });
   });
 });
