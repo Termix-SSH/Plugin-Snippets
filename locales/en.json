@@ -234,7 +234,8 @@
   "selectAll": "All",
   "selectNone": "None",
   "plugin": {
-    "name": "Snippets"
+    "name": "Snippets",
+    "description": "Save the commands you run often and run them in a terminal or on many hosts in one click."
   },
   "revokeConfirm": "Remove access for {{name}}?"
 }

@@ -229,7 +229,8 @@
   "selectAll": "全部",
   "selectNone": "無",
   "plugin": {
-    "name": "程式碼片段"
+    "name": "程式碼片段",
+    "description": "儲存常用指令，一鍵在終端機或多台主機上執行。"
   },
   "revokeConfirm": "要移除 {{name}} 的存取權限嗎？"
 }
