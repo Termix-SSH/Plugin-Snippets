@@ -2,6 +2,10 @@
 
 ## 1.0.2
 
+### Added
+
+- Other plugins can read each snippet's command, so Fleets can run a snippet on a whole fleet
+
 ### Changed
 
 - The plugin name and description show in your language

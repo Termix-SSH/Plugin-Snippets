@@ -233,3 +233,19 @@ describe("snippets panel", () => {
     expect(panel.textContent).toBe("");
   });
 });
+
+describe("the snippet list for other plugins", () => {
+  it("gives each snippet's command and marks notes", async () => {
+    const note = { ...deploy, id: 4, name: "Readme", isNote: true };
+    const api = { get: vi.fn(async () => ({ data: [deploy, note] })) };
+    rendered = await renderWithApp(plugin, {
+      manifest,
+      locales,
+      api: api as never,
+    });
+    expect(await rendered.app.invokeAction("snippets.list")).toEqual([
+      { id: 3, name: "Deploy", content: "deploy $HOST", isNote: false },
+      { id: 4, name: "Readme", content: "deploy $HOST", isNote: true },
+    ]);
+  });
+});
