@@ -1,7 +1,7 @@
 {
   "id": "snippets",
   "name": "Snippets",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Save the commands you run often and run them in a terminal or on many hosts in one click.",
   "author": {
     "name": "Termix"
