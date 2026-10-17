@@ -1,10 +1,14 @@
 import type { Request, Response, Router } from "express";
 import type { PluginContext } from "@termix-ssh/plugin-sdk/backend";
+import type { ClientChannel } from "ssh2";
 import type { SnippetRepository } from "./repository.js";
 import { extractSnippetReorderUpdates } from "./reorder.js";
 import {
   createSnippetExecutionResult,
+  endsWithSudoPrompt,
   getSnippetExecutionTimeoutMs,
+  MAX_SUDO_ANSWERS,
+  usesSudo,
   resolveSnippetCommand,
 } from "./execution.js";
 import { classifySshError, CommandTimeoutError } from "./ssh-errors.js";
@@ -463,6 +467,13 @@ export function registerSnippetRoutes(
    *       500:
    *         description: Internal error.
    */
+  /** The sudo password a host's terminal would fill, or its SSH password. */
+  async function hostSudoPassword(hostId: number): Promise<string | undefined> {
+    const host = await ctx.ssh.resolveHost(hostId).catch(() => null);
+    const value = host?.sudoPassword || host?.password;
+    return typeof value === "string" && value ? value : undefined;
+  }
+
   router.post("/execute", async (req: Request, res: Response) => {
     const userId = actor(ctx);
     const { snippetId, hostId, inputValues } = req.body ?? {};
@@ -507,6 +518,16 @@ export function registerSnippetRoutes(
       let output = "";
       let errorOutput = "";
 
+      // Opt in: answer sudo's prompt with the host's sudo password, as the
+      // terminal does. sudo only prompts on a pty.
+      const sudoPassword =
+        usesSudo(resolvedCommand) &&
+        (await ctx.settings.getUser<boolean>(userId, "fillSudoPassword")) ===
+          true
+          ? await hostSudoPassword(parseInt(hostId, 10))
+          : undefined;
+      let sudoAnswers = 0;
+
       const result = await new Promise<
         ReturnType<typeof createSnippetExecutionResult>
       >((resolve, reject) => {
@@ -518,7 +539,7 @@ export function registerSnippetRoutes(
           reject(err);
         });
 
-        client.exec(resolvedCommand, (err, stream) => {
+        const onExec = (err: Error | undefined, stream: ClientChannel) => {
           if (err) return reject(err);
 
           if (timeoutMs) {
@@ -536,11 +557,22 @@ export function registerSnippetRoutes(
           });
           stream.on("data", (data: Buffer) => {
             output += data.toString();
+            if (
+              sudoPassword &&
+              sudoAnswers < MAX_SUDO_ANSWERS &&
+              endsWithSudoPrompt(output)
+            ) {
+              sudoAnswers++;
+              stream.write(`${sudoPassword}\n`);
+            }
           });
           stream.stderr.on("data", (data: Buffer) => {
             errorOutput += data.toString();
           });
-        });
+        };
+
+        if (sudoPassword) client.exec(resolvedCommand, { pty: true }, onExec);
+        else client.exec(resolvedCommand, onExec);
       });
 
       res.json(result);

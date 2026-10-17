@@ -77,6 +77,15 @@ export function SnippetSettings({
             onChange={(v) => save({ confirmExecution: v })}
           />
         </SettingRow>
+        <SettingRow
+          label={t("settings.fillSudoPassword.label")}
+          description={t("settings.fillSudoPassword.description")}
+        >
+          <FakeSwitch
+            checked={current.fillSudoPassword}
+            onChange={(v) => save({ fillSudoPassword: v })}
+          />
+        </SettingRow>
       </SectionCard>
     </InlineView>
   );

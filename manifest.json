@@ -35,6 +35,7 @@
     "network:serve",
     "ssh:connect",
     "credentials:use",
+    "credentials:read",
     "hosts:write",
     "ui:surface",
     "events:core",
@@ -117,6 +118,13 @@
           "type": "boolean",
           "labelKey": "settings.confirmExecution.label",
           "descriptionKey": "settings.confirmExecution.description",
+          "default": false
+        },
+        {
+          "key": "fillSudoPassword",
+          "type": "boolean",
+          "labelKey": "settings.fillSudoPassword.label",
+          "descriptionKey": "settings.fillSudoPassword.description",
           "default": false
         }
       ],

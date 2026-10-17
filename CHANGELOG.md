@@ -5,10 +5,12 @@
 ### Added
 
 - Other plugins can read each snippet's command, so Fleets can run a snippet on a whole fleet
+- Fill sudo password setting: snippets run on hosts without a terminal answer sudo's prompt with the host's sudo password
 
 ### Changed
 
 - The plugin name and description show in your language
+- Snippets now asks for permission to read host credentials, for the sudo password
 
 ### Fixed
 

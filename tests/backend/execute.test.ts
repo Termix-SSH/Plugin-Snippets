@@ -39,7 +39,11 @@ function fakeSshClient(output: string, exitCode: number | null = 0) {
   return client;
 }
 
-async function startExecuteServer(sshClient: unknown, connectError?: unknown) {
+async function startExecuteServer(
+  sshClient: unknown,
+  connectError?: unknown,
+  extra: { host?: Record<string, unknown>; fillSudoPassword?: boolean } = {},
+) {
   db = await createTestDb(pluginDir);
   db.sqlite
     .prepare("INSERT INTO users (id, username) VALUES ('user-1', 'user-1')")
@@ -53,9 +57,15 @@ async function startExecuteServer(sshClient: unknown, connectError?: unknown) {
     db: db.database,
     router: () => (router = express.Router()),
     sshClient,
-    sshHosts: [{ id: 42, ip: "10.0.0.5", port: 22, username: "root" }],
+    sshHosts: [
+      { id: 42, ip: "10.0.0.5", port: 22, username: "root", ...extra.host },
+    ],
     permissions: ["snippets.view", "snippets.create"],
   });
+
+  if (extra.fillSudoPassword) {
+    mock.settings.set("user:user-1:fillSudoPassword", true);
+  }
 
   if (connectError !== undefined) {
     mock.ctx.ssh.connect = async () => {
@@ -313,5 +323,94 @@ describe("POST /execute", () => {
     const result = await executeWithConnectError(new Error("database is gone"));
     expect(result.status).toBe(500);
     expect(result.body).toEqual({ error: "Failed to execute snippet" });
+  });
+});
+
+describe("sudo password fill", () => {
+  function sudoClient() {
+    const client = new EventEmitter() as EventEmitter & {
+      calls: Array<{ command: string; options?: { pty?: boolean } }>;
+      written: string[];
+      exec: (
+        command: string,
+        options: unknown,
+        cb?: (err: Error | null, stream: unknown) => void,
+      ) => void;
+    };
+    client.calls = [];
+    client.written = [];
+    client.exec = (command, options, cb) => {
+      const callback = (cb ?? options) as (
+        err: Error | null,
+        stream: unknown,
+      ) => void;
+      client.calls.push({
+        command,
+        options: cb ? (options as { pty?: boolean }) : undefined,
+      });
+      const stream = new EventEmitter() as EventEmitter & {
+        stderr: EventEmitter;
+        write: (data: string) => void;
+      };
+      stream.stderr = new EventEmitter();
+      stream.write = (data) => {
+        client.written.push(data);
+        setImmediate(() => {
+          stream.emit("data", Buffer.from("\nupdated\n"));
+          stream.emit("close", 0);
+        });
+      };
+      callback(null, stream);
+      setImmediate(() => {
+        // Without a pty sudo cannot prompt at all.
+        if (!cb) {
+          stream.stderr.emit(
+            "data",
+            Buffer.from("sudo: a terminal is required to read the password"),
+          );
+          stream.emit("close", 1);
+          return;
+        }
+        stream.emit("data", Buffer.from("[sudo] password for root: "));
+      });
+    };
+    return client;
+  }
+
+  async function runSudo(extra: Parameters<typeof startExecuteServer>[2]) {
+    const client = sudoClient();
+    const server = await startExecuteServer(client, undefined, extra);
+    try {
+      const created = await server.request("POST", "/", {
+        name: "Update",
+        content: "sudo apt-get update",
+      });
+      const result = await server.request("POST", "/execute", {
+        snippetId: created.body.id,
+        hostId: 42,
+      });
+      return { client, result };
+    } finally {
+      await server.close();
+    }
+  }
+
+  it("answers sudo's prompt on a pty when the user turned it on", async () => {
+    const { client, result } = await runSudo({
+      fillSudoPassword: true,
+      host: { sudoPassword: "s3cret" },
+    });
+    expect(client.calls[0]?.options).toEqual({ pty: true });
+    expect(client.written).toEqual(["s3cret\n"]);
+    expect(result).toMatchObject({ status: 200, body: { success: true } });
+  });
+
+  it("leaves sudo alone when the setting is off", async () => {
+    const { client, result } = await runSudo({
+      host: { sudoPassword: "s3cret" },
+    });
+    expect(client.calls[0]?.options).toBeUndefined();
+    expect(client.written).toEqual([]);
+    expect(result.body).toMatchObject({ success: false });
   });
 });

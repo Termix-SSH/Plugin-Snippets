@@ -3,6 +3,7 @@ export interface SnippetDisplaySettings {
   showCommands: boolean;
   alwaysShowActions: boolean;
   confirmExecution: boolean;
+  fillSudoPassword: boolean;
 }
 
 export function readSnippetSettings(
@@ -13,5 +14,6 @@ export function readSnippetSettings(
     showCommands: values.showCommands !== false,
     alwaysShowActions: values.alwaysShowActions !== false,
     confirmExecution: values.confirmExecution === true,
+    fillSudoPassword: values.fillSudoPassword === true,
   };
 }

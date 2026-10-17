@@ -28,3 +28,18 @@ export function createSnippetExecutionResult(
     ...(errorOutput ? { error: errorOutput } : {}),
   };
 }
+
+/** Tries before giving up on a password sudo keeps refusing. */
+export const MAX_SUDO_ANSWERS = 3;
+
+/** True for a command that calls sudo, so only those get a pty. */
+export function usesSudo(command: string): boolean {
+  return /(^|[\s;&|(`])sudo(\s|$)/.test(command);
+}
+
+/** Whether output ends at sudo's password prompt ("Password:" on macOS). */
+export function endsWithSudoPrompt(output: string): boolean {
+  return /(?:\[sudo\] password for [^\n]*|(?:^|\n)Password):\s*$/.test(
+    output.slice(-200),
+  );
+}

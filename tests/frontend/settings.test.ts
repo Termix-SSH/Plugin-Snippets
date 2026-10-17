@@ -8,6 +8,7 @@ describe("readSnippetSettings", () => {
       showCommands: true,
       alwaysShowActions: true,
       confirmExecution: false,
+      fillSudoPassword: false,
     });
   });
 
@@ -18,12 +19,14 @@ describe("readSnippetSettings", () => {
         showCommands: false,
         alwaysShowActions: false,
         confirmExecution: true,
+        fillSudoPassword: true,
       }),
     ).toEqual({
       foldersCollapsed: false,
       showCommands: false,
       alwaysShowActions: false,
       confirmExecution: true,
+      fillSudoPassword: true,
     });
   });
 });
