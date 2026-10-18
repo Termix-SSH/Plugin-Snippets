@@ -40,6 +40,10 @@
     "confirmExecution": {
       "label": "実行前に確認",
       "description": "コマンドスニペットがターミナルで実行される前に確認を求めます。"
+    },
+    "fillSudoPassword": {
+      "label": "sudo パスワードを自動入力",
+      "description": "ターミナルなしのホストでスニペットを実行する際、sudo プロンプトにホストの sudo パスワード（設定されていない場合は SSH パスワード）で応答します。"
     }
   },
   "cancel": "キャンセル",
@@ -229,7 +233,8 @@
   "selectAll": "すべて",
   "selectNone": "なし",
   "plugin": {
-    "name": "スニペット"
+    "name": "スニペット",
+    "description": "頻繁に実行するコマンドを保存し、ターミナルや複数のホストでワンクリックで実行できます。"
   },
   "revokeConfirm": "{{name}} のアクセス権限を削除しますか？"
 }

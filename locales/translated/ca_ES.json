@@ -40,6 +40,10 @@
     "confirmExecution": {
       "label": "Confirmar abans d'executar",
       "description": "Demana confirmació abans d'executar un fragment de comanda en un terminal."
+    },
+    "fillSudoPassword": {
+      "label": "Omplir la contrasenya de sudo",
+      "description": "Quan un fragment s'executa en un amfitrió sense terminal, respon a la sol·licitud de sudo amb la contrasenya de sudo de l'amfitrió, o amb la contrasenya SSH si no n'hi ha cap configurada."
     }
   },
   "cancel": "Cancel·lar",
@@ -239,7 +243,8 @@
   "selectAll": "Tots",
   "selectNone": "Cap",
   "plugin": {
-    "name": "Fragments"
+    "name": "Fragments",
+    "description": "Desa els comandaments que executes sovint i executa'ls en un terminal o en diversos amfitrions amb un sol clic."
   },
   "revokeConfirm": "Vols eliminar l'accés per a {{name}}?"
 }

@@ -40,6 +40,10 @@
     "confirmExecution": {
       "label": "运行前确认",
       "description": "在终端中运行命令代码片段前进行确认。"
+    },
+    "fillSudoPassword": {
+      "label": "自动填充 sudo 密码",
+      "description": "当代码片段在没有终端的主机上运行时，使用主机的 sudo 密码回答其 sudo 提示；如果未设置 sudo 密码，则使用其 SSH 密码。"
     }
   },
   "cancel": "取消",
@@ -229,7 +233,8 @@
   "selectAll": "全部",
   "selectNone": "无",
   "plugin": {
-    "name": "代码片段"
+    "name": "代码片段",
+    "description": "保存常用命令，一键在终端或多台主机上运行。"
   },
   "revokeConfirm": "移除 {{name}} 的访问权限？"
 }

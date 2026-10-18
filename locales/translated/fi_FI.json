@@ -40,6 +40,10 @@
     "confirmExecution": {
       "label": "Vahvista ennen suorittamista",
       "description": "Kysy vahvistus ennen komennon suorittamista terminaalissa."
+    },
+    "fillSudoPassword": {
+      "label": "Täytä sudo-salasana",
+      "description": "Kun komentosarjaa suoritetaan isäntälaitteella ilman terminaalia, vastaa sudo-pyyntöön isäntälaitteen sudo-salasanaa käyttäen tai SSH-salasanaa, jos sudo-salasanaa ei ole määritetty."
     }
   },
   "cancel": "Peruuta",
@@ -234,7 +238,8 @@
   "selectAll": "Kaikki",
   "selectNone": "Ei mitään",
   "plugin": {
-    "name": "Koodinpätkät"
+    "name": "Koodinpätkät",
+    "description": "Tallenna usein käyttämäsi komennot ja suorita ne terminaalissa tai useilla isäntälaitteilla yhdellä napsautuksella."
   },
   "revokeConfirm": "Poistetaanko {{name}}:n pääsy?"
 }

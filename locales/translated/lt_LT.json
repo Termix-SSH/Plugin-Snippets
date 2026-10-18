@@ -40,6 +40,10 @@
     "confirmExecution": {
       "label": "Patvirtinti prieš paleidžiant",
       "description": "Prieš paleidžiant komandos fragmentą terminale, klausti patvirtinimo."
+    },
+    "fillSudoPassword": {
+      "label": "Užpildyti sudo slaptažodį",
+      "description": "Kai komanda vykdoma serveryje be terminalo, atsakykite į sudo užklausą naudodami serverio sudo slaptažodį arba SSH slaptažodį, jei sudo slaptažodis nėra nustatytas."
     }
   },
   "cancel": "Atšaukti",
@@ -244,7 +248,8 @@
   "selectAll": "Visus",
   "selectNone": "Nėra",
   "plugin": {
-    "name": "Fragmentai"
+    "name": "Fragmentai",
+    "description": "Išsaugokite komandas, kurias dažnai vykstate, ir paleiskite jas terminale arba daugelyje serverių vienu paspaudimu."
   },
   "revokeConfirm": "Pašalinti prieigą vartotojui {{name}}?"
 }

@@ -40,6 +40,10 @@
     "confirmExecution": {
       "label": "Confirmar antes de executar",
       "description": "Pergunte antes que um trecho de comando seja executado em um terminal."
+    },
+    "fillSudoPassword": {
+      "label": "Preencher senha do sudo",
+      "description": "Quando um snippet é executado em um host sem terminal, responda ao prompt do sudo com a senha do sudo do host, ou com a senha SSH se nenhuma estiver definida."
     }
   },
   "cancel": "Cancelar",
@@ -239,7 +243,8 @@
   "selectAll": "Todos",
   "selectNone": "Nenhum",
   "plugin": {
-    "name": "Trechos"
+    "name": "Trechos",
+    "description": "Salve os comandos que você executa com frequência e execute-os em um terminal ou em vários hosts com um clique."
   },
   "revokeConfirm": "Remover acesso para {{name}}?"
 }

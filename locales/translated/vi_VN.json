@@ -40,6 +40,10 @@
     "confirmExecution": {
       "label": "Xác nhận trước khi chạy",
       "description": "Yêu cầu xác nhận trước khi một mảnh lệnh được chạy trong terminal."
+    },
+    "fillSudoPassword": {
+      "label": "Điền mật khẩu sudo",
+      "description": "Khi một đoạn lệnh chạy trên máy chủ mà không có cửa sổ terminal, hãy tự động trả lời yêu cầu sudo bằng mật khẩu sudo của máy chủ, hoặc bằng mật khẩu SSH nếu không có mật khẩu sudo nào được đặt."
     }
   },
   "cancel": "Hủy",
@@ -229,7 +233,8 @@
   "selectAll": "Tất cả",
   "selectNone": "Không có",
   "plugin": {
-    "name": "Đoạn lệnh"
+    "name": "Đoạn lệnh",
+    "description": "Lưu các lệnh bạn thường xuyên chạy và thực thi chúng trong terminal hoặc trên nhiều máy chủ chỉ với một lần nhấp."
   },
   "revokeConfirm": "Xóa quyền truy cập cho {{name}}?"
 }

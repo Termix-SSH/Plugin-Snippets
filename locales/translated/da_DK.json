@@ -40,6 +40,10 @@
     "confirmExecution": {
       "label": "Bekræft før kørsel",
       "description": "Spørg, før en kommandouddrag kører i en terminal."
+    },
+    "fillSudoPassword": {
+      "label": "Udfyld sudo-adgangskode",
+      "description": "Når et snippet kører på en vært uden et terminalvindue, besvar sudo-opfordringen med værtens sudo-adgangskode, eller dens SSH-adgangskode, hvis ingen er indstillet."
     }
   },
   "cancel": "Annuller",
@@ -234,7 +238,8 @@
   "selectAll": "Alle",
   "selectNone": "Ingen",
   "plugin": {
-    "name": "Snippets"
+    "name": "Snippets",
+    "description": "Gem de kommandoer, du kører ofte, og kør dem i et terminalvindue eller på mange værter med ét klik."
   },
   "revokeConfirm": "Fjern adgang for {{name}}?"
 }

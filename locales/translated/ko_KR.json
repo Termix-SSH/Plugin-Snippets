@@ -40,6 +40,10 @@
     "confirmExecution": {
       "label": "실행 전 확인",
       "description": "터미널에서 명령어 스니펫이 실행되기 전에 확인합니다."
+    },
+    "fillSudoPassword": {
+      "label": "sudo 비밀번호 자동 입력",
+      "description": "터미널이 없는 호스트에서 스니펫이 실행될 때, 호스트의 sudo 비밀번호로 sudo 프롬프트에 응답합니다. sudo 비밀번호가 설정되지 않은 경우 SSH 비밀번호를 사용합니다."
     }
   },
   "cancel": "취소",
@@ -229,7 +233,8 @@
   "selectAll": "전체",
   "selectNone": "없음",
   "plugin": {
-    "name": "스니펫"
+    "name": "스니펫",
+    "description": "자주 실행하는 명령어를 저장하고, 터미널이나 여러 호스트에서 한 번의 클릭으로 실행하세요."
   },
   "revokeConfirm": "{{name}}의 접근 권한을 제거하시겠습니까?"
 }

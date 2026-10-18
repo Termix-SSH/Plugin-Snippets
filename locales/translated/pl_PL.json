@@ -40,6 +40,10 @@
     "confirmExecution": {
       "label": "Potwierdź przed uruchomieniem",
       "description": "Pytaj przed uruchomieniem fragmentu polecenia w terminalu."
+    },
+    "fillSudoPassword": {
+      "label": "Wypełnij hasło sudo",
+      "description": "Gdy fragment kodu jest uruchamiany na hoście bez terminala, odpowiedz na monit sudo, używając hasła sudo hosta lub hasła SSH, jeśli hasło sudo nie jest ustawione."
     }
   },
   "cancel": "Anuluj",
@@ -244,7 +248,8 @@
   "selectAll": "Wszystkie",
   "selectNone": "Brak",
   "plugin": {
-    "name": "Fragmenty"
+    "name": "Fragmenty",
+    "description": "Zapisz często używane polecenia i uruchamiaj je w terminalu lub na wielu hostach jednym kliknięciem."
   },
   "revokeConfirm": "Usunąć dostęp dla {{name}}?"
 }

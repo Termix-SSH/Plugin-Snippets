@@ -40,6 +40,10 @@
     "confirmExecution": {
       "label": "Konfirmasi sebelum menjalankan",
       "description": "Minta konfirmasi sebelum potongan perintah dijalankan di terminal."
+    },
+    "fillSudoPassword": {
+      "label": "Isi kata sandi sudo",
+      "description": "Saat snippet dijalankan pada host tanpa terminal, jawab prompt sudo-nya dengan kata sandi sudo host tersebut, atau kata sandi SSH jika tidak ada yang diatur."
     }
   },
   "cancel": "Batal",
@@ -229,7 +233,8 @@
   "selectAll": "Semua",
   "selectNone": "Tidak ada",
   "plugin": {
-    "name": "Cuplikan"
+    "name": "Cuplikan",
+    "description": "Simpan perintah yang sering Anda jalankan dan jalankan di terminal atau di banyak host hanya dengan satu klik."
   },
   "revokeConfirm": "Hapus akses untuk {{name}}?"
 }

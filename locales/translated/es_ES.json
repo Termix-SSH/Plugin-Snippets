@@ -40,6 +40,10 @@
     "confirmExecution": {
       "label": "Confirmar antes de ejecutar",
       "description": "Preguntar antes de ejecutar un fragmento de comando en una terminal."
+    },
+    "fillSudoPassword": {
+      "label": "Rellenar contraseña de sudo",
+      "description": "Cuando un fragmento se ejecuta en un host sin terminal, responde a su solicitud de sudo con la contraseña de sudo del host, o con su contraseña SSH si no se ha configurado ninguna."
     }
   },
   "cancel": "Cancelar",
@@ -239,7 +243,8 @@
   "selectAll": "Todos",
   "selectNone": "Ninguno",
   "plugin": {
-    "name": "Fragmentos"
+    "name": "Fragmentos",
+    "description": "Guarda los comandos que ejecutas con frecuencia y ejecútalos en una terminal o en varios hosts con un solo clic."
   },
   "revokeConfirm": "¿Eliminar el acceso para {{name}}?"
 }

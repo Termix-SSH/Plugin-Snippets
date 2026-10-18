@@ -40,6 +40,10 @@
     "confirmExecution": {
       "label": "Bevestig voor uitvoering",
       "description": "Vra voor 'n opdrag-uitsnit in 'n terminaal uitvoer."
+    },
+    "fillSudoPassword": {
+      "label": "Vul sudo-wagwoord in",
+      "description": "Wanneer 'n snippet op 'n gasheer sonder 'n terminaal uitvoer, beantwoord sy sudo-aanvraag met die gasheer se sudo-wagwoord, of sy SSH-wagwoord as geen sudo-wagwoord gestel is nie."
     }
   },
   "cancel": "Kanselleer",
@@ -234,7 +238,8 @@
   "selectAll": "Almal",
   "selectNone": "Geen",
   "plugin": {
-    "name": "Fragmente"
+    "name": "Fragmente",
+    "description": "Stoor die opdragte wat jy dikwels uitvoer en voer hulle in 'n terminaal of op baie gasheer in een klik uit."
   },
   "revokeConfirm": "Verwyder toegang vir {{name}}?"
 }

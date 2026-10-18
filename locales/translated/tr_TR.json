@@ -40,6 +40,10 @@
     "confirmExecution": {
       "label": "Çalıştırmadan önce onayla",
       "description": "Bir komut kod parçası terminalde çalışmadan önce soru sor."
+    },
+    "fillSudoPassword": {
+      "label": "sudo şifresini doldur",
+      "description": "Bir komut parçacığı terminal olmadan bir sunucuda çalıştırıldığında, sudo istemini sunucunun sudo şifresiyle veya sudo şifresi ayarlanmamışsa SSH şifresiyle yanıtla."
     }
   },
   "cancel": "İptal",
@@ -234,7 +238,8 @@
   "selectAll": "Tümü",
   "selectNone": "Yok",
   "plugin": {
-    "name": "Kod Parçaları"
+    "name": "Kod Parçaları",
+    "description": "Sık çalıştırdığınız komutları kaydedin ve tek tıkla bir terminalde veya birçok sunucuda çalıştırın."
   },
   "revokeConfirm": "{{name}} için erişim kaldırılsın mı?"
 }

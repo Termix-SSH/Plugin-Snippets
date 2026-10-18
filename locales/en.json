@@ -40,6 +40,10 @@
     "confirmExecution": {
       "label": "Confirm before running",
       "description": "Ask before a command snippet runs in a terminal."
+    },
+    "fillSudoPassword": {
+      "label": "Fill sudo password",
+      "description": "When a snippet runs on a host without a terminal, answer its sudo prompt with the host's sudo password, or its SSH password if none is set."
     }
   },
   "cancel": "Cancel",
@@ -234,7 +238,8 @@
   "selectAll": "All",
   "selectNone": "None",
   "plugin": {
-    "name": "Snippets"
+    "name": "Snippets",
+    "description": "Save the commands you run often and run them in a terminal or on many hosts in one click."
   },
   "revokeConfirm": "Remove access for {{name}}?"
 }

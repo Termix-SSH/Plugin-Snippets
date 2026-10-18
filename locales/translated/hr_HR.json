@@ -40,6 +40,10 @@
     "confirmExecution": {
       "label": "Potvrdi prije pokretanja",
       "description": "Zatraži potvrdnu poruku prije pokretanja isječka naredbe u terminalu."
+    },
+    "fillSudoPassword": {
+      "label": "Popuni sudo lozinku",
+      "description": "Kada se isječak izvrši na hostu bez terminala, odgovori na sudo upit s sudo lozinkom hosta ili SSH lozinkom ako sudo lozinka nije postavljena."
     }
   },
   "cancel": "Otkaži",
@@ -239,7 +243,8 @@
   "selectAll": "Sve",
   "selectNone": "Ništa",
   "plugin": {
-    "name": "Isječci"
+    "name": "Isječci",
+    "description": "Spremite naredbe koje često pokrećete i pokrenite ih u terminalu ili na mnogim hostovima jednim klikom."
   },
   "revokeConfirm": "Ukloniti pristup za {{name}}?"
 }

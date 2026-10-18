@@ -40,6 +40,10 @@
     "confirmExecution": {
       "label": "Kinnita enne käivitamist",
       "description": "Küsi kinnitust enne käsu käivitamist terminallis."
+    },
+    "fillSudoPassword": {
+      "label": "Täida sudo parool",
+      "description": "Kui snipp käivitub hostil ilma terminalita, vasta selle sudo küsimusele hosti sudo parooliga või tema SSH parooliga, kui sudo parooli pole määratud."
     }
   },
   "cancel": "Tühista",
@@ -234,7 +238,8 @@
   "selectAll": "Kõik",
   "selectNone": "Ükski",
   "plugin": {
-    "name": "Lõigud"
+    "name": "Lõigud",
+    "description": "Salvesta käsud, mida sa sageli kasutad, ja käivita need terminalis või paljudel hostidel ühe klõpsuga."
   },
   "revokeConfirm": "Kas eemaldada {{name}} ligipääs?"
 }

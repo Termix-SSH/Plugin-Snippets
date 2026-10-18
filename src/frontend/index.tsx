@@ -161,12 +161,18 @@ export function activate(app: TermixApp): void {
     return resolveSnippetContent(snippet.content, vars ?? hostContext(host));
   }) as never);
 
-  // For pickers in other plugins (the AI assistant's @-mentions): id and name.
+  // For pickers in other plugins (the AI assistant's @-mentions, fleets' run
+  // box).
   app.registerAction("snippets.list", (async () => {
     const snippets = await createSnippetsApi(app.api)
       .list()
       .catch(() => []);
-    return snippets.map((snippet) => ({ id: snippet.id, name: snippet.name }));
+    return snippets.map((snippet) => ({
+      id: snippet.id,
+      name: snippet.name,
+      content: snippet.content,
+      isNote: !!snippet.isNote,
+    }));
   }) as never);
 
   // Variable handling for commands other plugins run (fleets' run box).

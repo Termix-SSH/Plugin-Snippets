@@ -40,6 +40,10 @@
     "confirmExecution": {
       "label": "Bekreft før kjøring",
       "description": "Spør før en kommandoklipp kjøres i en terminal."
+    },
+    "fillSudoPassword": {
+      "label": "Fyll ut sudo-passord",
+      "description": "Når et snipptekst kjøres på en vert uten terminal, svar på sudo-forespørselen med vertens sudo-passord, eller SSH-passordet dersom ingen er oppgitt."
     }
   },
   "cancel": "Avbryt",
@@ -234,7 +238,8 @@
   "selectAll": "Alle",
   "selectNone": "Ingen",
   "plugin": {
-    "name": "Snippets"
+    "name": "Snippets",
+    "description": "Lagre kommandoene du kjører ofte, og kjør dem i en terminal eller på mange verter med ett klikk."
   },
   "revokeConfirm": "Fjerne tilgang for {{name}}?"
 }

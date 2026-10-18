@@ -40,6 +40,10 @@
     "confirmExecution": {
       "label": "Potvrdiť pred spustením",
       "description": "Pred spustením útržku príkazu v termináli sa opýtajte na potvrdenie."
+    },
+    "fillSudoPassword": {
+      "label": "Doplň heslo pre sudo",
+      "description": "Keď sa snippet spustí na hostiteľovi bez terminálu, odpovedá na výzvu sudo pomocou sudo hesla hostiteľa, alebo SSH hesla, ak nie je sudo heslo nastavené."
     }
   },
   "cancel": "Zrušiť",
@@ -244,7 +248,8 @@
   "selectAll": "Všetky",
   "selectNone": "Žiadne",
   "plugin": {
-    "name": "Úryvky"
+    "name": "Úryvky",
+    "description": "Ukladajte príkazy, ktoré často spúšťate, a spúšťajte ich v termináli alebo na viacerých hostiteľoch jedným kliknutím."
   },
   "revokeConfirm": "Odstrániť prístup pre {{name}}?"
 }

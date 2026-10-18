@@ -40,6 +40,10 @@
     "confirmExecution": {
       "label": "Potrdi pred zagonom",
       "description": "Pred zagonom ukaza iz izrezka v terminalu vprašaj za potrditev."
+    },
+    "fillSudoPassword": {
+      "label": "Izpolni sudo geslo",
+      "description": "Ko se odsek izvede na gostitelju brez terminala, odgovori na sudo poziv z sudo geslom gostitelja ali z njegovim SSH geslom, če sudo geslo ni nastavljeno."
     }
   },
   "cancel": "Prekliči",
@@ -244,7 +248,8 @@
   "selectAll": "Vse",
   "selectNone": "Brez",
   "plugin": {
-    "name": "Odlomki"
+    "name": "Odlomki",
+    "description": "Shranite ukaze, ki jih pogosto izvajate, in jih z enim klikom izvedite v terminalu ali na več gostiteljih."
   },
   "revokeConfirm": "Odstraniti dostop za {{name}}?"
 }

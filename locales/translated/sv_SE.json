@@ -40,6 +40,10 @@
     "confirmExecution": {
       "label": "Bekräfta innan körning",
       "description": "Fråga innan ett kommandosnitt körs i en terminal."
+    },
+    "fillSudoPassword": {
+      "label": "Fyll i sudo-lösenord",
+      "description": "När en kommandosnutt körs på en värd utan terminal, besvara sudo-frågan med värdens sudo-lösenord, eller SSH-lösenordet om inget sudo-lösenord är inställt."
     }
   },
   "cancel": "Avbryt",
@@ -234,7 +238,8 @@
   "selectAll": "Alla",
   "selectNone": "Ingen",
   "plugin": {
-    "name": "Kodsnuttar"
+    "name": "Kodsnuttar",
+    "description": "Spara de kommandon du kör ofta och kör dem i en terminal eller på många värdar med ett klick."
   },
   "revokeConfirm": "Ta bort åtkomst för {{name}}?"
 }

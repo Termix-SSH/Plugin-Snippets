@@ -40,6 +40,10 @@
     "confirmExecution": {
       "label": "Conferma prima dell'esecuzione",
       "description": "Chiedi conferma prima che un frammento di comando venga eseguito in un terminale."
+    },
+    "fillSudoPassword": {
+      "label": "Compila la password sudo",
+      "description": "Quando uno snippet viene eseguito su un host senza terminale, rispondi alla richiesta sudo con la password sudo dell'host, oppure con la password SSH se non è impostata."
     }
   },
   "cancel": "Annulla",
@@ -239,7 +243,8 @@
   "selectAll": "Tutti",
   "selectNone": "Nessuno",
   "plugin": {
-    "name": "Snippet"
+    "name": "Snippet",
+    "description": "Salva i comandi che esegui spesso ed eseguili in un terminale o su molti host con un solo clic."
   },
   "revokeConfirm": "Rimuovere l'accesso per {{name}}?"
 }

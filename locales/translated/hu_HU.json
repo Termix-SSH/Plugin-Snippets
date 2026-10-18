@@ -40,6 +40,10 @@
     "confirmExecution": {
       "label": "Megerősítés futtatás előtt",
       "description": "Kérdezzen rá, mielőtt egy parancs-kódvázlat lefutna a terminálban."
+    },
+    "fillSudoPassword": {
+      "label": "Sudo jelszó kitöltése",
+      "description": "Ha egy parancs olyan hoszton fut, ahol nincs terminál, a sudo kérésre a hoszt sudo jelszavával válaszol, vagy az SSH jelszavával, ha nincs sudo jelszó beállítva."
     }
   },
   "cancel": "Mégse",
@@ -234,7 +238,8 @@
   "selectAll": "Összes",
   "selectNone": "Egyik sem",
   "plugin": {
-    "name": "Kódrészletek"
+    "name": "Kódrészletek",
+    "description": "Mentsd el a gyakran használt parancsokat, és futtasd őket egy terminálban vagy több hoszton egy kattintással."
   },
   "revokeConfirm": "El kívánja távolítani a(z) {{name}} hozzáférését?"
 }

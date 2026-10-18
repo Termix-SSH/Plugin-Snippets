@@ -40,6 +40,10 @@
     "confirmExecution": {
       "label": "Sahkan sebelum melaksanakan",
       "description": "Tanya sebelum potongan arahan dilaksanakan dalam terminal."
+    },
+    "fillSudoPassword": {
+      "label": "Isi kata laluan sudo",
+      "description": "Apabila sepotong kod berjalan pada hos tanpa terminal, jawab permintaan sudo-nya dengan kata laluan sudo hos tersebut, atau kata laluan SSH jika tiada yang ditetapkan."
     }
   },
   "cancel": "Batal",
@@ -229,7 +233,8 @@
   "selectAll": "Semua",
   "selectNone": "Tiada",
   "plugin": {
-    "name": "Petikan"
+    "name": "Petikan",
+    "description": "Simpan arahan yang anda jalankan kerap dan jalankannya dalam terminal atau pada banyak hos dengan satu klik."
   },
   "revokeConfirm": "Buang akses untuk {{name}}?"
 }

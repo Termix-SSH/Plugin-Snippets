@@ -40,6 +40,10 @@
     "confirmExecution": {
       "label": "Bevestigen voor uitvoeren",
       "description": "Vraag om bevestiging voordat een opdrachtfragment in een terminal wordt uitgevoerd."
+    },
+    "fillSudoPassword": {
+      "label": "Sudo-wachtwoord invullen",
+      "description": "Wanneer een snippet wordt uitgevoerd op een host zonder terminal, wordt de sudo-prompt beantwoord met het sudo-wachtwoord van de host, of met het SSH-wachtwoord als er geen sudo-wachtwoord is ingesteld."
     }
   },
   "cancel": "Annuleren",
@@ -234,7 +238,8 @@
   "selectAll": "Alles",
   "selectNone": "Geen",
   "plugin": {
-    "name": "Snippets"
+    "name": "Snippets",
+    "description": "Bewaar de opdrachten die je vaak uitvoert en voer ze in één klik uit in een terminal of op meerdere hosts."
   },
   "revokeConfirm": "Toegang voor {{name}} verwijderen?"
 }

@@ -40,6 +40,10 @@
     "confirmExecution": {
       "label": "Confirmare înainte de executare",
       "description": "Solicitați confirmarea înainte ca un fragment de comandă să fie executat într-un terminal."
+    },
+    "fillSudoPassword": {
+      "label": "Completează parola sudo",
+      "description": "Când un snippet rulează pe un host fără terminal, răspunde la solicitarea sudo cu parola sudo a hostului, sau cu parola SSH dacă nu este setată una."
     }
   },
   "cancel": "Anulare",
@@ -239,7 +243,8 @@
   "selectAll": "Toate",
   "selectNone": "Niciunul",
   "plugin": {
-    "name": "Fragmente"
+    "name": "Fragmente",
+    "description": "Salvează comenzile pe care le rulezi des și execută-le într-un terminal sau pe mai mulți host-uri cu un singur clic."
   },
   "revokeConfirm": "Elimin accesul pentru {{name}}?"
 }

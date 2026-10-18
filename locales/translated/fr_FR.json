@@ -40,6 +40,10 @@
     "confirmExecution": {
       "label": "Confirmer avant d'exécuter",
       "description": "Demander confirmation avant qu'un extrait de commande ne s'exécute dans un terminal."
+    },
+    "fillSudoPassword": {
+      "label": "Remplir le mot de passe sudo",
+      "description": "Lorsqu'un extrait s'exécute sur un hôte sans terminal, répondez à son invite sudo avec le mot de passe sudo de l'hôte, ou avec son mot de passe SSH si aucun n'est défini."
     }
   },
   "cancel": "Annuler",
@@ -239,7 +243,8 @@
   "selectAll": "Tout",
   "selectNone": "Aucun",
   "plugin": {
-    "name": "Extraits"
+    "name": "Extraits",
+    "description": "Enregistrez les commandes que vous utilisez fréquemment et exécutez-les dans un terminal ou sur plusieurs hôtes en un seul clic."
   },
   "revokeConfirm": "Supprimer l'accès pour {{name}} ?"
 }

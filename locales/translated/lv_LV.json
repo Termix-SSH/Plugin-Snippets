@@ -40,6 +40,10 @@
     "confirmExecution": {
       "label": "Apstiprināt pirms izpildes",
       "description": "Jautāt pirms komandu kodola izpildes terminālī."
+    },
+    "fillSudoPassword": {
+      "label": "Aizpildīt sudo paroli",
+      "description": "Kad fragmentu izpilda uz hosta bez termināļa, atbildēt uz tā sudo pieprasījumu ar hosta sudo paroli vai, ja tā nav iestatīta, ar SSH paroli."
     }
   },
   "cancel": "Atcelt",
@@ -239,7 +243,8 @@
   "selectAll": "Visi",
   "selectNone": "Nav",
   "plugin": {
-    "name": "Fragmenti"
+    "name": "Fragmenti",
+    "description": "Saglabājiet komandas, kuras bieži izpildāt, un palaižiet tās terminālī vai uz daudziem hostiem ar vienu klikšķi."
   },
   "revokeConfirm": "Noņemt piekļuvi lietotājam {{name}}?"
 }

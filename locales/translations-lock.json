@@ -18,6 +18,8 @@
   "settings.alwaysShowActions.description": "69c38726714c",
   "settings.confirmExecution.label": "5f1aabc80933",
   "settings.confirmExecution.description": "24884f4e879a",
+  "settings.fillSudoPassword.label": "a350faabb0d1",
+  "settings.fillSudoPassword.description": "1d6f95e0ed12",
   "cancel": "77dfd2135f4d",
   "loading": "b04ba49f8486",
   "searchPlaceholder": "7ebc1df922d2",
@@ -195,5 +197,6 @@
   "selectAll": "6a72085653e4",
   "selectNone": "6eef6648406c",
   "plugin.name": "ae05fb5b1e39",
+  "plugin.description": "4dffae8212ca",
   "revokeConfirm": "90f3d8b9560a"
 }

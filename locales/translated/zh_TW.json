@@ -40,6 +40,10 @@
     "confirmExecution": {
       "label": "執行前確認",
       "description": "在終端機中執行指令片段前進行確認。"
+    },
+    "fillSudoPassword": {
+      "label": "填入 sudo 密碼",
+      "description": "當程式碼片段在沒有終端機的伺服器上執行時，使用該伺服器的 sudo 密碼來回應 sudo 提示；若未設定 sudo 密碼，則使用 SSH 密碼。"
     }
   },
   "cancel": "取消",
@@ -229,7 +233,8 @@
   "selectAll": "全部",
   "selectNone": "無",
   "plugin": {
-    "name": "程式碼片段"
+    "name": "程式碼片段",
+    "description": "儲存常用指令，一鍵在終端機或多台主機上執行。"
   },
   "revokeConfirm": "要移除 {{name}} 的存取權限嗎？"
 }

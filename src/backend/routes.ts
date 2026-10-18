@@ -1,12 +1,17 @@
 import type { Request, Response, Router } from "express";
 import type { PluginContext } from "@termix-ssh/plugin-sdk/backend";
+import type { ClientChannel } from "ssh2";
 import type { SnippetRepository } from "./repository.js";
 import { extractSnippetReorderUpdates } from "./reorder.js";
 import {
   createSnippetExecutionResult,
+  endsWithSudoPrompt,
   getSnippetExecutionTimeoutMs,
+  MAX_SUDO_ANSWERS,
+  usesSudo,
   resolveSnippetCommand,
 } from "./execution.js";
+import { classifySshError, CommandTimeoutError } from "./ssh-errors.js";
 
 function isNonEmptyString(value: unknown): value is string {
   return typeof value === "string" && value.trim().length > 0;
@@ -432,12 +437,43 @@ export function registerSnippetRoutes(
    *                   type: string
    *     responses:
    *       200:
-   *         description: Snippet executed.
+   *         description: >
+   *           Snippet ran. A nonzero exit is not an error here: success is
+   *           false and output/error carry what the command printed.
    *       400:
    *         description: Snippet ID and host ID are required, or the snippet is a note.
    *       404:
    *         description: Snippet or host not found.
+   *       409:
+   *         description: >
+   *           The host key was rejected (code SSH_HOST_KEY_REJECTED), usually
+   *           because it changed. Open a Terminal connection to the host to
+   *           verify and accept the new key.
+   *       422:
+   *         description: >
+   *           Authentication to the host failed (code SSH_AUTH_FAILED), e.g.
+   *           "Authentication failed for root@10.0.0.5".
+   *       502:
+   *         description: >
+   *           The host could not be reached (code SSH_HOST_UNREACHABLE):
+   *           connection refused or reset, host or network unreachable, or
+   *           the hostname could not be resolved.
+   *       504:
+   *         description: >
+   *           Timed out connecting to the host (code SSH_TIMEOUT), or the
+   *           command ran past SNIPPET_EXECUTION_TIMEOUT_SECONDS (code
+   *           COMMAND_TIMEOUT, with the output printed so far in output and
+   *           errorOutput).
+   *       500:
+   *         description: Internal error.
    */
+  /** The sudo password a host's terminal would fill, or its SSH password. */
+  async function hostSudoPassword(hostId: number): Promise<string | undefined> {
+    const host = await ctx.ssh.resolveHost(hostId).catch(() => null);
+    const value = host?.sudoPassword || host?.password;
+    return typeof value === "string" && value ? value : undefined;
+  }
+
   router.post("/execute", async (req: Request, res: Response) => {
     const userId = actor(ctx);
     const { snippetId, hostId, inputValues } = req.body ?? {};
@@ -482,6 +518,16 @@ export function registerSnippetRoutes(
       let output = "";
       let errorOutput = "";
 
+      // Opt in: answer sudo's prompt with the host's sudo password, as the
+      // terminal does. sudo only prompts on a pty.
+      const sudoPassword =
+        usesSudo(resolvedCommand) &&
+        (await ctx.settings.getUser<boolean>(userId, "fillSudoPassword")) ===
+          true
+          ? await hostSudoPassword(parseInt(hostId, 10))
+          : undefined;
+      let sudoAnswers = 0;
+
       const result = await new Promise<
         ReturnType<typeof createSnippetExecutionResult>
       >((resolve, reject) => {
@@ -493,15 +539,13 @@ export function registerSnippetRoutes(
           reject(err);
         });
 
-        client.exec(resolvedCommand, (err, stream) => {
+        const onExec = (err: Error | undefined, stream: ClientChannel) => {
           if (err) return reject(err);
 
           if (timeoutMs) {
             timeout = setTimeout(() => {
               stream.close();
-              reject(
-                new Error(`Command execution timeout (${timeoutMs / 1000}s)`),
-              );
+              reject(new CommandTimeoutError(timeoutMs, output, errorOutput));
             }, timeoutMs);
           }
 
@@ -513,15 +557,47 @@ export function registerSnippetRoutes(
           });
           stream.on("data", (data: Buffer) => {
             output += data.toString();
+            if (
+              sudoPassword &&
+              sudoAnswers < MAX_SUDO_ANSWERS &&
+              endsWithSudoPrompt(output)
+            ) {
+              sudoAnswers++;
+              stream.write(`${sudoPassword}\n`);
+            }
           });
           stream.stderr.on("data", (data: Buffer) => {
             errorOutput += data.toString();
           });
-        });
+        };
+
+        if (sudoPassword) client.exec(resolvedCommand, { pty: true }, onExec);
+        else client.exec(resolvedCommand, onExec);
       });
 
       res.json(result);
     } catch (err) {
+      // The command ran but outlived the limit: not an internal error, and
+      // what it printed so far is still worth returning.
+      if (err instanceof CommandTimeoutError) {
+        return res.status(504).json({
+          error: err.message,
+          code: "COMMAND_TIMEOUT",
+          output: err.output,
+          errorOutput: err.errorOutput,
+        });
+      }
+      const host = await ctx.ssh
+        .resolveHost(parseInt(hostId, 10))
+        .catch(() => null);
+      const target = host ? `${host.username}@${host.ip}` : `host ${hostId}`;
+      const failure = classifySshError(err, target);
+      if (failure) {
+        ctx.log.warn(`Snippet execution failed: ${failure.error}`);
+        return res
+          .status(failure.status)
+          .json({ error: failure.error, code: failure.code });
+      }
       logError(ctx, "Failed to execute snippet", err, "snippet_execute_failed");
       res.status(500).json({ error: "Failed to execute snippet" });
     } finally {

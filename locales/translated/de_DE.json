@@ -40,6 +40,10 @@
     "confirmExecution": {
       "label": "Vor dem Ausführen bestätigen",
       "description": "Vor dem Ausführen eines Befehls-Code-Schnipsels in einem Terminal nachfragen."
+    },
+    "fillSudoPassword": {
+      "label": "sudo-Passwort ausfüllen",
+      "description": "Wenn ein Snippet auf einem Host ohne Terminal ausgeführt wird, wird die sudo-Abfrage mit dem sudo-Passwort des Hosts beantwortet, oder mit dem SSH-Passwort, falls kein sudo-Passwort gesetzt ist."
     }
   },
   "cancel": "Abbrechen",
@@ -234,7 +238,8 @@
   "selectAll": "Alle",
   "selectNone": "Keine",
   "plugin": {
-    "name": "Snippets"
+    "name": "Snippets",
+    "description": "Speichern Sie die Befehle, die Sie häufig ausführen, und führen Sie sie mit einem Klick in einem Terminal oder auf vielen Hosts aus."
   },
   "revokeConfirm": "Zugriff für {{name}} entfernen?"
 }
