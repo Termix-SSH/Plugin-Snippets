@@ -44,6 +44,25 @@
     "fillSudoPassword": {
       "label": "Compila la password sudo",
       "description": "Quando uno snippet viene eseguito su un host senza terminale, rispondi alla richiesta sudo con la password sudo dell'host, oppure con la password SSH se non è impostata."
+    },
+    "companionAutoOpen": {
+      "label": "Apri il pannello degli snippet con un terminale",
+      "description": "Mostra il pannello degli snippet quando si apre un terminale su un host che li supporta."
+    },
+    "companionSide": {
+      "label": "Posizione del pannello degli snippet",
+      "description": "Dove si trova il pannello accanto al terminale.",
+      "right": "Destra",
+      "left": "Sinistra",
+      "bottom": "In basso"
+    },
+    "companionSize": {
+      "label": "Dimensione del pannello degli snippet",
+      "description": "Larghezza, o altezza se in basso, in pixel."
+    },
+    "companionEdgeButton": {
+      "label": "Pulsante laterale del pannello degli snippet",
+      "description": "Mostra un piccolo pulsante sul bordo del terminale per aprire il pannello."
     }
   },
   "cancel": "Annulla",
@@ -229,7 +248,13 @@
     "tabTitle": "Snippet",
     "startupDescription": "Viene eseguito nel terminale ogni volta che si stabilisce una connessione a questo host. Variabili come $HOST vengono sostituite; uno snippet che richiede input viene saltato.",
     "none": "Nessuno",
-    "removeQuickAction": "Rimuovi azione rapida"
+    "removeQuickAction": "Rimuovi azione rapida",
+    "settings": {
+      "showPanel": {
+        "label": "Pannello accanto al terminale",
+        "description": "Offri un pannello degli snippet accanto al terminale SSH di questo host."
+      }
+    }
   },
   "quickActions": {
     "running": "Esecuzione di {{name}}...",
@@ -246,5 +271,13 @@
     "name": "Snippet",
     "description": "Salva i comandi che esegui spesso ed eseguili in un terminale o su molti host con un solo clic."
   },
-  "revokeConfirm": "Rimuovere l'accesso per {{name}}?"
+  "revokeConfirm": "Rimuovere l'accesso per {{name}}?",
+  "companion": {
+    "toggle": "Pannello degli snippet",
+    "refresh": "Aggiorna"
+  },
+  "card": {
+    "title": "Snippet",
+    "runsOn": "Eseguito su {{hosts}}"
+  }
 }

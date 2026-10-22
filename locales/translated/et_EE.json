@@ -44,6 +44,25 @@
     "fillSudoPassword": {
       "label": "Täida sudo parool",
       "description": "Kui snipp käivitub hostil ilma terminalita, vasta selle sudo küsimusele hosti sudo parooliga või tema SSH parooliga, kui sudo parooli pole määratud."
+    },
+    "companionAutoOpen": {
+      "label": "Ava lõikude paneel koos terminaliga",
+      "description": "Kuva lõikude paneel, kui terminal avatakse hostil, millel see on olemas."
+    },
+    "companionSide": {
+      "label": "Lõikude paneeli asukoht",
+      "description": "Kus paneel terminali kõrval asub.",
+      "right": "Parem",
+      "left": "Vasak",
+      "bottom": "Alumine"
+    },
+    "companionSize": {
+      "label": "Lõikude paneeli suurus",
+      "description": "Laius või alumisel küljel kõrgus pikslites."
+    },
+    "companionEdgeButton": {
+      "label": "Lõikude paneeli servanupp",
+      "description": "Kuva terminali serval väike nupp paneeli avamiseks."
     }
   },
   "cancel": "Tühista",
@@ -224,7 +243,13 @@
     "tabTitle": "Lõigud",
     "startupDescription": "Käivitatakse terminalis iga kord, kui sellele hostile ühendust luuakse. Muutujad nagu $HOST täidetakse automaatselt; lõike, mis küsib sisendit, vahele jäetakse.",
     "none": "Puudub",
-    "removeQuickAction": "Eemalda kiirtegevus"
+    "removeQuickAction": "Eemalda kiirtegevus",
+    "settings": {
+      "showPanel": {
+        "label": "Paneel terminali kõrval",
+        "description": "Paku selle hosti SSH-terminali kõrval lõikude paneeli."
+      }
+    }
   },
   "quickActions": {
     "running": "Käivitan {{name}}...",
@@ -241,5 +266,13 @@
     "name": "Lõigud",
     "description": "Salvesta käsud, mida sa sageli kasutad, ja käivita need terminalis või paljudel hostidel ühe klõpsuga."
   },
-  "revokeConfirm": "Kas eemaldada {{name}} ligipääs?"
+  "revokeConfirm": "Kas eemaldada {{name}} ligipääs?",
+  "companion": {
+    "toggle": "Lõikude paneel",
+    "refresh": "Värskenda"
+  },
+  "card": {
+    "title": "Lõigud",
+    "runsOn": "Töötab hostidel {{hosts}}"
+  }
 }

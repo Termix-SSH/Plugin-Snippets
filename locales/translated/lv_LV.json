@@ -44,6 +44,25 @@
     "fillSudoPassword": {
       "label": "Aizpildīt sudo paroli",
       "description": "Kad fragmentu izpilda uz hosta bez termināļa, atbildēt uz tā sudo pieprasījumu ar hosta sudo paroli vai, ja tā nav iestatīta, ar SSH paroli."
+    },
+    "companionAutoOpen": {
+      "label": "Atvērt fragmentu paneli kopā ar termināli",
+      "description": "Rādīt fragmentu paneli, kad terminālis tiek atvērts uz tāda hosta, kam tas ir pieejams."
+    },
+    "companionSide": {
+      "label": "Fragmentu panela puse",
+      "description": "Kur panelis atrodas blakus terminālim.",
+      "right": "Labajā pusē",
+      "left": "Kreisajā pusē",
+      "bottom": "Apakšā"
+    },
+    "companionSize": {
+      "label": "Fragmentu panela izmērs",
+      "description": "Platums vai augstums (ja atrodas apakšā) pikseļos."
+    },
+    "companionEdgeButton": {
+      "label": "Fragmentu panela malas poga",
+      "description": "Rādīt mazu pogu termināļa malā, lai atvērtu paneli."
     }
   },
   "cancel": "Atcelt",
@@ -229,7 +248,13 @@
     "tabTitle": "Fragmenti",
     "startupDescription": "Izpildās terminālī katru reizi, kad tiek izveidots savienojums ar šo mezglu. Mainīgie, piemēram, $HOST, tiek aizpildīti; fragments, kas pieprasa ievades, tiek izlaists.",
     "none": "Nav",
-    "removeQuickAction": "Noņemt ātro darbību"
+    "removeQuickAction": "Noņemt ātro darbību",
+    "settings": {
+      "showPanel": {
+        "label": "Panelis blakus terminālim",
+        "description": "Piedāvāt fragmentu paneli blakus šī hosta SSH terminālim."
+      }
+    }
   },
   "quickActions": {
     "running": "Izpilda {{name}}...",
@@ -246,5 +271,13 @@
     "name": "Fragmenti",
     "description": "Saglabājiet komandas, kuras bieži izpildāt, un palaižiet tās terminālī vai uz daudziem hostiem ar vienu klikšķi."
   },
-  "revokeConfirm": "Noņemt piekļuvi lietotājam {{name}}?"
+  "revokeConfirm": "Noņemt piekļuvi lietotājam {{name}}?",
+  "companion": {
+    "toggle": "Fragmentu panelis",
+    "refresh": "Atsvaidzināt"
+  },
+  "card": {
+    "title": "Fragmenti",
+    "runsOn": "Izpildās uz {{hosts}}"
+  }
 }

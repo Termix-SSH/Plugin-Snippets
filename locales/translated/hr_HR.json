@@ -44,6 +44,25 @@
     "fillSudoPassword": {
       "label": "Popuni sudo lozinku",
       "description": "Kada se isječak izvrši na hostu bez terminala, odgovori na sudo upit s sudo lozinkom hosta ili SSH lozinkom ako sudo lozinka nije postavljena."
+    },
+    "companionAutoOpen": {
+      "label": "Otvori panel isječaka s terminalom",
+      "description": "Prikaži panel isječaka kada se terminal otvori na hostu koji ga ima."
+    },
+    "companionSide": {
+      "label": "Stranica panela isječaka",
+      "description": "Gdje se panel nalazi pored terminala.",
+      "right": "Desno",
+      "left": "Lijevo",
+      "bottom": "Dolje"
+    },
+    "companionSize": {
+      "label": "Veličina panela isječaka",
+      "description": "Širina, ili visina na dnu, u pikselima."
+    },
+    "companionEdgeButton": {
+      "label": "Gumb na rubu panela isječaka",
+      "description": "Prikaži mali gumb na rubu terminala za otvaranje ploče."
     }
   },
   "cancel": "Otkaži",
@@ -229,7 +248,13 @@
     "tabTitle": "Isječci",
     "startupDescription": "Pokreće se u terminalu svaki put kada se poveže s ovim poslužiteljem. Varijable poput $HOST se popunjavaju; isječci koji traže unos se preskaču.",
     "none": "Ništa",
-    "removeQuickAction": "Ukloni brzu akciju"
+    "removeQuickAction": "Ukloni brzu akciju",
+    "settings": {
+      "showPanel": {
+        "label": "Ploča uz terminal",
+        "description": "Ponudi ploču sa isječcima uz SSH terminal ovog hosta."
+      }
+    }
   },
   "quickActions": {
     "running": "Izvršavanje {{name}}...",
@@ -246,5 +271,13 @@
     "name": "Isječci",
     "description": "Spremite naredbe koje često pokrećete i pokrenite ih u terminalu ili na mnogim hostovima jednim klikom."
   },
-  "revokeConfirm": "Ukloniti pristup za {{name}}?"
+  "revokeConfirm": "Ukloniti pristup za {{name}}?",
+  "companion": {
+    "toggle": "Ploča sa isječcima",
+    "refresh": "Osvježi"
+  },
+  "card": {
+    "title": "Isječci",
+    "runsOn": "Pokreće se na {{hosts}}"
+  }
 }

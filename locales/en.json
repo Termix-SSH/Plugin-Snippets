@@ -44,6 +44,25 @@
     "fillSudoPassword": {
       "label": "Fill sudo password",
       "description": "When a snippet runs on a host without a terminal, answer its sudo prompt with the host's sudo password, or its SSH password if none is set."
+    },
+    "companionAutoOpen": {
+      "label": "Open the snippets panel with a terminal",
+      "description": "Show the snippets panel when a terminal opens on a host that has it."
+    },
+    "companionSide": {
+      "label": "Snippets panel side",
+      "description": "Where the panel sits next to the terminal.",
+      "right": "Right",
+      "left": "Left",
+      "bottom": "Bottom"
+    },
+    "companionSize": {
+      "label": "Snippets panel size",
+      "description": "Width, or height at the bottom, in pixels."
+    },
+    "companionEdgeButton": {
+      "label": "Snippets panel edge button",
+      "description": "Show a small button on the terminal edge to open the panel."
     }
   },
   "cancel": "Cancel",
@@ -224,7 +243,13 @@
     "tabTitle": "Snippets",
     "startupDescription": "Runs in the terminal each time it connects to this host. Variables like $HOST are filled in; a snippet that asks for inputs is skipped.",
     "none": "None",
-    "removeQuickAction": "Remove quick action"
+    "removeQuickAction": "Remove quick action",
+    "settings": {
+      "showPanel": {
+        "label": "Panel beside the terminal",
+        "description": "Offer a snippets panel next to this host's SSH terminal."
+      }
+    }
   },
   "quickActions": {
     "running": "Executing {{name}}...",
@@ -241,5 +266,13 @@
     "name": "Snippets",
     "description": "Save the commands you run often and run them in a terminal or on many hosts in one click."
   },
-  "revokeConfirm": "Remove access for {{name}}?"
+  "revokeConfirm": "Remove access for {{name}}?",
+  "companion": {
+    "toggle": "Snippets panel",
+    "refresh": "Refresh"
+  },
+  "card": {
+    "title": "Snippets",
+    "runsOn": "Runs on {{hosts}}"
+  }
 }

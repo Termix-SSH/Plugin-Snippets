@@ -44,6 +44,25 @@
     "fillSudoPassword": {
       "label": "Sudo jelszó kitöltése",
       "description": "Ha egy parancs olyan hoszton fut, ahol nincs terminál, a sudo kérésre a hoszt sudo jelszavával válaszol, vagy az SSH jelszavával, ha nincs sudo jelszó beállítva."
+    },
+    "companionAutoOpen": {
+      "label": "Nyisd meg a kódrészlet-panelt egy terminállal",
+      "description": "Jelenítsd meg a kódrészlet-panelt, amikor egy olyan hoston nyílik terminál, amelyik támogatja."
+    },
+    "companionSide": {
+      "label": "Kódrészlet-panel oldala",
+      "description": "Ahol a panel a terminál mellett helyezkedik el.",
+      "right": "Jobb",
+      "left": "Bal",
+      "bottom": "Alsó"
+    },
+    "companionSize": {
+      "label": "Kódrészlet-panel mérete",
+      "description": "Szélesség, vagy az alsó elhelyezés esetén magasság, pixelben."
+    },
+    "companionEdgeButton": {
+      "label": "Kódrészlet-panel szélgombja",
+      "description": "Egy kis gomb megjelenítése a terminál szélén a panel megnyitásához."
     }
   },
   "cancel": "Mégse",
@@ -224,7 +243,13 @@
     "tabTitle": "Kódrészletek",
     "startupDescription": "Minden egyes kapcsolódáskor fut a terminálban ezen a hoszton. A $HOST-hoz hasonló változók kitöltésre kerülnek; a bemenetet kérő kódrészlet kihagyásra kerül.",
     "none": "Egyik sem",
-    "removeQuickAction": "Gyorsművelet eltávolítása"
+    "removeQuickAction": "Gyorsművelet eltávolítása",
+    "settings": {
+      "showPanel": {
+        "label": "Panel a terminál mellett",
+        "description": "Kódrészlet-panel ajánlása ehhez a host SSH-termináljához."
+      }
+    }
   },
   "quickActions": {
     "running": "{{name}} végrehajtása...",
@@ -241,5 +266,13 @@
     "name": "Kódrészletek",
     "description": "Mentsd el a gyakran használt parancsokat, és futtasd őket egy terminálban vagy több hoszton egy kattintással."
   },
-  "revokeConfirm": "El kívánja távolítani a(z) {{name}} hozzáférését?"
+  "revokeConfirm": "El kívánja távolítani a(z) {{name}} hozzáférését?",
+  "companion": {
+    "toggle": "Kódrészlet-panel",
+    "refresh": "Frissítés"
+  },
+  "card": {
+    "title": "Kódrészletek",
+    "runsOn": "Futtatás ezen a {{hosts}} hoston"
+  }
 }

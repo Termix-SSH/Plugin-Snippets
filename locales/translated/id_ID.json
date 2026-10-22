@@ -44,6 +44,25 @@
     "fillSudoPassword": {
       "label": "Isi kata sandi sudo",
       "description": "Saat snippet dijalankan pada host tanpa terminal, jawab prompt sudo-nya dengan kata sandi sudo host tersebut, atau kata sandi SSH jika tidak ada yang diatur."
+    },
+    "companionAutoOpen": {
+      "label": "Buka panel cuplikan bersama terminal",
+      "description": "Tampilkan panel cuplikan saat terminal terbuka pada host yang memilikinya."
+    },
+    "companionSide": {
+      "label": "Posisi panel cuplikan",
+      "description": "Di mana panel berada di samping terminal.",
+      "right": "Kanan",
+      "left": "Kiri",
+      "bottom": "Bawah"
+    },
+    "companionSize": {
+      "label": "Ukuran panel cuplikan",
+      "description": "Lebar, atau tinggi jika di bawah, dalam piksel."
+    },
+    "companionEdgeButton": {
+      "label": "Tombol tepi panel cuplikan",
+      "description": "Tampilkan tombol kecil di tepi terminal untuk membuka panel."
     }
   },
   "cancel": "Batal",
@@ -219,7 +238,13 @@
     "tabTitle": "Cuplikan",
     "startupDescription": "Berjalan di terminal setiap kali terhubung ke host ini. Variabel seperti $HOST akan diisi; cuplikan yang meminta input akan dilewati.",
     "none": "Tidak ada",
-    "removeQuickAction": "Hapus aksi cepat"
+    "removeQuickAction": "Hapus aksi cepat",
+    "settings": {
+      "showPanel": {
+        "label": "Panel di samping terminal",
+        "description": "Tawarkan panel cuplikan di samping terminal SSH host ini."
+      }
+    }
   },
   "quickActions": {
     "running": "Menjalankan {{name}}...",
@@ -236,5 +261,13 @@
     "name": "Cuplikan",
     "description": "Simpan perintah yang sering Anda jalankan dan jalankan di terminal atau di banyak host hanya dengan satu klik."
   },
-  "revokeConfirm": "Hapus akses untuk {{name}}?"
+  "revokeConfirm": "Hapus akses untuk {{name}}?",
+  "companion": {
+    "toggle": "Panel cuplikan",
+    "refresh": "Segarkan"
+  },
+  "card": {
+    "title": "Cuplikan",
+    "runsOn": "Berjalan di {{hosts}}"
+  }
 }

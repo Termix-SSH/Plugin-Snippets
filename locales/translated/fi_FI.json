@@ -44,6 +44,25 @@
     "fillSudoPassword": {
       "label": "Täytä sudo-salasana",
       "description": "Kun komentosarjaa suoritetaan isäntälaitteella ilman terminaalia, vastaa sudo-pyyntöön isäntälaitteen sudo-salasanaa käyttäen tai SSH-salasanaa, jos sudo-salasanaa ei ole määritetty."
+    },
+    "companionAutoOpen": {
+      "label": "Avaa koodinpätkien paneeli terminaalin kanssa",
+      "description": "Näytä koodinpätkien paneeli, kun terminaali avautuu isäntäpalvelimella, jossa se on käytössä."
+    },
+    "companionSide": {
+      "label": "Koodinpätkien paneelin sijainti",
+      "description": "Missä paneeli sijaitsee terminaalin vieressä.",
+      "right": "Oikealla",
+      "left": "Vasemmalla",
+      "bottom": "Alareunassa"
+    },
+    "companionSize": {
+      "label": "Koodinpätkien paneelin koko",
+      "description": "Leveys tai alareunan korkeus pikseleinä."
+    },
+    "companionEdgeButton": {
+      "label": "Koodinpätkien paneelin reunapainike",
+      "description": "Näytä pieni painike terminaalireunassa paneelin avaamiseksi."
     }
   },
   "cancel": "Peruuta",
@@ -224,7 +243,13 @@
     "tabTitle": "Koodinpätkät",
     "startupDescription": "Suoritetaan terminaalissa aina, kun yhdistetään tähän isäntään. Muuttujat kuten $HOST täytetään automaattisesti; koodinpätkät, jotka pyytävät syötteitä, ohitetaan.",
     "none": "Ei mitään",
-    "removeQuickAction": "Poista pikatoiminto"
+    "removeQuickAction": "Poista pikatoiminto",
+    "settings": {
+      "showPanel": {
+        "label": "Paneeli terminaalista vieressä",
+        "description": "Tarjoa koodinpätkien paneeli tämän isäntäpalvelimen SSH-terminaalin vieressä."
+      }
+    }
   },
   "quickActions": {
     "running": "Suoritetaan {{name}}...",
@@ -241,5 +266,13 @@
     "name": "Koodinpätkät",
     "description": "Tallenna usein käyttämäsi komennot ja suorita ne terminaalissa tai useilla isäntälaitteilla yhdellä napsautuksella."
   },
-  "revokeConfirm": "Poistetaanko {{name}}:n pääsy?"
+  "revokeConfirm": "Poistetaanko {{name}}:n pääsy?",
+  "companion": {
+    "toggle": "Koodinpätkien paneeli",
+    "refresh": "Päivitä"
+  },
+  "card": {
+    "title": "Koodinpätkät",
+    "runsOn": "Suorittaa palvelimilla {{hosts}}"
+  }
 }

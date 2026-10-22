@@ -44,6 +44,25 @@
     "fillSudoPassword": {
       "label": "Isi kata laluan sudo",
       "description": "Apabila sepotong kod berjalan pada hos tanpa terminal, jawab permintaan sudo-nya dengan kata laluan sudo hos tersebut, atau kata laluan SSH jika tiada yang ditetapkan."
+    },
+    "companionAutoOpen": {
+      "label": "Buka panel petikan bersama terminal",
+      "description": "Paparkan panel petikan apabila terminal dibuka pada hos yang memilikinya."
+    },
+    "companionSide": {
+      "label": "Sisi panel petikan",
+      "description": "Di mana panel diletakkan bersebelahan dengan terminal.",
+      "right": "Kanan",
+      "left": "Kiri",
+      "bottom": "Bawah"
+    },
+    "companionSize": {
+      "label": "Saiz panel petikan",
+      "description": "Lebar, atau tinggi di bahagian bawah, dalam piksel."
+    },
+    "companionEdgeButton": {
+      "label": "Butang tepi panel petikan",
+      "description": "Paparkan butang kecil di tepi terminal untuk membuka panel."
     }
   },
   "cancel": "Batal",
@@ -219,7 +238,13 @@
     "tabTitle": "Petikan",
     "startupDescription": "Dijalankan dalam terminal setiap kali ia menyambung ke hos ini. Pembolehubah seperti $HOST diisi; petikan yang meminta input akan dilangkau.",
     "none": "Tiada",
-    "removeQuickAction": "Buang tindakan pantas"
+    "removeQuickAction": "Buang tindakan pantas",
+    "settings": {
+      "showPanel": {
+        "label": "Panel bersebelahan terminal",
+        "description": "Tawarkan panel petikan di sebelah terminal SSH hos ini."
+      }
+    }
   },
   "quickActions": {
     "running": "Menjalankan {{name}}...",
@@ -236,5 +261,13 @@
     "name": "Petikan",
     "description": "Simpan arahan yang anda jalankan kerap dan jalankannya dalam terminal atau pada banyak hos dengan satu klik."
   },
-  "revokeConfirm": "Buang akses untuk {{name}}?"
+  "revokeConfirm": "Buang akses untuk {{name}}?",
+  "companion": {
+    "toggle": "Panel petikan",
+    "refresh": "Muat semula"
+  },
+  "card": {
+    "title": "Petikan",
+    "runsOn": "Dijalankan pada {{hosts}}"
+  }
 }

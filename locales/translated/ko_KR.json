@@ -44,6 +44,25 @@
     "fillSudoPassword": {
       "label": "sudo 비밀번호 자동 입력",
       "description": "터미널이 없는 호스트에서 스니펫이 실행될 때, 호스트의 sudo 비밀번호로 sudo 프롬프트에 응답합니다. sudo 비밀번호가 설정되지 않은 경우 SSH 비밀번호를 사용합니다."
+    },
+    "companionAutoOpen": {
+      "label": "터미널과 함께 스니펫 패널 열기",
+      "description": "스니펫이 있는 호스트의 터미널이 열릴 때 스니펫 패널을 표시합니다."
+    },
+    "companionSide": {
+      "label": "스니펫 패널 위치",
+      "description": "터미널 옆에 패널이 표시되는 위치입니다.",
+      "right": "오른쪽",
+      "left": "왼쪽",
+      "bottom": "아래쪽"
+    },
+    "companionSize": {
+      "label": "스니펫 패널 크기",
+      "description": "너비 또는 아래쪽 높이(픽셀 단위)입니다."
+    },
+    "companionEdgeButton": {
+      "label": "스니펫 패널 가장자리 버튼",
+      "description": "패널을 열 수 있는 작은 버튼을 터미널 가장자리에 표시합니다."
     }
   },
   "cancel": "취소",
@@ -219,7 +238,13 @@
     "tabTitle": "스니펫",
     "startupDescription": "이 호스트에 연결할 때마다 터미널에서 실행됩니다. $HOST와 같은 변수는 자동으로 채워지며, 입력을 요청하는 스니펫은 건너뜁니다.",
     "none": "없음",
-    "removeQuickAction": "빠른 액션 제거"
+    "removeQuickAction": "빠른 액션 제거",
+    "settings": {
+      "showPanel": {
+        "label": "터미널 옆 패널",
+        "description": "이 호스트의 SSH 터미널 옆에 스니펫 패널을 표시합니다."
+      }
+    }
   },
   "quickActions": {
     "running": "{{name}} 실행 중...",
@@ -236,5 +261,13 @@
     "name": "스니펫",
     "description": "자주 실행하는 명령어를 저장하고, 터미널이나 여러 호스트에서 한 번의 클릭으로 실행하세요."
   },
-  "revokeConfirm": "{{name}}의 접근 권한을 제거하시겠습니까?"
+  "revokeConfirm": "{{name}}의 접근 권한을 제거하시겠습니까?",
+  "companion": {
+    "toggle": "스니펫 패널",
+    "refresh": "새로고침"
+  },
+  "card": {
+    "title": "스니펫",
+    "runsOn": "{{hosts}}에서 실행"
+  }
 }

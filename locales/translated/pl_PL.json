@@ -44,6 +44,25 @@
     "fillSudoPassword": {
       "label": "Wypełnij hasło sudo",
       "description": "Gdy fragment kodu jest uruchamiany na hoście bez terminala, odpowiedz na monit sudo, używając hasła sudo hosta lub hasła SSH, jeśli hasło sudo nie jest ustawione."
+    },
+    "companionAutoOpen": {
+      "label": "Otwórz panel fragmentów z terminalem",
+      "description": "Wyświetl panel fragmentów, gdy terminal otworzy się na hoście, który go posiada."
+    },
+    "companionSide": {
+      "label": "Strona panelu fragmentów",
+      "description": "Gdzie panel znajduje się obok terminala.",
+      "right": "Prawa",
+      "left": "Lewa",
+      "bottom": "Dolna"
+    },
+    "companionSize": {
+      "label": "Rozmiar panelu fragmentów",
+      "description": "Szerokość lub wysokość (na dole) w pikselach."
+    },
+    "companionEdgeButton": {
+      "label": "Przycisk krawędziowy panelu fragmentów",
+      "description": "Wyświetl mały przycisk na krawędzi terminala, aby otworzyć panel."
     }
   },
   "cancel": "Anuluj",
@@ -234,7 +253,13 @@
     "tabTitle": "Fragmenty",
     "startupDescription": "Uruchamiane w terminalu za każdym razem, gdy nawiązywane jest połączenie z tym hostem. Zmienne takie jak $HOST są uzupełniane; fragmenty wymagające wprowadzenia danych są pomijane.",
     "none": "Brak",
-    "removeQuickAction": "Usuń szybką akcję"
+    "removeQuickAction": "Usuń szybką akcję",
+    "settings": {
+      "showPanel": {
+        "label": "Panel obok terminala",
+        "description": "Zaproponuj panel fragmentów obok terminala SSH tego hosta."
+      }
+    }
   },
   "quickActions": {
     "running": "Wykonywanie {{name}}...",
@@ -251,5 +276,13 @@
     "name": "Fragmenty",
     "description": "Zapisz często używane polecenia i uruchamiaj je w terminalu lub na wielu hostach jednym kliknięciem."
   },
-  "revokeConfirm": "Usunąć dostęp dla {{name}}?"
+  "revokeConfirm": "Usunąć dostęp dla {{name}}?",
+  "companion": {
+    "toggle": "Panel fragmentów",
+    "refresh": "Odśwież"
+  },
+  "card": {
+    "title": "Fragmenty",
+    "runsOn": "Uruchamia się na {{hosts}}"
+  }
 }

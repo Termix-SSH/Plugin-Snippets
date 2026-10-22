@@ -44,6 +44,25 @@
     "fillSudoPassword": {
       "label": "กรอกรหัสผ่าน sudo",
       "description": "เมื่อสคริปต์ทำงานบนโฮสต์ที่ไม่มีเทอร์มินัล ให้ตอบคำถาม sudo ด้วยรหัสผ่าน sudo ของโฮสต์นั้น หรือใช้รหัสผ่าน SSH หากไม่ได้ตั้งค่ารหัสผ่าน sudo ไว้"
+    },
+    "companionAutoOpen": {
+      "label": "เปิดแผง Snippets พร้อมเทอร์มินัล",
+      "description": "แสดงแผง Snippets เมื่อเปิดเทอร์มินัลบนโฮสต์ที่มีฟีเจอร์นี้"
+    },
+    "companionSide": {
+      "label": "ตำแหน่งแผง Snippets",
+      "description": "ตำแหน่งของแผงที่อยู่ถัดจากเทอร์มินัล",
+      "right": "ขวา",
+      "left": "ซ้าย",
+      "bottom": "ด้านล่าง"
+    },
+    "companionSize": {
+      "label": "ขนาดแผง Snippets",
+      "description": "ความกว้าง หรือความสูงเมื่ออยู่ด้านล่าง เป็นพิกเซล"
+    },
+    "companionEdgeButton": {
+      "label": "ปุ่มขอบแผง Snippets",
+      "description": "แสดงปุ่มขนาดเล็กที่ขอบเทอร์มินัลเพื่อเปิดแผง"
     }
   },
   "cancel": "ยกเลิก",
@@ -219,7 +238,13 @@
     "tabTitle": "สเนปเป็ต",
     "startupDescription": "ทำงานในเทอร์มินัลทุกครั้งที่เชื่อมต่อกับโฮสต์นี้ ตัวแปรเช่น $HOST จะถูกแทนค่าโดยอัตโนมัติ สเนปเป็ตที่ขอข้อมูลนำเข้าจะถูกข้ามไป",
     "none": "ไม่มี",
-    "removeQuickAction": "ลบแอ็กชันด่วน"
+    "removeQuickAction": "ลบแอ็กชันด่วน",
+    "settings": {
+      "showPanel": {
+        "label": "แผงข้างเทอร์มินัล",
+        "description": "แสดงแผง Snippets ข้างเทอร์มินัล SSH ของโฮสต์นี้"
+      }
+    }
   },
   "quickActions": {
     "running": "กำลังดำเนินการ {{name}}...",
@@ -236,5 +261,13 @@
     "name": "สเนปเป็ต",
     "description": "บันทึกคำสั่งที่คุณใช้บ่อย และเรียกใช้它们在เทอร์มินัลหรือบนหลายโฮสต์ได้เพียงคลิกเดียว"
   },
-  "revokeConfirm": "ลบสิทธิ์การเข้าถึงสำหรับ {{name}} หรือไม่?"
+  "revokeConfirm": "ลบสิทธิ์การเข้าถึงสำหรับ {{name}} หรือไม่?",
+  "companion": {
+    "toggle": "แผง Snippets",
+    "refresh": "รีเฟรช"
+  },
+  "card": {
+    "title": "Snippets",
+    "runsOn": "ทำงานบน {{hosts}}"
+  }
 }

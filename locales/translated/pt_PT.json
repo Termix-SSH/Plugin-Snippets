@@ -44,6 +44,25 @@
     "fillSudoPassword": {
       "label": "Preencher palavra-passe do sudo",
       "description": "Quando um snippet é executado num host sem terminal, responda ao prompt do sudo com a palavra-passe sudo do host, ou com a palavra-passe SSH se não estiver definida."
+    },
+    "companionAutoOpen": {
+      "label": "Abrir o painel de snippets com um terminal",
+      "description": "Mostrar o painel de snippets quando um terminal abre num host que o possui."
+    },
+    "companionSide": {
+      "label": "Lado do painel de snippets",
+      "description": "Onde o painel fica junto ao terminal.",
+      "right": "Direita",
+      "left": "Esquerda",
+      "bottom": "Inferior"
+    },
+    "companionSize": {
+      "label": "Tamanho do painel de snippets",
+      "description": "Largura, ou altura na parte inferior, em pixels."
+    },
+    "companionEdgeButton": {
+      "label": "Botão lateral do painel de snippets",
+      "description": "Mostrar um pequeno botão na borda do terminal para abrir o painel."
     }
   },
   "cancel": "Cancelar",
@@ -229,7 +248,13 @@
     "tabTitle": "Snippets",
     "startupDescription": "Executado no terminal sempre que se estabelece ligação a este host. Variáveis como $HOST são preenchidas; um snippet que solicita entradas é ignorado.",
     "none": "Nenhum",
-    "removeQuickAction": "Remover ação rápida"
+    "removeQuickAction": "Remover ação rápida",
+    "settings": {
+      "showPanel": {
+        "label": "Painel junto ao terminal",
+        "description": "Oferecer um painel de snippets junto ao terminal SSH deste host."
+      }
+    }
   },
   "quickActions": {
     "running": "A executar {{name}}...",
@@ -246,5 +271,13 @@
     "name": "Snippets",
     "description": "Guarde os comandos que executa frequentemente e execute-os num terminal ou em vários hosts com um clique."
   },
-  "revokeConfirm": "Remover acesso para {{name}}?"
+  "revokeConfirm": "Remover acesso para {{name}}?",
+  "companion": {
+    "toggle": "Painel de snippets",
+    "refresh": "Atualizar"
+  },
+  "card": {
+    "title": "Snippets",
+    "runsOn": "Executa em {{hosts}}"
+  }
 }

@@ -44,6 +44,25 @@
     "fillSudoPassword": {
       "label": "Omplir la contrasenya de sudo",
       "description": "Quan un fragment s'executa en un amfitrió sense terminal, respon a la sol·licitud de sudo amb la contrasenya de sudo de l'amfitrió, o amb la contrasenya SSH si no n'hi ha cap configurada."
+    },
+    "companionAutoOpen": {
+      "label": "Obre el panell de fragments amb un terminal",
+      "description": "Mostra el panell de fragments quan s'obri un terminal en un amfitrió que en tingui."
+    },
+    "companionSide": {
+      "label": "Costat del panell de fragments",
+      "description": "On es troba el panell al costat del terminal.",
+      "right": "Dreta",
+      "left": "Esquerra",
+      "bottom": "Inferior"
+    },
+    "companionSize": {
+      "label": "Mida del panell de fragments",
+      "description": "Amplada, o alçada a la part inferior, en píxels."
+    },
+    "companionEdgeButton": {
+      "label": "Botó lateral del panell de fragments",
+      "description": "Mostra un botó petit al costat del terminal per obrir el panell."
     }
   },
   "cancel": "Cancel·lar",
@@ -229,7 +248,13 @@
     "tabTitle": "Fragments",
     "startupDescription": "S'executa al terminal cada vegada que es connecta a aquest host. Les variables com $HOST s'omplen automàticament; es salta un fragment que demani entrades.",
     "none": "Cap",
-    "removeQuickAction": "Elimina l'acció ràpida"
+    "removeQuickAction": "Elimina l'acció ràpida",
+    "settings": {
+      "showPanel": {
+        "label": "Panell al costat del terminal",
+        "description": "Ofereix un panell de fragments al costat del terminal SSH d'aquest amfitrió."
+      }
+    }
   },
   "quickActions": {
     "running": "Executant {{name}}...",
@@ -246,5 +271,13 @@
     "name": "Fragments",
     "description": "Desa els comandaments que executes sovint i executa'ls en un terminal o en diversos amfitrions amb un sol clic."
   },
-  "revokeConfirm": "Vols eliminar l'accés per a {{name}}?"
+  "revokeConfirm": "Vols eliminar l'accés per a {{name}}?",
+  "companion": {
+    "toggle": "Panell de fragments",
+    "refresh": "Actualitza"
+  },
+  "card": {
+    "title": "Fragments",
+    "runsOn": "S'executa a {{hosts}}"
+  }
 }

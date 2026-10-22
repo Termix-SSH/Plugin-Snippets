@@ -44,6 +44,25 @@
     "fillSudoPassword": {
       "label": "Doplnit heslo pro sudo",
       "description": "Pokud se úryvek spustí na hostiteli bez terminálu, odpovězte na výzvu sudo pomocí hesla sudo hostitele, nebo jeho SSH hesla, pokud není nastaveno žádné heslo sudo."
+    },
+    "companionAutoOpen": {
+      "label": "Otevřít panel úryvků s terminálem",
+      "description": "Zobrazit panel úryvků při otevření terminálu na hostiteli, který jej má."
+    },
+    "companionSide": {
+      "label": "Poloha panelu úryvků",
+      "description": "Kde se panel nachází vedle terminálu.",
+      "right": "Vpravo",
+      "left": "Vlevo",
+      "bottom": "Dole"
+    },
+    "companionSize": {
+      "label": "Velikost panelu úryvků",
+      "description": "Šířka nebo výška dole v pixelech."
+    },
+    "companionEdgeButton": {
+      "label": "Tlačítko na okraji panelu úryvků",
+      "description": "Zobrazit malé tlačítko na okraji terminálu pro otevření panelu."
     }
   },
   "cancel": "Zrušit",
@@ -234,7 +253,13 @@
     "tabTitle": "Úryvky",
     "startupDescription": "Spustí se v terminálu při každém připojení k tomuto hostiteli. Proměnné jako $HOST jsou doplněny; úryvek vyžadující vstup je přeskočen.",
     "none": "Žádný",
-    "removeQuickAction": "Odebrat rychlou akci"
+    "removeQuickAction": "Odebrat rychlou akci",
+    "settings": {
+      "showPanel": {
+        "label": "Panel vedle terminálu",
+        "description": "Nabídnout panel se záložkami příkazů vedle SSH terminálu tohoto hostitele."
+      }
+    }
   },
   "quickActions": {
     "running": "Provádí se {{name}}...",
@@ -251,5 +276,13 @@
     "name": "Úryvky",
     "description": "Uložte příkazy, které často používáte, a spusťte je v terminálu nebo na mnoha hostitelích jedním kliknutím."
   },
-  "revokeConfirm": "Odebrat přístup pro {{name}}?"
+  "revokeConfirm": "Odebrat přístup pro {{name}}?",
+  "companion": {
+    "toggle": "Panel se záložkami příkazů",
+    "refresh": "Obnovit"
+  },
+  "card": {
+    "title": "Záložky příkazů",
+    "runsOn": "Spouští se na {{hosts}}"
+  }
 }

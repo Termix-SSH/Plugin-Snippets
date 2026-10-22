@@ -44,6 +44,25 @@
     "fillSudoPassword": {
       "label": "Fyll ut sudo-passord",
       "description": "Når et snipptekst kjøres på en vert uten terminal, svar på sudo-forespørselen med vertens sudo-passord, eller SSH-passordet dersom ingen er oppgitt."
+    },
+    "companionAutoOpen": {
+      "label": "Åpne snippets-panelet med en terminal",
+      "description": "Vis snippets-panelet når en terminal åpnes på en vert som har det."
+    },
+    "companionSide": {
+      "label": "Plassering av snippets-panelet",
+      "description": "Hvor panelet vises i forhold til terminalen.",
+      "right": "Høyre",
+      "left": "Venstre",
+      "bottom": "Bunn"
+    },
+    "companionSize": {
+      "label": "Størrelse på snippets-panelet",
+      "description": "Bredde, eller høyde i bunnen, i piksler."
+    },
+    "companionEdgeButton": {
+      "label": "Knapp for snippets-panelet i kanten",
+      "description": "Vis en liten knapp i terminalens kant for å åpne panelet."
     }
   },
   "cancel": "Avbryt",
@@ -224,7 +243,13 @@
     "tabTitle": "Snippets",
     "startupDescription": "Kjøres i terminalen hver gang den kobler til denne verten. Variabler som $HOST fylles ut; en snip som ber om inndata blir hoppet over.",
     "none": "Ingen",
-    "removeQuickAction": "Fjern hurtighandling"
+    "removeQuickAction": "Fjern hurtighandling",
+    "settings": {
+      "showPanel": {
+        "label": "Panel ved siden av terminalen",
+        "description": "Tilby et snippets-panel ved siden av SSH-terminalen for denne verten."
+      }
+    }
   },
   "quickActions": {
     "running": "Kjører {{name}}...",
@@ -241,5 +266,13 @@
     "name": "Snippets",
     "description": "Lagre kommandoene du kjører ofte, og kjør dem i en terminal eller på mange verter med ett klikk."
   },
-  "revokeConfirm": "Fjerne tilgang for {{name}}?"
+  "revokeConfirm": "Fjerne tilgang for {{name}}?",
+  "companion": {
+    "toggle": "Snippets-panel",
+    "refresh": "Oppdater"
+  },
+  "card": {
+    "title": "Snippets",
+    "runsOn": "Kjøres på {{hosts}}"
+  }
 }

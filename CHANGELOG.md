@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.1.0
+
+### Added
+
+- Snippets panel beside an SSH terminal: search and click a snippet to run it in that terminal
+- Snippets dashboard card: run snippets that have target hosts, or copy any snippet
+
 ## 1.0.2
 
 ### Added

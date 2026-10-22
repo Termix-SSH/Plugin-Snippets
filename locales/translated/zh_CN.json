@@ -44,6 +44,25 @@
     "fillSudoPassword": {
       "label": "自动填充 sudo 密码",
       "description": "当代码片段在没有终端的主机上运行时，使用主机的 sudo 密码回答其 sudo 提示；如果未设置 sudo 密码，则使用其 SSH 密码。"
+    },
+    "companionAutoOpen": {
+      "label": "打开终端时显示代码片段面板",
+      "description": "当在拥有代码片段的终端上打开时，显示代码片段面板。"
+    },
+    "companionSide": {
+      "label": "代码片段面板位置",
+      "description": "面板相对于终端的位置。",
+      "right": "右侧",
+      "left": "左侧",
+      "bottom": "底部"
+    },
+    "companionSize": {
+      "label": "代码片段面板大小",
+      "description": "宽度，或位于底部时的高度，单位为像素。"
+    },
+    "companionEdgeButton": {
+      "label": "代码片段面板边缘按钮",
+      "description": "在终端边缘显示一个小按钮，用于打开面板。"
     }
   },
   "cancel": "取消",
@@ -219,7 +238,13 @@
     "tabTitle": "代码片段",
     "startupDescription": "每次连接到该主机时，在终端中运行。变量（如 $HOST）会被自动填充；需要用户输入的代码片段将被跳过。",
     "none": "无",
-    "removeQuickAction": "移除快捷操作"
+    "removeQuickAction": "移除快捷操作",
+    "settings": {
+      "showPanel": {
+        "label": "终端旁边的面板",
+        "description": "在此主机的 SSH 终端旁提供代码片段面板。"
+      }
+    }
   },
   "quickActions": {
     "running": "正在执行 {{name}}...",
@@ -236,5 +261,13 @@
     "name": "代码片段",
     "description": "保存常用命令，一键在终端或多台主机上运行。"
   },
-  "revokeConfirm": "移除 {{name}} 的访问权限？"
+  "revokeConfirm": "移除 {{name}} 的访问权限？",
+  "companion": {
+    "toggle": "代码片段面板",
+    "refresh": "刷新"
+  },
+  "card": {
+    "title": "代码片段",
+    "runsOn": "在 {{hosts}} 上运行"
+  }
 }

@@ -44,6 +44,25 @@
     "fillSudoPassword": {
       "label": "Fyll i sudo-lösenord",
       "description": "När en kommandosnutt körs på en värd utan terminal, besvara sudo-frågan med värdens sudo-lösenord, eller SSH-lösenordet om inget sudo-lösenord är inställt."
+    },
+    "companionAutoOpen": {
+      "label": "Öppna panelen för kommandon med en terminal",
+      "description": "Visa panelen för kommandon när en terminal öppnas på en värd som har den."
+    },
+    "companionSide": {
+      "label": "Placering för panelen för kommandon",
+      "description": "Var panelen visas bredvid terminalen.",
+      "right": "Höger",
+      "left": "Vänster",
+      "bottom": "Botten"
+    },
+    "companionSize": {
+      "label": "Storlek på panelen för kommandon",
+      "description": "Bredd, eller höjd vid botten, i pixlar."
+    },
+    "companionEdgeButton": {
+      "label": "Knapp för panelen för kommandon vid kanten",
+      "description": "Visa en liten knapp vid terminalens kant för att öppna panelen."
     }
   },
   "cancel": "Avbryt",
@@ -224,7 +243,13 @@
     "tabTitle": "Kodsnuttar",
     "startupDescription": "Körs i terminalen varje gång den ansluter till denna värd. Variabler som $HOST fylls i; en kodsnutt som ber om inmatning hoppas över.",
     "none": "Ingen",
-    "removeQuickAction": "Ta bort snabbåtgärd"
+    "removeQuickAction": "Ta bort snabbåtgärd",
+    "settings": {
+      "showPanel": {
+        "label": "Panel bredvid terminalen",
+        "description": "Erbjud en panel för kommandon bredvid SSH-terminalen för denna värd."
+      }
+    }
   },
   "quickActions": {
     "running": "Kör {{name}}...",
@@ -241,5 +266,13 @@
     "name": "Kodsnuttar",
     "description": "Spara de kommandon du kör ofta och kör dem i en terminal eller på många värdar med ett klick."
   },
-  "revokeConfirm": "Ta bort åtkomst för {{name}}?"
+  "revokeConfirm": "Ta bort åtkomst för {{name}}?",
+  "companion": {
+    "toggle": "Panel för kommandon",
+    "refresh": "Uppdatera"
+  },
+  "card": {
+    "title": "Kommandon",
+    "runsOn": "Körs på {{hosts}}"
+  }
 }

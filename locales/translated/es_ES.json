@@ -44,6 +44,25 @@
     "fillSudoPassword": {
       "label": "Rellenar contraseña de sudo",
       "description": "Cuando un fragmento se ejecuta en un host sin terminal, responde a su solicitud de sudo con la contraseña de sudo del host, o con su contraseña SSH si no se ha configurado ninguna."
+    },
+    "companionAutoOpen": {
+      "label": "Abrir el panel de fragmentos con una terminal",
+      "description": "Mostrar el panel de fragmentos cuando se abre una terminal en un host que lo tenga."
+    },
+    "companionSide": {
+      "label": "Lado del panel de fragmentos",
+      "description": "Dónde se sitúa el panel junto a la terminal.",
+      "right": "Derecha",
+      "left": "Izquierda",
+      "bottom": "Abajo"
+    },
+    "companionSize": {
+      "label": "Tamaño del panel de fragmentos",
+      "description": "Ancho, o altura si está abajo, en píxeles."
+    },
+    "companionEdgeButton": {
+      "label": "Botón lateral del panel de fragmentos",
+      "description": "Mostrar un pequeño botón en el borde de la terminal para abrir el panel."
     }
   },
   "cancel": "Cancelar",
@@ -229,7 +248,13 @@
     "tabTitle": "Fragmentos",
     "startupDescription": "Se ejecuta en la terminal cada vez que se conecta a este host. Se rellenan variables como $HOST; se omite un fragmento que solicite entradas.",
     "none": "Ninguno",
-    "removeQuickAction": "Eliminar acción rápida"
+    "removeQuickAction": "Eliminar acción rápida",
+    "settings": {
+      "showPanel": {
+        "label": "Panel junto a la terminal",
+        "description": "Ofrecer un panel de fragmentos junto a la terminal SSH de este host."
+      }
+    }
   },
   "quickActions": {
     "running": "Ejecutando {{name}}...",
@@ -246,5 +271,13 @@
     "name": "Fragmentos",
     "description": "Guarda los comandos que ejecutas con frecuencia y ejecútalos en una terminal o en varios hosts con un solo clic."
   },
-  "revokeConfirm": "¿Eliminar el acceso para {{name}}?"
+  "revokeConfirm": "¿Eliminar el acceso para {{name}}?",
+  "companion": {
+    "toggle": "Panel de fragmentos",
+    "refresh": "Actualizar"
+  },
+  "card": {
+    "title": "Fragmentos",
+    "runsOn": "Se ejecuta en {{hosts}}"
+  }
 }

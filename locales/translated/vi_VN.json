@@ -44,6 +44,25 @@
     "fillSudoPassword": {
       "label": "Điền mật khẩu sudo",
       "description": "Khi một đoạn lệnh chạy trên máy chủ mà không có cửa sổ terminal, hãy tự động trả lời yêu cầu sudo bằng mật khẩu sudo của máy chủ, hoặc bằng mật khẩu SSH nếu không có mật khẩu sudo nào được đặt."
+    },
+    "companionAutoOpen": {
+      "label": "Mở bảng snippets cùng với terminal",
+      "description": "Hiển thị bảng snippets khi terminal mở trên một host có sẵn tính năng này."
+    },
+    "companionSide": {
+      "label": "Vị trí bảng snippets",
+      "description": "Vị trí của bảng so với terminal.",
+      "right": "Phải",
+      "left": "Trái",
+      "bottom": "Dưới"
+    },
+    "companionSize": {
+      "label": "Kích thước bảng snippets",
+      "description": "Chiều rộng, hoặc chiều cao nếu ở dưới, tính bằng pixel."
+    },
+    "companionEdgeButton": {
+      "label": "Nút mép bảng snippets",
+      "description": "Hiển thị một nút nhỏ ở mép terminal để mở bảng."
     }
   },
   "cancel": "Hủy",
@@ -219,7 +238,13 @@
     "tabTitle": "Đoạn lệnh",
     "startupDescription": "Chạy trong terminal mỗi khi kết nối đến máy chủ này. Các biến như $HOST sẽ được điền sẵn; đoạn lệnh yêu cầu nhập liệu sẽ bị bỏ qua.",
     "none": "Không có",
-    "removeQuickAction": "Xóa thao tác nhanh"
+    "removeQuickAction": "Xóa thao tác nhanh",
+    "settings": {
+      "showPanel": {
+        "label": "Bảng bên cạnh terminal",
+        "description": "Hiển thị bảng snippets bên cạnh terminal SSH của host này."
+      }
+    }
   },
   "quickActions": {
     "running": "Đang thực thi {{name}}...",
@@ -236,5 +261,13 @@
     "name": "Đoạn lệnh",
     "description": "Lưu các lệnh bạn thường xuyên chạy và thực thi chúng trong terminal hoặc trên nhiều máy chủ chỉ với một lần nhấp."
   },
-  "revokeConfirm": "Xóa quyền truy cập cho {{name}}?"
+  "revokeConfirm": "Xóa quyền truy cập cho {{name}}?",
+  "companion": {
+    "toggle": "Bảng snippets",
+    "refresh": "Làm mới"
+  },
+  "card": {
+    "title": "Snippets",
+    "runsOn": "Chạy trên {{hosts}}"
+  }
 }

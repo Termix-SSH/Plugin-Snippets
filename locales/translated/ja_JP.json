@@ -44,6 +44,25 @@
     "fillSudoPassword": {
       "label": "sudo パスワードを自動入力",
       "description": "ターミナルなしのホストでスニペットを実行する際、sudo プロンプトにホストの sudo パスワード（設定されていない場合は SSH パスワード）で応答します。"
+    },
+    "companionAutoOpen": {
+      "label": "ターミナルと共にスニペットパネルを開く",
+      "description": "スニペットが設定されているホストでターミナルを開いた際、スニペットパネルを表示します。"
+    },
+    "companionSide": {
+      "label": "スニペットパネルの表示位置",
+      "description": "ターミナルの隣にパネルを表示する位置です。",
+      "right": "右",
+      "left": "左",
+      "bottom": "下"
+    },
+    "companionSize": {
+      "label": "スニペットパネルのサイズ",
+      "description": "幅、または下部表示時の高さをピクセル単位で指定します。"
+    },
+    "companionEdgeButton": {
+      "label": "スニペットパネルのエッジボタン",
+      "description": "パネルを開くための小さなボタンをターミナルの端に表示します。"
     }
   },
   "cancel": "キャンセル",
@@ -219,7 +238,13 @@
     "tabTitle": "スニペット",
     "startupDescription": "このホストに接続するたびにターミナルで実行されます。$HOST などの変数は埋め込まれますが、入力を求めるスニペットはスキップされます。",
     "none": "なし",
-    "removeQuickAction": "クイックアクションを削除"
+    "removeQuickAction": "クイックアクションを削除",
+    "settings": {
+      "showPanel": {
+        "label": "ターミナル横のパネル",
+        "description": "このホストの SSH ターミナルの隣にスニペットパネルを表示するオプションを提供します。"
+      }
+    }
   },
   "quickActions": {
     "running": "{{name}} を実行中...",
@@ -236,5 +261,13 @@
     "name": "スニペット",
     "description": "頻繁に実行するコマンドを保存し、ターミナルや複数のホストでワンクリックで実行できます。"
   },
-  "revokeConfirm": "{{name}} のアクセス権限を削除しますか？"
+  "revokeConfirm": "{{name}} のアクセス権限を削除しますか？",
+  "companion": {
+    "toggle": "スニペットパネル",
+    "refresh": "更新"
+  },
+  "card": {
+    "title": "スニペット",
+    "runsOn": "{{hosts}} で実行"
+  }
 }

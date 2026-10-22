@@ -44,6 +44,25 @@
     "fillSudoPassword": {
       "label": "Completează parola sudo",
       "description": "Când un snippet rulează pe un host fără terminal, răspunde la solicitarea sudo cu parola sudo a hostului, sau cu parola SSH dacă nu este setată una."
+    },
+    "companionAutoOpen": {
+      "label": "Deschide panoul de fragmente împreună cu terminalul",
+      "description": "Afișează panoul de fragmente când se deschide un terminal pe un gazdă care are fragmente configurate."
+    },
+    "companionSide": {
+      "label": "Poziția panoului de fragmente",
+      "description": "Unde se află panoul în raport cu terminalul.",
+      "right": "Dreapta",
+      "left": "Stânga",
+      "bottom": "Jos"
+    },
+    "companionSize": {
+      "label": "Dimensiunea panoului de fragmente",
+      "description": "Lățimea, sau înălțimea dacă este jos, în pixeli."
+    },
+    "companionEdgeButton": {
+      "label": "Butonul de margine al panoului de fragmente",
+      "description": "Afișează un buton mic pe marginea terminalului pentru a deschide panoul."
     }
   },
   "cancel": "Anulare",
@@ -229,7 +248,13 @@
     "tabTitle": "Fragmente",
     "startupDescription": "Se execută în terminal de fiecare dată când se conectează la acest gazdă. Variabile precum $HOST sunt completate; un fragment care solicită intrări este omis.",
     "none": "Niciunul",
-    "removeQuickAction": "Elimină acțiunea rapidă"
+    "removeQuickAction": "Elimină acțiunea rapidă",
+    "settings": {
+      "showPanel": {
+        "label": "Panou lângă terminal",
+        "description": "Oferă un panou de fragmente lângă terminalul SSH al acestei gazde."
+      }
+    }
   },
   "quickActions": {
     "running": "Executarea {{name}}...",
@@ -246,5 +271,13 @@
     "name": "Fragmente",
     "description": "Salvează comenzile pe care le rulezi des și execută-le într-un terminal sau pe mai mulți host-uri cu un singur clic."
   },
-  "revokeConfirm": "Elimin accesul pentru {{name}}?"
+  "revokeConfirm": "Elimin accesul pentru {{name}}?",
+  "companion": {
+    "toggle": "Panou de fragmente",
+    "refresh": "Reîmprospătare"
+  },
+  "card": {
+    "title": "Fragmente",
+    "runsOn": "Rulează pe {{hosts}}"
+  }
 }

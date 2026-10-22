@@ -44,6 +44,25 @@
     "fillSudoPassword": {
       "label": "Vul sudo-wagwoord in",
       "description": "Wanneer 'n snippet op 'n gasheer sonder 'n terminaal uitvoer, beantwoord sy sudo-aanvraag met die gasheer se sudo-wagwoord, of sy SSH-wagwoord as geen sudo-wagwoord gestel is nie."
+    },
+    "companionAutoOpen": {
+      "label": "Open die snippets-paneel saam met 'n terminaal",
+      "description": "Wys die snippets-paneel wanneer 'n terminaal oopmaak op 'n gasheer wat dit het."
+    },
+    "companionSide": {
+      "label": "Snippets-paneel se kant",
+      "description": "Waar die paneel langs die terminaal sit.",
+      "right": "Regs",
+      "left": "Links",
+      "bottom": "Onder"
+    },
+    "companionSize": {
+      "label": "Snippets-paneel se grootte",
+      "description": "Wyte, of hoogte onderaan, in pixels."
+    },
+    "companionEdgeButton": {
+      "label": "Snippets-paneel se randknoppie",
+      "description": "Wys 'n klein knoppie op die terminaal se rand om die paneel oop te maak."
     }
   },
   "cancel": "Kanselleer",
@@ -224,7 +243,13 @@
     "tabTitle": "Fragmente",
     "startupDescription": "Word in die terminaal uitgevoer elke keer as dit met hierdie gasheer verbind. Veranderlikes soos $HOST word ingevul; 'n fragment wat om invoer vra, word oorgeslaan.",
     "none": "Geen",
-    "removeQuickAction": "Verwyder vinnige aksie"
+    "removeQuickAction": "Verwyder vinnige aksie",
+    "settings": {
+      "showPanel": {
+        "label": "Paneel langs die terminaal",
+        "description": "Bied 'n snippets-paneel langs hierdie gasheer se SSH-terminaal."
+      }
+    }
   },
   "quickActions": {
     "running": "Voer {{name}} uit...",
@@ -241,5 +266,13 @@
     "name": "Fragmente",
     "description": "Stoor die opdragte wat jy dikwels uitvoer en voer hulle in 'n terminaal of op baie gasheer in een klik uit."
   },
-  "revokeConfirm": "Verwyder toegang vir {{name}}?"
+  "revokeConfirm": "Verwyder toegang vir {{name}}?",
+  "companion": {
+    "toggle": "Snippets-paneel",
+    "refresh": "Verfris"
+  },
+  "card": {
+    "title": "Snippets",
+    "runsOn": "Hardloop op {{hosts}}"
+  }
 }

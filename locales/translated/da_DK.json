@@ -44,6 +44,25 @@
     "fillSudoPassword": {
       "label": "Udfyld sudo-adgangskode",
       "description": "Når et snippet kører på en vært uden et terminalvindue, besvar sudo-opfordringen med værtens sudo-adgangskode, eller dens SSH-adgangskode, hvis ingen er indstillet."
+    },
+    "companionAutoOpen": {
+      "label": "Åbn snippets-panelet med en terminal",
+      "description": "Vis snippets-panelet, når en terminal åbnes på en host, der har det."
+    },
+    "companionSide": {
+      "label": "Placering af snippets-panelet",
+      "description": "Hvor panelet sidder ved siden af terminalen.",
+      "right": "Højre",
+      "left": "Venstre",
+      "bottom": "Nederst"
+    },
+    "companionSize": {
+      "label": "Størrelse på snippets-panelet",
+      "description": "Bredde, eller højde nederst, i pixels."
+    },
+    "companionEdgeButton": {
+      "label": "Knap på kanten af snippets-panelet",
+      "description": "Vis en lille knap på terminalens kant for at åbne panelet."
     }
   },
   "cancel": "Annuller",
@@ -224,7 +243,13 @@
     "tabTitle": "Snippets",
     "startupDescription": "Kører i terminalen hver gang den opretter forbindelse til denne vært. Variabler som $HOST udfyldes; et snippet, der beder om input, springes over.",
     "none": "Ingen",
-    "removeQuickAction": "Fjern hurtig handling"
+    "removeQuickAction": "Fjern hurtig handling",
+    "settings": {
+      "showPanel": {
+        "label": "Panel ved siden af terminalen",
+        "description": "Vis et snippets-panel ved siden af denne værts SSH-terminal."
+      }
+    }
   },
   "quickActions": {
     "running": "Udfører {{name}}...",
@@ -241,5 +266,13 @@
     "name": "Snippets",
     "description": "Gem de kommandoer, du kører ofte, og kør dem i et terminalvindue eller på mange værter med ét klik."
   },
-  "revokeConfirm": "Fjern adgang for {{name}}?"
+  "revokeConfirm": "Fjern adgang for {{name}}?",
+  "companion": {
+    "toggle": "Snippets-panel",
+    "refresh": "Opdater"
+  },
+  "card": {
+    "title": "Snippets",
+    "runsOn": "Kører på {{hosts}}"
+  }
 }

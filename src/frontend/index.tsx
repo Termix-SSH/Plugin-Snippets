@@ -18,6 +18,11 @@ import {
   snippetHostSettings,
 } from "../shared/host-settings.js";
 import { AdminUserSnippets } from "./AdminUserSnippets";
+import {
+  SnippetsCompanion,
+  useSnippetsCompanionDefaults,
+} from "./SnippetsCompanion";
+import { SnippetsCard } from "./SnippetsCard";
 import { SnippetOverlay } from "./SnippetOverlay";
 import { HostSnippetsSection } from "./HostSnippetsSection";
 import { QuickActionButtons } from "./QuickActionButtons";
@@ -45,8 +50,20 @@ function hostContext(host: unknown): SnippetHostContext | null {
   };
 }
 
+export function snippetsPanelEnabled(host: object | null | undefined): boolean {
+  const all = (host as { pluginSettings?: unknown } | null | undefined)
+    ?.pluginSettings as
+    Record<string, Record<string, unknown> | undefined> | undefined;
+  return all?.snippets?.showPanel !== false;
+}
+
 export function activate(app: TermixApp): void {
   app.onDispose(resetPrompts);
+  // Companion filters run synchronously, so the permission is read once here.
+  let canView = true;
+  void app.hasPermission("view").then((allowed) => {
+    canView = allowed;
+  });
 
   app.registerRailItem({
     id: "snippets",
@@ -60,6 +77,50 @@ export function activate(app: TermixApp): void {
   app.registerPanel("snippets", (props: PanelProps) => (
     <SnippetsPanel {...props} />
   ));
+
+  app.registerDashboardCard({
+    id: "snippets",
+    titleKey: "card.title",
+    defaultPanel: "side",
+    defaultHeight: 240,
+    frame: "framed",
+    component: SnippetsCard,
+  });
+
+  // Cores before 26.10.3 have no panels beside tabs.
+  if (typeof app.registerCompanion === "function") {
+    app.registerCompanion("snippets", SnippetsCompanion, {
+      icon: Play,
+      titleKey: "nav.snippets",
+      order: 60,
+      tabTypes: ["terminal"],
+      when: (_tab, host) =>
+        canView && !!host?.enableSsh && snippetsPanelEnabled(host),
+      useDefaults: useSnippetsCompanionDefaults,
+    });
+    app.registerAction("snippets.togglePanel", ((
+      _handle: unknown,
+      tab: unknown,
+    ) => app.toggleCompanion(tab as never, "snippets")) as never);
+    app.registerSlotContribution("tab.menu", {
+      actionId: "snippets.togglePanel",
+      titleKey: "companion.toggle",
+      icon: Play,
+      kind: "button",
+      order: 9,
+      when: (context) => {
+        const tab = context.tab as {
+          type?: string;
+          host?: unknown;
+          hostConfig?: unknown;
+        } | null;
+        return (
+          tab?.type === "terminal" &&
+          snippetsPanelEnabled((tab.host ?? tab.hostConfig) as object)
+        );
+      },
+    });
+  }
 
   app.registerPaletteEntry({
     id: "snippets.run",

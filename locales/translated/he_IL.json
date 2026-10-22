@@ -44,6 +44,25 @@
     "fillSudoPassword": {
       "label": "מלא את סיסמת sudo",
       "description": "כאשר קטע קוד מופעל על מארח ללא מסוף, ענה על בקשת ה-sudo באמצעות סיסמת ה-sudo של המארח, או סיסמת ה-SSH שלו אם לא הוגדרה סיסמת sudo."
+    },
+    "companionAutoOpen": {
+      "label": "פתח את לוח הקטעים עם מסוף",
+      "description": "הצג את לוח הקטעים כאשר מסוף נפתח על מארח שיש לו."
+    },
+    "companionSide": {
+      "label": "צד לוח הקטעים",
+      "description": "איפה הלוח ממוקם ליד המסוף.",
+      "right": "ימין",
+      "left": "שמאל",
+      "bottom": "תחתון"
+    },
+    "companionSize": {
+      "label": "גודל לוח הקטעים",
+      "description": "רוחב, או גובה בתחתית, בפיקסלים."
+    },
+    "companionEdgeButton": {
+      "label": "כפתור שפה של לוח הקטעים",
+      "description": "הצג כפתור קטן על שפת המסוף כדי לפתוח את הלוח."
     }
   },
   "cancel": "ביטול",
@@ -229,7 +248,13 @@
     "tabTitle": "קטעים",
     "startupDescription": "מבוצע בטרמינל בכל פעם שמבוצע חיבור לארח זה. משתנים כמו $HOST מומלאים; קטע הדורש קלט ידלג.",
     "none": "ללא",
-    "removeQuickAction": "הסר פעולה מהירה"
+    "removeQuickAction": "הסר פעולה מהירה",
+    "settings": {
+      "showPanel": {
+        "label": "לוח ליד המסוף",
+        "description": "הצג לוח קטעים ליד מסוף ה-SSH של המארח הזה."
+      }
+    }
   },
   "quickActions": {
     "running": "מבצע את {{name}}...",
@@ -246,5 +271,13 @@
     "name": "קטעים",
     "description": "שמור את הפקודות שאתה מפעיל לעיתים קרובות והפעל אותן במסוף או על מספר מארחים בלחיצה אחת."
   },
-  "revokeConfirm": "הסר גישה עבור {{name}}?"
+  "revokeConfirm": "הסר גישה עבור {{name}}?",
+  "companion": {
+    "toggle": "לוח קטעים",
+    "refresh": "רענן"
+  },
+  "card": {
+    "title": "קטעים",
+    "runsOn": "מריץ על {{hosts}}"
+  }
 }

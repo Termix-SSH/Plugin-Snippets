@@ -44,6 +44,25 @@
     "fillSudoPassword": {
       "label": "Užpildyti sudo slaptažodį",
       "description": "Kai komanda vykdoma serveryje be terminalo, atsakykite į sudo užklausą naudodami serverio sudo slaptažodį arba SSH slaptažodį, jei sudo slaptažodis nėra nustatytas."
+    },
+    "companionAutoOpen": {
+      "label": "Atidaryti fragmentų skydelį kartu su terminalu",
+      "description": "Rodyti fragmentų skydelį, kai terminalas atidaromas serveryje, kuriame jis yra."
+    },
+    "companionSide": {
+      "label": "Fragmentų skydelio pusė",
+      "description": "Kur skydelis yra šalia terminalo.",
+      "right": "Dešinėje",
+      "left": "Kairėje",
+      "bottom": "Apačioje"
+    },
+    "companionSize": {
+      "label": "Fragmentų skydelio dydis",
+      "description": "Plotis arba aukštis apačioje, pikseliais."
+    },
+    "companionEdgeButton": {
+      "label": "Fragmentų skydelio krašto mygtukas",
+      "description": "Rodyti mažą mygtuką terminalo krašte, skirtą skydeliui atidaryti."
     }
   },
   "cancel": "Atšaukti",
@@ -234,7 +253,13 @@
     "tabTitle": "Fragmentai",
     "startupDescription": "Vykdoma terminale kiekvieną kartą prisijungiant prie šio serverio. Kintamieji, pvz., $HOST, yra užpildomi; fragmentai, reikalaujantys įvesties, yra praleidžiami.",
     "none": "Nėra",
-    "removeQuickAction": "Pašalinti greitąjį veiksmą"
+    "removeQuickAction": "Pašalinti greitąjį veiksmą",
+    "settings": {
+      "showPanel": {
+        "label": "Skydelis šalia terminalo",
+        "description": "Siūlyti fragmentų skydelį šalia šio serverio SSH terminalo."
+      }
+    }
   },
   "quickActions": {
     "running": "Vykdomas {{name}}...",
@@ -251,5 +276,13 @@
     "name": "Fragmentai",
     "description": "Išsaugokite komandas, kurias dažnai vykstate, ir paleiskite jas terminale arba daugelyje serverių vienu paspaudimu."
   },
-  "revokeConfirm": "Pašalinti prieigą vartotojui {{name}}?"
+  "revokeConfirm": "Pašalinti prieigą vartotojui {{name}}?",
+  "companion": {
+    "toggle": "Fragmentų skydelis",
+    "refresh": "Atnaujinti"
+  },
+  "card": {
+    "title": "Fragmentai",
+    "runsOn": "Vykdoma {{hosts}}"
+  }
 }

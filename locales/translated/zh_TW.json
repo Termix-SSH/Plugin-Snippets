@@ -44,6 +44,25 @@
     "fillSudoPassword": {
       "label": "填入 sudo 密碼",
       "description": "當程式碼片段在沒有終端機的伺服器上執行時，使用該伺服器的 sudo 密碼來回應 sudo 提示；若未設定 sudo 密碼，則使用 SSH 密碼。"
+    },
+    "companionAutoOpen": {
+      "label": "開啟終端機時顯示程式碼片段面板",
+      "description": "當終端機在擁有程式碼片段的主機上開啟時，顯示程式碼片段面板。"
+    },
+    "companionSide": {
+      "label": "程式碼片段面板位置",
+      "description": "面板相對於終端機的位置。",
+      "right": "右側",
+      "left": "左側",
+      "bottom": "底部"
+    },
+    "companionSize": {
+      "label": "程式碼片段面板大小",
+      "description": "寬度，或位於底部時的高度，單位為像素。"
+    },
+    "companionEdgeButton": {
+      "label": "程式碼片段面板邊緣按鈕",
+      "description": "在終端機邊緣顯示一個小按鈕，用於開啟面板。"
     }
   },
   "cancel": "取消",
@@ -219,7 +238,13 @@
     "tabTitle": "程式碼片段",
     "startupDescription": "每次連線到此主機時，會在終端機中執行。會填入 $HOST 等變數；需要輸入的程式碼片段將被跳過。",
     "none": "無",
-    "removeQuickAction": "移除快速動作"
+    "removeQuickAction": "移除快速動作",
+    "settings": {
+      "showPanel": {
+        "label": "終端機旁顯示面板",
+        "description": "在此主機的 SSH 終端機旁提供程式碼片段面板。"
+      }
+    }
   },
   "quickActions": {
     "running": "正在執行 {{name}}...",
@@ -236,5 +261,13 @@
     "name": "程式碼片段",
     "description": "儲存常用指令，一鍵在終端機或多台主機上執行。"
   },
-  "revokeConfirm": "要移除 {{name}} 的存取權限嗎？"
+  "revokeConfirm": "要移除 {{name}} 的存取權限嗎？",
+  "companion": {
+    "toggle": "程式碼片段面板",
+    "refresh": "重新整理"
+  },
+  "card": {
+    "title": "程式碼片段",
+    "runsOn": "在 {{hosts}} 上執行"
+  }
 }

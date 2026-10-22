@@ -44,6 +44,25 @@
     "fillSudoPassword": {
       "label": "Doplň heslo pre sudo",
       "description": "Keď sa snippet spustí na hostiteľovi bez terminálu, odpovedá na výzvu sudo pomocou sudo hesla hostiteľa, alebo SSH hesla, ak nie je sudo heslo nastavené."
+    },
+    "companionAutoOpen": {
+      "label": "Otvoriť panel s úryvkami spolu s terminálom",
+      "description": "Zobraziť panel s úryvkami pri otvorení terminálu na hostiteľovi, ktorý ich má."
+    },
+    "companionSide": {
+      "label": "Poloha panela s úryvkami",
+      "description": "Kde sa panel zobrazí vedľa terminálu.",
+      "right": "Vpravo",
+      "left": "Vľavo",
+      "bottom": "Dole"
+    },
+    "companionSize": {
+      "label": "Veľkosť panela s úryvkami",
+      "description": "Šírka, alebo výška pri spodnom umiestnení, v pixeloch."
+    },
+    "companionEdgeButton": {
+      "label": "Tlačidlo na okraji pre panel s úryvkami",
+      "description": "Zobraziť malé tlačidlo na okraji terminálu na otvorenie panela."
     }
   },
   "cancel": "Zrušiť",
@@ -234,7 +253,13 @@
     "tabTitle": "Úryvky",
     "startupDescription": "Spustí sa v termináli pri každom pripojení k tomuto hostiteľovi. Premenné ako $HOST sa doplnia; úryvok, ktorý vyžaduje vstup, sa preskočí.",
     "none": "Žiadny",
-    "removeQuickAction": "Odstrániť rýchlu akciu"
+    "removeQuickAction": "Odstrániť rýchlu akciu",
+    "settings": {
+      "showPanel": {
+        "label": "Panel vedľa terminálu",
+        "description": "Nabídnuť panel s úryvkami vedľa SSH terminálu tohto hostiteľa."
+      }
+    }
   },
   "quickActions": {
     "running": "Spúšťanie {{name}}...",
@@ -251,5 +276,13 @@
     "name": "Úryvky",
     "description": "Ukladajte príkazy, ktoré často spúšťate, a spúšťajte ich v termináli alebo na viacerých hostiteľoch jedným kliknutím."
   },
-  "revokeConfirm": "Odstrániť prístup pre {{name}}?"
+  "revokeConfirm": "Odstrániť prístup pre {{name}}?",
+  "companion": {
+    "toggle": "Panel s úryvkami",
+    "refresh": "Obnoviť"
+  },
+  "card": {
+    "title": "Úryvky",
+    "runsOn": "Spúšťa sa na {{hosts}}"
+  }
 }

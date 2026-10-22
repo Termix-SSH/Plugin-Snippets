@@ -1,7 +1,7 @@
 {
   "id": "snippets",
   "name": "Snippets",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "Save the commands you run often and run them in a terminal or on many hosts in one click.",
   "author": {
     "name": "Termix"
@@ -18,7 +18,9 @@
     "Variables for the host and your own inputs",
     "Run a snippet each time you connect to a host",
     "Share snippets with users or roles",
-    "Import and export as JSON"
+    "Import and export as JSON",
+    "A snippets panel beside any SSH terminal",
+    "A dashboard card to run host snippets or copy any snippet"
   ],
   "env": [
     {
@@ -126,6 +128,50 @@
           "labelKey": "settings.fillSudoPassword.label",
           "descriptionKey": "settings.fillSudoPassword.description",
           "default": false
+        },
+        {
+          "key": "companionAutoOpen",
+          "type": "boolean",
+          "labelKey": "settings.companionAutoOpen.label",
+          "descriptionKey": "settings.companionAutoOpen.description",
+          "default": false
+        },
+        {
+          "key": "companionSide",
+          "type": "select",
+          "labelKey": "settings.companionSide.label",
+          "descriptionKey": "settings.companionSide.description",
+          "default": "right",
+          "options": [
+            {
+              "value": "right",
+              "labelKey": "settings.companionSide.right"
+            },
+            {
+              "value": "left",
+              "labelKey": "settings.companionSide.left"
+            },
+            {
+              "value": "bottom",
+              "labelKey": "settings.companionSide.bottom"
+            }
+          ]
+        },
+        {
+          "key": "companionSize",
+          "type": "number",
+          "labelKey": "settings.companionSize.label",
+          "descriptionKey": "settings.companionSize.description",
+          "min": 240,
+          "max": 900,
+          "default": 360
+        },
+        {
+          "key": "companionEdgeButton",
+          "type": "boolean",
+          "labelKey": "settings.companionEdgeButton.label",
+          "descriptionKey": "settings.companionEdgeButton.description",
+          "default": true
         }
       ],
       "host": {
@@ -151,6 +197,13 @@
             "default": [],
             "shareRead": "view",
             "defaultLevels": ["user", "folder"]
+          },
+          {
+            "key": "showPanel",
+            "type": "boolean",
+            "labelKey": "host.settings.showPanel.label",
+            "descriptionKey": "host.settings.showPanel.description",
+            "default": true
           }
         ]
       }
@@ -180,6 +233,13 @@
       "terminal.sendToActive",
       "terminal.sendToSession",
       "terminal.listSessions"
+    ],
+    "dashboardCards": [
+      {
+        "id": "snippets",
+        "titleKey": "card.title",
+        "icon": "Play"
+      }
     ]
   }
 }

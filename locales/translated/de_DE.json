@@ -44,6 +44,25 @@
     "fillSudoPassword": {
       "label": "sudo-Passwort ausfüllen",
       "description": "Wenn ein Snippet auf einem Host ohne Terminal ausgeführt wird, wird die sudo-Abfrage mit dem sudo-Passwort des Hosts beantwortet, oder mit dem SSH-Passwort, falls kein sudo-Passwort gesetzt ist."
+    },
+    "companionAutoOpen": {
+      "label": "Snippet-Panel mit Terminal öffnen",
+      "description": "Zeigt das Snippet-Panel an, wenn ein Terminal auf einem Host geöffnet wird, der Snippets unterstützt."
+    },
+    "companionSide": {
+      "label": "Position des Snippet-Panels",
+      "description": "Wo das Panel neben dem Terminal angezeigt wird.",
+      "right": "Rechts",
+      "left": "Links",
+      "bottom": "Unten"
+    },
+    "companionSize": {
+      "label": "Größe des Snippet-Panels",
+      "description": "Breite oder Höhe (unten) in Pixeln."
+    },
+    "companionEdgeButton": {
+      "label": "Kantenschaltfläche für Snippet-Panel",
+      "description": "Zeigt eine kleine Schaltfläche am Terminalrand zum Öffnen des Panels an."
     }
   },
   "cancel": "Abbrechen",
@@ -224,7 +243,13 @@
     "tabTitle": "Snippets",
     "startupDescription": "Wird jedes Mal im Terminal ausgeführt, wenn eine Verbindung zu diesem Host hergestellt wird. Variablen wie $HOST werden automatisch ausgefüllt; Snippets, die nach Eingaben fragen, werden übersprungen.",
     "none": "Keine",
-    "removeQuickAction": "Schnellaktion entfernen"
+    "removeQuickAction": "Schnellaktion entfernen",
+    "settings": {
+      "showPanel": {
+        "label": "Panel neben dem Terminal",
+        "description": "Bietet ein Snippet-Panel neben dem SSH-Terminal dieses Hosts an."
+      }
+    }
   },
   "quickActions": {
     "running": "Führe {{name}} aus...",
@@ -241,5 +266,13 @@
     "name": "Snippets",
     "description": "Speichern Sie die Befehle, die Sie häufig ausführen, und führen Sie sie mit einem Klick in einem Terminal oder auf vielen Hosts aus."
   },
-  "revokeConfirm": "Zugriff für {{name}} entfernen?"
+  "revokeConfirm": "Zugriff für {{name}} entfernen?",
+  "companion": {
+    "toggle": "Snippet-Panel",
+    "refresh": "Aktualisieren"
+  },
+  "card": {
+    "title": "Snippets",
+    "runsOn": "Wird auf {{hosts}} ausgeführt"
+  }
 }

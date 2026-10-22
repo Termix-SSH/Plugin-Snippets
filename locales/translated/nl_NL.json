@@ -44,6 +44,25 @@
     "fillSudoPassword": {
       "label": "Sudo-wachtwoord invullen",
       "description": "Wanneer een snippet wordt uitgevoerd op een host zonder terminal, wordt de sudo-prompt beantwoord met het sudo-wachtwoord van de host, of met het SSH-wachtwoord als er geen sudo-wachtwoord is ingesteld."
+    },
+    "companionAutoOpen": {
+      "label": "Open het snippetspaneel met een terminal",
+      "description": "Toon het snippetspaneel wanneer een terminal opent op een host die dit ondersteunt."
+    },
+    "companionSide": {
+      "label": "Positie van het snippetspaneel",
+      "description": "Waar het paneel naast de terminal staat.",
+      "right": "Rechts",
+      "left": "Links",
+      "bottom": "Onder"
+    },
+    "companionSize": {
+      "label": "Grootte van het snippetspaneel",
+      "description": "Breedte, of hoogte onderaan, in pixels."
+    },
+    "companionEdgeButton": {
+      "label": "Knop aan de rand voor het snippetspaneel",
+      "description": "Toon een kleine knop aan de rand van de terminal om het paneel te openen."
     }
   },
   "cancel": "Annuleren",
@@ -224,7 +243,13 @@
     "tabTitle": "Snippets",
     "startupDescription": "Wordt in de terminal uitgevoerd bij elke verbinding met deze host. Variabelen zoals $HOST worden ingevuld; een snippet die om invoer vraagt, wordt overgeslagen.",
     "none": "Geen",
-    "removeQuickAction": "Snelactie verwijderen"
+    "removeQuickAction": "Snelactie verwijderen",
+    "settings": {
+      "showPanel": {
+        "label": "Paneel naast de terminal",
+        "description": "Bied een snippetspaneel naast de SSH-terminal van deze host aan."
+      }
+    }
   },
   "quickActions": {
     "running": "Uitvoeren van {{name}}...",
@@ -241,5 +266,13 @@
     "name": "Snippets",
     "description": "Bewaar de opdrachten die je vaak uitvoert en voer ze in één klik uit in een terminal of op meerdere hosts."
   },
-  "revokeConfirm": "Toegang voor {{name}} verwijderen?"
+  "revokeConfirm": "Toegang voor {{name}} verwijderen?",
+  "companion": {
+    "toggle": "Snippetspaneel",
+    "refresh": "Vernieuwen"
+  },
+  "card": {
+    "title": "Snippets",
+    "runsOn": "Wordt uitgevoerd op {{hosts}}"
+  }
 }
