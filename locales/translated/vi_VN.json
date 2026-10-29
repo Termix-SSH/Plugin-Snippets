@@ -137,7 +137,7 @@
   "settingsBehaviorTitle": "Hành vi",
   "typeCommandHint": "Chạy trong terminal đang hoạt động.",
   "typeNoteHint": "Dán vào terminal đang hoạt động mà không chạy.",
-  "variablesHint": "Biến: $HOST, $USER, $PORT, $NAME, ${INPUT_1:Nhãn}",
+  "variablesHint": "Biến: $HOST, $USER, $PORT, $NAME, ${INPUT_1:Label}, {{secret}} cho một bí mật đã lưu",
   "sharedBadge": "Đã chia sẻ",
   "copyToClipboard": "Sao chép vào clipboard",
   "copyFailed": "Không thể sao chép vào clipboard",
@@ -269,5 +269,26 @@
   "card": {
     "title": "Snippets",
     "runsOn": "Chạy trên {{hosts}}"
+  },
+  "secrets": {
+    "title": "Bí mật",
+    "description": "Lưu một giá trị một lần và sử dụng nó trong bất kỳ đoạn mã nào dưới dạng {{example}}. Giá trị được lưu trữ dưới dạng mã hóa và được điền khi đoạn mã chạy. Giá trị sẽ không bao giờ được hiển thị lại.",
+    "empty": "Chưa có bí mật nào.",
+    "add": "Thêm bí mật",
+    "edit": "Chỉnh sửa bí mật",
+    "delete": "Xóa",
+    "deleteConfirm": "Xóa bí mật {{name}}?",
+    "save": "Lưu",
+    "cancel": "Hủy",
+    "namePlaceholder": "Tên, ví dụ API_KEY",
+    "nameInvalid": "Chỉ sử dụng chữ cái, số và _, và không bắt đầu bằng số.",
+    "valuePlaceholder": "Giá trị",
+    "valueKeepPlaceholder": "Giá trị mới (để trống để giữ giá trị hiện tại)",
+    "descriptionPlaceholder": "Mô tả (tùy chọn)",
+    "saveFailed": "Không thể lưu bí mật",
+    "deleteFailed": "Không thể xóa bí mật",
+    "missing": "Đoạn mã này sử dụng các bí mật bạn chưa lưu: {{names}}",
+    "loadFailed": "Không thể tải các bí mật mà đoạn mã này sử dụng",
+    "usesSecrets": "Sử dụng bí mật đã lưu"
   }
 }

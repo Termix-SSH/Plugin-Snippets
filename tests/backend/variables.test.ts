@@ -3,6 +3,7 @@ import {
   extractSnippetInputs,
   hasSnippetInputs,
   resolveSnippetContent,
+  extractSecretNames,
 } from "../../src/shared/variables.js";
 
 describe("extractSnippetInputs", () => {
@@ -90,5 +91,30 @@ describe("resolveSnippetContent", () => {
         INPUT_2: "$& $1",
       }),
     ).toBe("echo $INPUT_2 $HOST $& $1");
+  });
+});
+
+describe("secrets in a command", () => {
+  it("finds each {{NAME}} once", () => {
+    expect(
+      extractSecretNames("a {{KEY}} b {{KEY}} {{OTHER_1}} {{1BAD}}"),
+    ).toEqual(["KEY", "OTHER_1"]);
+  });
+
+  it("fills secrets in one pass with the other variables", () => {
+    expect(
+      resolveSnippetContent(
+        "ssh $USER@$HOST --key {{KEY}} $INPUT_1",
+        { ip: "10.0.0.1", username: "root" },
+        { INPUT_1: "{{KEY}}" },
+        { KEY: "$INPUT_1" },
+      ),
+    ).toBe("ssh root@10.0.0.1 --key $INPUT_1 {{KEY}}");
+  });
+
+  it("leaves an unknown secret as written", () => {
+    expect(resolveSnippetContent("echo {{NOPE}}", null, {}, {})).toBe(
+      "echo {{NOPE}}",
+    );
   });
 });

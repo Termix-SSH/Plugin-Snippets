@@ -140,7 +140,7 @@
   "settingsBehaviorTitle": "Viselkedés",
   "typeCommandHint": "Az aktív terminálban fut.",
   "typeNoteHint": "Az aktív terminálba másolja, de nem futtatja.",
-  "variablesHint": "Változók: $HOST, $USER, $PORT, $NAME, ${INPUT_1:Címke}",
+  "variablesHint": "Változók: $HOST, $USER, $PORT, $NAME, ${INPUT_1:Label}, {{secret}} egy mentett titokhoz",
   "sharedBadge": "Megosztott",
   "copyToClipboard": "Vágólapra másolás",
   "copyFailed": "A vágólapra másolás sikertelen",
@@ -274,5 +274,26 @@
   "card": {
     "title": "Kódrészletek",
     "runsOn": "Futtatás ezen a {{hosts}} hoston"
+  },
+  "secrets": {
+    "title": "Titkok",
+    "description": "Ments el egy értéket egyszer, és használd bármelyik kódrészletben {{example}} formátumban. Titkosítva tárolódik, és a kódrészlet futtatásakor automatikusan kitöltődik. Az értékek soha nem jelennek meg újra.",
+    "empty": "Még nincsenek titkok.",
+    "add": "Titok hozzáadása",
+    "edit": "Titok szerkesztése",
+    "delete": "Törlés",
+    "deleteConfirm": "Törli a(z) {{name}} titkot?",
+    "save": "Mentés",
+    "cancel": "Mégse",
+    "namePlaceholder": "Név, például API_KEY",
+    "nameInvalid": "Csak betűket, számokat és aláhúzást (_) használj, és ne kezdj számmal.",
+    "valuePlaceholder": "Érték",
+    "valueKeepPlaceholder": "Új érték (hagyja üresen, ha a jelenlegi értéket szeretné megtartani)",
+    "descriptionPlaceholder": "Leírás (opcionális)",
+    "saveFailed": "Nem sikerült menteni a titkot",
+    "deleteFailed": "Nem sikerült törölni a titkot",
+    "missing": "Ez a kódrészlet olyan titkokat használ, amelyeket még nem mentett el: {{names}}",
+    "loadFailed": "Nem sikerült betölteni a kódrészlet által használt titkokat",
+    "usesSecrets": "Mentett titkokat használ"
   }
 }

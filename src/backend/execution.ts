@@ -43,3 +43,16 @@ export function endsWithSudoPrompt(output: string): boolean {
     output.slice(-200),
   );
 }
+
+/** Output with every saved secret value it echoes replaced by dots. */
+export function maskSecrets(
+  text: string,
+  secrets: Record<string, string>,
+): string {
+  let masked = text;
+  const values = Object.values(secrets)
+    .filter((value) => value.length >= 3)
+    .sort((a, b) => b.length - a.length);
+  for (const value of values) masked = masked.split(value).join("••••");
+  return masked;
+}

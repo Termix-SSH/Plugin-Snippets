@@ -101,6 +101,7 @@ describe("adopting snippets, snippet_folders and snippet_access", () => {
     expect(db.applied).toEqual([
       "0001_adopt_snippets_tables",
       "0002_mysql_long_text",
+      "0003_secrets",
     ]);
     expect(tableExists("snippets")).toBe(false);
     expect(tableExists("snippet_folders")).toBe(false);

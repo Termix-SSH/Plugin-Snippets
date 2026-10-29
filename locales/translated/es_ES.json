@@ -143,7 +143,7 @@
   "settingsBehaviorTitle": "Comportamiento",
   "typeCommandHint": "Se ejecuta en la terminal activa.",
   "typeNoteHint": "Se pega en la terminal activa sin ejecutarse.",
-  "variablesHint": "Variables: $HOST, $USER, $PORT, $NAME, ${INPUT_1:Etiqueta}",
+  "variablesHint": "Variables: $HOST, $USER, $PORT, $NAME, ${INPUT_1:Etiqueta}, {{secret}} para un secreto guardado",
   "sharedBadge": "Compartido",
   "copyToClipboard": "Copiar al portapapeles",
   "copyFailed": "Error al copiar al portapapeles",
@@ -279,5 +279,26 @@
   "card": {
     "title": "Fragmentos",
     "runsOn": "Se ejecuta en {{hosts}}"
+  },
+  "secrets": {
+    "title": "Secretos",
+    "description": "Guarda un valor una vez y úsalo en cualquier fragmento como {{example}}. Se almacena cifrado y se rellena cuando se ejecuta el fragmento. Los valores nunca se muestran de nuevo.",
+    "empty": "Aún no hay secretos.",
+    "add": "Añadir secreto",
+    "edit": "Editar secreto",
+    "delete": "Eliminar",
+    "deleteConfirm": "¿Eliminar el secreto {{name}}?",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "namePlaceholder": "Nombre, por ejemplo API_KEY",
+    "nameInvalid": "Usa solo letras, números y _, y no empieces con un número.",
+    "valuePlaceholder": "Valor",
+    "valueKeepPlaceholder": "Nuevo valor (déjalo vacío para mantener el actual)",
+    "descriptionPlaceholder": "Descripción (opcional)",
+    "saveFailed": "No se ha podido guardar el secreto",
+    "deleteFailed": "No se ha podido eliminar el secreto",
+    "missing": "Este fragmento usa secretos que no has guardado: {{names}}",
+    "loadFailed": "No se han podido cargar los secretos que usa este fragmento",
+    "usesSecrets": "Usa secretos guardados"
   }
 }

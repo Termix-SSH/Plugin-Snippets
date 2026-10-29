@@ -146,7 +146,7 @@
   "settingsBehaviorTitle": "Obnašanje",
   "typeCommandHint": "Izvede se v aktivnem terminalu.",
   "typeNoteHint": "Prilepi v aktivni terminal brez izvajanja.",
-  "variablesHint": "Spremenljivke: $HOST, $USER, $PORT, $NAME, ${INPUT_1:Oznaka}",
+  "variablesHint": "Spremenljivke: $HOST, $USER, $PORT, $NAME, ${INPUT_1:Label}, {{secret}} za shranjeno skrivnost",
   "sharedBadge": "Skupno",
   "copyToClipboard": "Kopiraj v odložišče",
   "copyFailed": "Kopiranje v odložišče ni uspelo",
@@ -284,5 +284,26 @@
   "card": {
     "title": "Odlomki",
     "runsOn": "Zažene se na {{hosts}}"
+  },
+  "secrets": {
+    "title": "Skrivnosti",
+    "description": "Vrednost shranite enkrat in jo uporabite v katerem koli fragmentu kot {{example}}. Shranjena je šifrirano in se vstavi, ko se fragment izvede. Vrednosti se nikoli več ne prikažejo.",
+    "empty": "Še ni skrivnosti.",
+    "add": "Dodaj skrivnost",
+    "edit": "Uredi skrivnost",
+    "delete": "Izbriši",
+    "deleteConfirm": "Izbrišete skrivnost {{name}}?",
+    "save": "Shrani",
+    "cancel": "Prekliči",
+    "namePlaceholder": "Ime, na primer API_KEY",
+    "nameInvalid": "Uporabite samo črke, številke in podčrtaje ter ne začnite s številko.",
+    "valuePlaceholder": "Vrednost",
+    "valueKeepPlaceholder": "Nova vrednost (pustite prazno, če želite ohraniti trenutno)",
+    "descriptionPlaceholder": "Opis (neobvezno)",
+    "saveFailed": "Skrivnosti ni bilo mogoče shraniti",
+    "deleteFailed": "Skrivnosti ni bilo mogoče izbrisati",
+    "missing": "Ta fragment uporablja skrivnosti, ki jih niste shranili: {{names}}",
+    "loadFailed": "Skrivnosti, ki jih uporablja ta fragment, ni bilo mogoče naložiti",
+    "usesSecrets": "Uporablja shranjene skrivnosti"
   }
 }

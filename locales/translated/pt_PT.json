@@ -143,7 +143,7 @@
   "settingsBehaviorTitle": "Comportamento",
   "typeCommandHint": "Executa no terminal ativo.",
   "typeNoteHint": "Cola no terminal ativo sem executar.",
-  "variablesHint": "Variáveis: $HOST, $USER, $PORT, $NAME, ${INPUT_1:Etiqueta}",
+  "variablesHint": "Variáveis: $HOST, $USER, $PORT, $NAME, ${INPUT_1:Etiqueta}, {{secret}} para um segredo guardado",
   "sharedBadge": "Partilhado",
   "copyToClipboard": "Copiar para a área de transferência",
   "copyFailed": "Falha ao copiar para a área de transferência",
@@ -279,5 +279,26 @@
   "card": {
     "title": "Snippets",
     "runsOn": "Executa em {{hosts}}"
+  },
+  "secrets": {
+    "title": "Segredos",
+    "description": "Guarde um valor uma vez e use-o em qualquer snippet como {{example}}. É armazenado de forma encriptada e preenchido quando o snippet é executado. Os valores nunca são mostrados novamente.",
+    "empty": "Ainda não há segredos.",
+    "add": "Adicionar segredo",
+    "edit": "Editar segredo",
+    "delete": "Eliminar",
+    "deleteConfirm": "Eliminar o segredo {{name}}?",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "namePlaceholder": "Nome, por exemplo API_KEY",
+    "nameInvalid": "Use apenas letras, números e _, e não comece com um número.",
+    "valuePlaceholder": "Valor",
+    "valueKeepPlaceholder": "Novo valor (deixe em branco para manter o atual)",
+    "descriptionPlaceholder": "Descrição (opcional)",
+    "saveFailed": "Não foi possível guardar o segredo",
+    "deleteFailed": "Não foi possível eliminar o segredo",
+    "missing": "Este snippet usa segredos que ainda não guardou: {{names}}",
+    "loadFailed": "Não foi possível carregar os segredos que este snippet utiliza",
+    "usesSecrets": "Utiliza segredos guardados"
   }
 }

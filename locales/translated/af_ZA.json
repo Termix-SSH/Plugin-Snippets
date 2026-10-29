@@ -140,7 +140,7 @@
   "settingsBehaviorTitle": "Gedrag",
   "typeCommandHint": "Word in die aktiewe terminaal uitgevoer.",
   "typeNoteHint": "Word in die aktiewe terminaal ingevoeg sonder om uit te voer.",
-  "variablesHint": "Veranderlikes: $HOST, $USER, $PORT, $NAME, ${INPUT_1:Etiket}",
+  "variablesHint": "Veranderlikes: $HOST, $USER, $PORT, $NAME, ${INPUT_1:Etiket}, {{secret}} vir 'n gestoorde geheim",
   "sharedBadge": "Gedeel",
   "copyToClipboard": "Kopieer na knipbord",
   "copyFailed": "Kon nie na knipbord kopieer nie",
@@ -274,5 +274,26 @@
   "card": {
     "title": "Snippets",
     "runsOn": "Hardloop op {{hosts}}"
+  },
+  "secrets": {
+    "title": "Geheime",
+    "description": "Stoor ’n waarde een keer en gebruik dit in enige snippet as {{example}}. Dit word versleutel gestoor en ingevul wanneer die snippet uitgevoer word. Waardes word nooit weer vertoon nie.",
+    "empty": "Nog geen geheime nie.",
+    "add": "Voeg geheim by",
+    "edit": "Wysig geheim",
+    "delete": "Verwyder",
+    "deleteConfirm": "Verwyder die geheim {{name}}?",
+    "save": "Stoor",
+    "cancel": "Kanselleer",
+    "namePlaceholder": "Naam, byvoorbeeld API_KEY",
+    "nameInvalid": "Gebruik slegs letters, syfers en _, en begin nie met 'n syfer nie.",
+    "valuePlaceholder": "Waarde",
+    "valueKeepPlaceholder": "Nuwe waarde (laat leeg om die huidige een te behou)",
+    "descriptionPlaceholder": "Beskrywing (opsioneel)",
+    "saveFailed": "Kon nie die geheim stoor nie",
+    "deleteFailed": "Kon nie die geheim verwyder nie",
+    "missing": "Hierdie fragment gebruik geheime wat jy nie gestoor het nie: {{names}}",
+    "loadFailed": "Kon nie die geheime laai wat hierdie fragment gebruik nie",
+    "usesSecrets": "Gebruik gestoorde geheime"
   }
 }

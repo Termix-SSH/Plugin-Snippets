@@ -140,7 +140,7 @@
   "settingsBehaviorTitle": "Gedrag",
   "typeCommandHint": "Wordt uitgevoerd in de actieve terminal.",
   "typeNoteHint": "Wordt geplakt in de actieve terminal zonder uit te voeren.",
-  "variablesHint": "Variabelen: $HOST, $USER, $PORT, $NAME, ${INPUT_1:Label}",
+  "variablesHint": "Variabelen: $HOST, $USER, $PORT, $NAME, ${INPUT_1:Label}, {{secret}} voor een opgeslagen geheim",
   "sharedBadge": "Gedeeld",
   "copyToClipboard": "Kopiëren naar klembord",
   "copyFailed": "Kopiëren naar klembord mislukt",
@@ -274,5 +274,26 @@
   "card": {
     "title": "Snippets",
     "runsOn": "Wordt uitgevoerd op {{hosts}}"
+  },
+  "secrets": {
+    "title": "Geheimen",
+    "description": "Sla een waarde één keer op en gebruik deze in elk snippet als {{example}}. Het wordt versleuteld opgeslagen en ingevuld wanneer het snippet wordt uitgevoerd. Waarden worden nooit meer getoond.",
+    "empty": "Nog geen geheimen.",
+    "add": "Geheim toevoegen",
+    "edit": "Geheim bewerken",
+    "delete": "Verwijderen",
+    "deleteConfirm": "Het geheim {{name}} verwijderen?",
+    "save": "Opslaan",
+    "cancel": "Annuleren",
+    "namePlaceholder": "Naam, bijvoorbeeld API_KEY",
+    "nameInvalid": "Gebruik alleen letters, cijfers en _, en begin niet met een cijfer.",
+    "valuePlaceholder": "Waarde",
+    "valueKeepPlaceholder": "Nieuwe waarde (laat leeg om de huidige te behouden)",
+    "descriptionPlaceholder": "Beschrijving (optioneel)",
+    "saveFailed": "Het geheim kon niet worden opgeslagen",
+    "deleteFailed": "Het geheim kon niet worden verwijderd",
+    "missing": "Dit snippet gebruikt geheimen die je nog niet hebt opgeslagen: {{names}}",
+    "loadFailed": "De geheimen die dit snippet gebruikt, konden niet worden geladen",
+    "usesSecrets": "Gebruikt opgeslagen geheimen"
   }
 }

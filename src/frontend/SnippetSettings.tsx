@@ -10,6 +10,7 @@ import {
   SettingRow,
 } from "@termix-ssh/plugin-sdk/ui";
 import { readSnippetSettings, type SnippetDisplaySettings } from "./settings";
+import { SnippetSecretsSection } from "./SnippetSecretsSection";
 
 export function SnippetSettings({
   settings,
@@ -87,6 +88,8 @@ export function SnippetSettings({
           />
         </SettingRow>
       </SectionCard>
+
+      <SnippetSecretsSection />
     </InlineView>
   );
 }

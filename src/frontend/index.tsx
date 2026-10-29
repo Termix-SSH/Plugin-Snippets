@@ -27,7 +27,7 @@ import { SnippetOverlay } from "./SnippetOverlay";
 import { HostSnippetsSection } from "./HostSnippetsSection";
 import { QuickActionButtons } from "./QuickActionButtons";
 import { resetPrompts } from "./prompt-store";
-import { fetchSnippet, runInSession } from "./run-flows";
+import { fetchSnippet, loadSecrets, runInSession } from "./run-flows";
 import {
   RUN_SNIPPET_ACTION,
   RunSnippetEditor,
@@ -219,7 +219,14 @@ export function activate(app: TermixApp): void {
     if (id === null) return null;
     const snippet = await fetchSnippet(app, id);
     if (!snippet) return null;
-    return resolveSnippetContent(snippet.content, vars ?? hostContext(host));
+    const secrets = await loadSecrets(app, snippet);
+    if (!secrets) return null;
+    return resolveSnippetContent(
+      snippet.content,
+      vars ?? hostContext(host),
+      {},
+      secrets,
+    );
   }) as never);
 
   // For pickers in other plugins (the AI assistant's @-mentions, fleets' run

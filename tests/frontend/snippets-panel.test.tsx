@@ -265,6 +265,41 @@ describe("snippet target terminals", () => {
       ]),
     );
   });
+  it("runs a snippet with target hosts in the picked terminals instead", async () => {
+    const sent: Array<[string, string]> = [];
+    const api = fakeApi([snippet({ hostFilter: "[5]" })]);
+    rendered = await renderWithApp(plugin, {
+      manifest,
+      locales,
+      api,
+      permissions: PERMISSIONS,
+      hosts: HOSTS as never,
+    });
+    rendered.app.registerAction("terminal.listSessions", () => [
+      { id: "s1", label: "web-1", hostName: "web-1" },
+      { id: "s2", label: "web-2", hostName: "web-2" },
+    ]);
+    rendered.app.registerAction("terminal.sendToSession", ((
+      id: string,
+      text: string,
+    ) => {
+      sent.push([id, text]);
+      return true;
+    }) as never);
+    rendered.renderPanel("snippets", { active: true });
+
+    expect(await screen.findByTitle(locales.runOnTargets)).toBeTruthy();
+    fireEvent.click(await screen.findByText(locales.selectAll));
+    fireEvent.click(await screen.findByTitle(locales.run));
+    await waitFor(() =>
+      expect(sent).toEqual([
+        ["s1", "ls -la"],
+        ["s2", "ls -la"],
+      ]),
+    );
+    expect(api.post).not.toHaveBeenCalledWith("/execute", expect.anything());
+  });
+
   it("runs in the panel's target terminal with no terminals picked", async () => {
     const sent: Array<[string, string]> = [];
     const sendToActive = vi.fn(() => false);

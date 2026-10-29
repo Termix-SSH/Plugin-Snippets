@@ -70,4 +70,27 @@ export const snippetAccess = adoptLegacyTable(
   ),
 );
 
-export const tables = [snippets, snippetFolders, snippetAccess];
+// Values are sealed with ctx.secrets.seal and never synced.
+export const snippetSecrets = defineTable(
+  "secrets",
+  {
+    id: id(),
+    userId: refUser(),
+    name: varchar().notNull(),
+    value: text().notNull(),
+    description: text(),
+    createdAt: timestamp().notNull().defaultNow(),
+    updatedAt: timestamp().notNull().defaultNow(),
+  },
+  {
+    indexes: [
+      {
+        name: "idx_snippets_secrets_user_name",
+        columns: ["userId", "name"],
+        unique: true,
+      },
+    ],
+  },
+);
+
+export const tables = [snippets, snippetFolders, snippetAccess, snippetSecrets];

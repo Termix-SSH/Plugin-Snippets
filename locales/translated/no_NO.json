@@ -140,7 +140,7 @@
   "settingsBehaviorTitle": "Oppførsel",
   "typeCommandHint": "Kjøres i den aktive terminalen.",
   "typeNoteHint": "Limmes inn i den aktive terminalen uten å kjøres.",
-  "variablesHint": "Variabler: $HOST, $USER, $PORT, $NAME, ${INPUT_1:Etikett}",
+  "variablesHint": "Variabler: $HOST, $USER, $PORT, $NAME, ${INPUT_1:Label}, {{secret}} for en lagret hemmelighet",
   "sharedBadge": "Delt",
   "copyToClipboard": "Kopier til utklippstavlen",
   "copyFailed": "Kunne ikke kopiere til utklippstavlen",
@@ -274,5 +274,26 @@
   "card": {
     "title": "Snippets",
     "runsOn": "Kjøres på {{hosts}}"
+  },
+  "secrets": {
+    "title": "Hemmeligheter",
+    "description": "Lagre en verdi én gang og bruk den i ethvert utdrag som {{example}}. Den lagres kryptert og fylles inn når utdraget kjøres. Verdier vises aldri igjen.",
+    "empty": "Ingen hemmeligheter ennå.",
+    "add": "Legg til hemmelighet",
+    "edit": "Rediger hemmelighet",
+    "delete": "Slett",
+    "deleteConfirm": "Slette hemmeligheten {{name}}?",
+    "save": "Lagre",
+    "cancel": "Avbryt",
+    "namePlaceholder": "Navn, for eksempel API_KEY",
+    "nameInvalid": "Bruk kun bokstaver, tall og _, og start ikke med et tall.",
+    "valuePlaceholder": "Verdi",
+    "valueKeepPlaceholder": "Ny verdi (la stå tom for å beholde den nåværende)",
+    "descriptionPlaceholder": "Beskrivelse (valgfritt)",
+    "saveFailed": "Kunne ikke lagre hemmeligheten",
+    "deleteFailed": "Kunne ikke slette hemmeligheten",
+    "missing": "Dette utdraget bruker hemmeligheter du ikke har lagret: {{names}}",
+    "loadFailed": "Kunne ikke laste inn hemmelighetene dette utdraget bruker",
+    "usesSecrets": "Bruker lagrede hemmeligheter"
   }
 }

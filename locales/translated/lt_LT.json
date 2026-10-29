@@ -146,7 +146,7 @@
   "settingsBehaviorTitle": "Elgsena",
   "typeCommandHint": "Vykdoma aktyvioje terminale.",
   "typeNoteHint": "Įklijuojama į aktyvią terminalą nevykdoma.",
-  "variablesHint": "Kintamieji: $HOST, $USER, $PORT, $NAME, ${INPUT_1:Etiketė}",
+  "variablesHint": "Kintamieji: $HOST, $USER, $PORT, $NAME, ${INPUT_1:Etiketė}, {{secret}} išsaugotam slaptažodžiui",
   "sharedBadge": "Bendrinamas",
   "copyToClipboard": "Kopijuoti į iškarpinę",
   "copyFailed": "Nepavyko nukopijuoti į iškarpinę",
@@ -284,5 +284,26 @@
   "card": {
     "title": "Fragmentai",
     "runsOn": "Vykdoma {{hosts}}"
+  },
+  "secrets": {
+    "title": "Slaptažodžiai",
+    "description": "Išsaugokite reikšmę vieną kartą ir naudokite ją bet kuriame fragmente kaip {{example}}. Ji saugoma šifruota ir įterpiama, kai fragmentas vykdomas. Reikšmės niekada nebedrodamos.",
+    "empty": "Dar nėra slaptažodžių.",
+    "add": "Pridėti slaptažodį",
+    "edit": "Redaguoti slaptažodį",
+    "delete": "Pašalinti",
+    "deleteConfirm": "Pašalinti slaptažodį {{name}}?",
+    "save": "Išsaugoti",
+    "cancel": "Atšaukti",
+    "namePlaceholder": "Pavadinimas, pavyzdžiui, API_KEY",
+    "nameInvalid": "Naudokite tik raides, skaičius ir _, bei nepradėkite skaičiumi.",
+    "valuePlaceholder": "Reikšmė",
+    "valueKeepPlaceholder": "Nauja reikšmė (palikite tuščią, jei norite išlaikyti dabartinę)",
+    "descriptionPlaceholder": "Aprašymas (nebūtina)",
+    "saveFailed": "Nepavyko išsaugoti slaptažodžio",
+    "deleteFailed": "Nepavyko pašalinti slaptažodžio",
+    "missing": "Šis fragmentas naudoja slaptažodžius, kurių dar neišsaugojote: {{names}}",
+    "loadFailed": "Nepavyko įkelti slaptažodžių, kurių naudoja šis fragmentas",
+    "usesSecrets": "Naudoja išsaugotus slaptažodžius"
   }
 }

@@ -33,6 +33,14 @@ export interface SnippetExecutionResult {
   error?: string;
 }
 
+export interface SnippetSecret {
+  id: number;
+  name: string;
+  description: string | null;
+  createdAt: string;
+  updatedAt: string;
+}
+
 export interface ShareableUser {
   id: string;
   username: string;
@@ -134,6 +142,26 @@ export function createSnippetsApi(api: PluginApiClient) {
     shareTargetRoles: () =>
       data(api.get<{ roles: ShareableRole[] }>("/share-targets/roles")),
     listShared: () => data(api.get<{ sharedSnippets: Snippet[] }>("/shared")),
+
+    listSecrets: () => data(api.get<SnippetSecret[]>("/secrets")),
+    createSecret: (body: {
+      name: string;
+      value: string;
+      description?: string | null;
+    }) => data(api.post<SnippetSecret>("/secrets", body)),
+    updateSecret: (
+      id: number,
+      body: { name?: string; value?: string; description?: string | null },
+    ) => data(api.put<SnippetSecret>(`/secrets/${id}`, body)),
+    deleteSecret: (id: number) =>
+      data(api.delete<{ success: boolean }>(`/secrets/${id}`)),
+    resolveSecrets: (names: string[], snippetId?: number) =>
+      data(
+        api.post<{ values: Record<string, string> }>("/secrets/resolve", {
+          names,
+          snippetId,
+        }),
+      ),
   };
 }
 

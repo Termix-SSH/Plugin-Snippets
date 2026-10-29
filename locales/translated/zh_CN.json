@@ -137,7 +137,7 @@
   "settingsBehaviorTitle": "行为",
   "typeCommandHint": "在活动的终端中运行。",
   "typeNoteHint": "粘贴到活动的终端中，但不运行。",
-  "variablesHint": "变量：$HOST、$USER、$PORT、$NAME、${INPUT_1:标签}",
+  "variablesHint": "变量：$HOST、$USER、$PORT、$NAME、${INPUT_1:Label}，以及用于引用已保存密钥的 {{secret}}",
   "sharedBadge": "已共享",
   "copyToClipboard": "复制到剪贴板",
   "copyFailed": "复制到剪贴板失败",
@@ -269,5 +269,26 @@
   "card": {
     "title": "代码片段",
     "runsOn": "在 {{hosts}} 上运行"
+  },
+  "secrets": {
+    "title": "密钥",
+    "description": "只需保存一次值，即可在任何代码片段中以 {{example}} 的形式使用。该值经过加密存储，并在代码片段运行时自动填充。值永远不会再次显示。",
+    "empty": "暂无密钥。",
+    "add": "添加密钥",
+    "edit": "编辑密钥",
+    "delete": "删除",
+    "deleteConfirm": "确定要删除密钥 {{name}} 吗？",
+    "save": "保存",
+    "cancel": "取消",
+    "namePlaceholder": "名称，例如 API_KEY",
+    "nameInvalid": "仅允许使用字母、数字和下划线，且不能以数字开头。",
+    "valuePlaceholder": "值",
+    "valueKeepPlaceholder": "新值（留空则保留当前值）",
+    "descriptionPlaceholder": "描述（可选）",
+    "saveFailed": "无法保存密钥",
+    "deleteFailed": "无法删除密钥",
+    "missing": "此代码片段使用了您尚未保存的密钥：{{names}}",
+    "loadFailed": "无法加载此代码片段使用的密钥",
+    "usesSecrets": "使用已保存的密钥"
   }
 }

@@ -143,7 +143,7 @@
   "settingsBehaviorTitle": "Comportament",
   "typeCommandHint": "S'executa al terminal actiu.",
   "typeNoteHint": "S'enganxa al terminal actiu sense executar-lo.",
-  "variablesHint": "Variables: $HOST, $USER, $PORT, $NAME, ${INPUT_1:Etiqueta}",
+  "variablesHint": "Variables: $HOST, $USER, $PORT, $NAME, ${INPUT_1:Etiqueta}, {{secret}} per a un secret desat",
   "sharedBadge": "Compartit",
   "copyToClipboard": "Copia al porta-retalls",
   "copyFailed": "No s'ha pogut copiar al porta-retalls",
@@ -279,5 +279,26 @@
   "card": {
     "title": "Fragments",
     "runsOn": "S'executa a {{hosts}}"
+  },
+  "secrets": {
+    "title": "Secrets",
+    "description": "Desa un valor una sola vegada i utilitza'l en qualsevol fragment com {{example}}. Es desa xifrat i s'omple quan s'executa el fragment. Els valors mai es mostren de nou.",
+    "empty": "Encara no hi ha secrets.",
+    "add": "Afegeix un secret",
+    "edit": "Edita el secret",
+    "delete": "Suprimeix",
+    "deleteConfirm": "Vols suprimir el secret {{name}}?",
+    "save": "Desa",
+    "cancel": "Cancel·la",
+    "namePlaceholder": "Nom, per exemple API_KEY",
+    "nameInvalid": "Utilitza només lletres, números i _, i no comencis amb un número.",
+    "valuePlaceholder": "Valor",
+    "valueKeepPlaceholder": "Valor nou (deixa-ho buit per mantenir l'actual)",
+    "descriptionPlaceholder": "Descripció (opcional)",
+    "saveFailed": "No s'ha pogut desar el secret",
+    "deleteFailed": "No s'ha pogut suprimir el secret",
+    "missing": "Aquest fragment utilitza secrets que no has desat: {{names}}",
+    "loadFailed": "No s'han pogut carregar els secrets que utilitza aquest fragment",
+    "usesSecrets": "Utilitza secrets desats"
   }
 }

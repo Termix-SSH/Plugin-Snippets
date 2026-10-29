@@ -140,7 +140,7 @@
   "settingsBehaviorTitle": "Behavior",
   "typeCommandHint": "Runs in the active terminal.",
   "typeNoteHint": "Pastes into the active terminal without running.",
-  "variablesHint": "Variables: $HOST, $USER, $PORT, $NAME, ${INPUT_1:Label}",
+  "variablesHint": "Variables: $HOST, $USER, $PORT, $NAME, ${INPUT_1:Label}, {{secret}} for a saved secret",
   "sharedBadge": "Shared",
   "copyToClipboard": "Copy to clipboard",
   "copyFailed": "Failed to copy to clipboard",
@@ -274,5 +274,26 @@
   "card": {
     "title": "Snippets",
     "runsOn": "Runs on {{hosts}}"
+  },
+  "secrets": {
+    "title": "Secrets",
+    "description": "Save a value once and use it in any snippet as {{example}}. It is stored encrypted and filled in when the snippet runs. Values are never shown again.",
+    "empty": "No secrets yet.",
+    "add": "Add secret",
+    "edit": "Edit secret",
+    "delete": "Delete",
+    "deleteConfirm": "Delete the secret {{name}}?",
+    "save": "Save",
+    "cancel": "Cancel",
+    "namePlaceholder": "Name, for example API_KEY",
+    "nameInvalid": "Use letters, numbers and _ only, and do not start with a number.",
+    "valuePlaceholder": "Value",
+    "valueKeepPlaceholder": "New value (leave empty to keep the current one)",
+    "descriptionPlaceholder": "Description (optional)",
+    "saveFailed": "Could not save the secret",
+    "deleteFailed": "Could not delete the secret",
+    "missing": "This snippet uses secrets you have not saved: {{names}}",
+    "loadFailed": "Could not load the secrets this snippet uses",
+    "usesSecrets": "Uses saved secrets"
   }
 }

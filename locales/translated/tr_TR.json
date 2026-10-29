@@ -140,7 +140,7 @@
   "settingsBehaviorTitle": "Davranış",
   "typeCommandHint": "Aktif uçbirimde çalıştırılır.",
   "typeNoteHint": "Çalıştırmadan aktif uçbirime yapıştırılır.",
-  "variablesHint": "Değişkenler: $HOST, $USER, $PORT, $NAME, ${INPUT_1:Etiket}",
+  "variablesHint": "Değişkenler: $HOST, $USER, $PORT, $NAME, ${INPUT_1:Etiket}, kaydedilmiş bir gizli değer için {{secret}}",
   "sharedBadge": "Paylaşılan",
   "copyToClipboard": "Panoya kopyala",
   "copyFailed": "Panoya kopyalanamadı",
@@ -274,5 +274,26 @@
   "card": {
     "title": "Kod Parçacıkları",
     "runsOn": "{{hosts}} üzerinde çalışır"
+  },
+  "secrets": {
+    "title": "Gizli Değerler",
+    "description": "Bir değeri bir kez kaydedin ve herhangi bir kod parçasında {{example}} olarak kullanın. Şifreli olarak saklanır ve kod parçası çalıştırıldığında doldurulur. Değerler asla tekrar gösterilmez.",
+    "empty": "Henüz gizli değer yok.",
+    "add": "Gizli değer ekle",
+    "edit": "Gizli değeri düzenle",
+    "delete": "Sil",
+    "deleteConfirm": "{{name}} gizli değeri silinsin mi?",
+    "save": "Kaydet",
+    "cancel": "İptal",
+    "namePlaceholder": "Ad, örneğin API_KEY",
+    "nameInvalid": "Sadece harf, rakam ve _ kullanın ve rakamla başlamayın.",
+    "valuePlaceholder": "Değer",
+    "valueKeepPlaceholder": "Yeni değer (mevcut olanı korumak için boş bırakın)",
+    "descriptionPlaceholder": "Açıklama (isteğe bağlı)",
+    "saveFailed": "Gizli değer kaydedilemedi",
+    "deleteFailed": "Gizli değer silinemedi",
+    "missing": "Bu kod parçası, henüz kaydetmediğiniz gizli değerleri kullanıyor: {{names}}",
+    "loadFailed": "Bu kod parçasının kullandığı gizli değerler yüklenemedi",
+    "usesSecrets": "Kaydedilmiş gizli değerler kullanıyor"
   }
 }

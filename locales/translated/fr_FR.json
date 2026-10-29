@@ -143,7 +143,7 @@
   "settingsBehaviorTitle": "Comportement",
   "typeCommandHint": "S'exécute dans le terminal actif.",
   "typeNoteHint": "Colle dans le terminal actif sans exécuter.",
-  "variablesHint": "Variables : $HOST, $USER, $PORT, $NAME, ${INPUT_1:Étiquette}",
+  "variablesHint": "Variables : $HOST, $USER, $PORT, $NAME, ${INPUT_1:Label}, {{secret}} pour un secret enregistré",
   "sharedBadge": "Partagé",
   "copyToClipboard": "Copier dans le presse-papiers",
   "copyFailed": "Échec de la copie dans le presse-papiers",
@@ -279,5 +279,26 @@
   "card": {
     "title": "Extraits",
     "runsOn": "S'exécute sur {{hosts}}"
+  },
+  "secrets": {
+    "title": "Secrets",
+    "description": "Enregistrez une valeur une fois et utilisez-la dans n'importe quel extrait sous la forme {{example}}. Elle est stockée de manière chiffrée et remplie automatiquement lors de l'exécution de l'extrait. Les valeurs ne sont jamais affichées à nouveau.",
+    "empty": "Aucun secret pour le moment.",
+    "add": "Ajouter un secret",
+    "edit": "Modifier le secret",
+    "delete": "Supprimer",
+    "deleteConfirm": "Supprimer le secret {{name}} ?",
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "namePlaceholder": "Nom, par exemple API_KEY",
+    "nameInvalid": "Utilisez uniquement des lettres, des chiffres et des underscores, et ne commencez pas par un chiffre.",
+    "valuePlaceholder": "Valeur",
+    "valueKeepPlaceholder": "Nouvelle valeur (laissez vide pour conserver la valeur actuelle)",
+    "descriptionPlaceholder": "Description (facultatif)",
+    "saveFailed": "Impossible d'enregistrer le secret",
+    "deleteFailed": "Impossible de supprimer le secret",
+    "missing": "Ce snippet utilise des secrets que vous n'avez pas enregistrés : {{names}}",
+    "loadFailed": "Impossible de charger les secrets utilisés par ce snippet",
+    "usesSecrets": "Utilise des secrets enregistrés"
   }
 }

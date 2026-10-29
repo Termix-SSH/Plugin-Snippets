@@ -143,7 +143,7 @@
   "settingsBehaviorTitle": "Ponašanje",
   "typeCommandHint": "Izvršava se u aktivnom terminalu.",
   "typeNoteHint": "Umetne se u aktivni terminal bez izvršavanja.",
-  "variablesHint": "Varijable: $HOST, $USER, $PORT, $NAME, ${INPUT_1:Oznaka}",
+  "variablesHint": "Varijable: $HOST, $USER, $PORT, $NAME, ${INPUT_1:Label}, {{secret}} za spremljenu tajnu",
   "sharedBadge": "Dijeljeno",
   "copyToClipboard": "Kopiraj u međuspremnik",
   "copyFailed": "Kopiranje u međuspremnik nije uspjelo",
@@ -279,5 +279,26 @@
   "card": {
     "title": "Isječci",
     "runsOn": "Pokreće se na {{hosts}}"
+  },
+  "secrets": {
+    "title": "Tajne",
+    "description": "Spremite vrijednost jednom i koristite je u bilo kojem isječku kao {{example}}. Sprema se šifrirano i popunjava se pri pokretanju isječka. Vrijednosti se nikada više ne prikazuju.",
+    "empty": "Još nema tajni.",
+    "add": "Dodaj tajnu",
+    "edit": "Uredi tajnu",
+    "delete": "Izbriši",
+    "deleteConfirm": "Izbrisati tajnu {{name}}?",
+    "save": "Spremi",
+    "cancel": "Otkaži",
+    "namePlaceholder": "Naziv, na primjer API_KEY",
+    "nameInvalid": "Koristite samo slova, brojeve i _, a ne počinjite s brojem.",
+    "valuePlaceholder": "Vrijednost",
+    "valueKeepPlaceholder": "Nova vrijednost (ostavite prazno za zadržavanje trenutne)",
+    "descriptionPlaceholder": "Opis (opcionalno)",
+    "saveFailed": "Tajna se nije mogla spremiti",
+    "deleteFailed": "Tajna se nije mogla izbrisati",
+    "missing": "Ovaj isječak koristi tajne koje niste spremili: {{names}}",
+    "loadFailed": "Tajne koje ovaj isječak koristi nisu se mogle učitati",
+    "usesSecrets": "Koristi spremljene tajne"
   }
 }

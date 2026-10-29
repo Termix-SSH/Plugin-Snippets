@@ -414,3 +414,53 @@ describe("sudo password fill", () => {
     expect(result.body).toMatchObject({ success: false });
   });
 });
+
+describe("POST /execute with secrets", () => {
+  it("fills {{NAME}} on the server and masks the value in output", async () => {
+    const client = fakeSshClient("key is s3cr3t-value", 0);
+    const server = await startExecuteServer(client);
+    try {
+      const secret = await server.request("POST", "/secrets", {
+        name: "API_KEY",
+        value: "s3cr3t-value",
+      });
+      expect(secret.status).toBe(201);
+      const created = await server.request("POST", "/", {
+        name: "Use key",
+        content: "echo {{API_KEY}}",
+      });
+      const result = await server.request("POST", "/execute", {
+        snippetId: created.body.id,
+        hostId: 42,
+      });
+      expect(result.status).toBe(200);
+      expect(client.commands).toEqual(["echo s3cr3t-value"]);
+      expect(result.body.output).toBe("key is ••••");
+    } finally {
+      await server.close();
+    }
+  });
+
+  it("refuses to run when a secret is not saved", async () => {
+    const client = fakeSshClient("", 0);
+    const server = await startExecuteServer(client);
+    try {
+      const created = await server.request("POST", "/", {
+        name: "Use key",
+        content: "echo {{MISSING}}",
+      });
+      const result = await server.request("POST", "/execute", {
+        snippetId: created.body.id,
+        hostId: 42,
+      });
+      expect(result.status).toBe(400);
+      expect(result.body).toMatchObject({
+        code: "MISSING_SECRETS",
+        missing: ["MISSING"],
+      });
+      expect(client.commands).toEqual([]);
+    } finally {
+      await server.close();
+    }
+  });
+});

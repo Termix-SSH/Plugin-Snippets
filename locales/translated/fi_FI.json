@@ -140,7 +140,7 @@
   "settingsBehaviorTitle": "Käyttäytyminen",
   "typeCommandHint": "Suoritetaan aktiivisessa pääteikkunassa.",
   "typeNoteHint": "Liitetään aktiiviseen pääteikkunaan ilman suorittamista.",
-  "variablesHint": "Muuttujat: $HOST, $USER, $PORT, $NAME, ${INPUT_1:Label}",
+  "variablesHint": "Muuttujat: $HOST, $USER, $PORT, $NAME, ${INPUT_1:Label}, {{secret}} tallennetulle salaiselle",
   "sharedBadge": "Jaettu",
   "copyToClipboard": "Kopioi leikepöydälle",
   "copyFailed": "Kopiointi leikepöydälle epäonnistui",
@@ -274,5 +274,26 @@
   "card": {
     "title": "Koodinpätkät",
     "runsOn": "Suorittaa palvelimilla {{hosts}}"
+  },
+  "secrets": {
+    "title": "Salaiset arvot",
+    "description": "Tallenna arvo kerran ja käytä sitä missä tahansa komentosnippetissä muodossa {{example}}. Arvo tallennetaan salattuna ja täytetään snippetin suorittuessa. Arvoja ei koskaan näytetä uudelleen.",
+    "empty": "Salaisia arvoja ei vielä ole.",
+    "add": "Lisää salainen arvo",
+    "edit": "Muokkaa salaista arvoa",
+    "delete": "Poista",
+    "deleteConfirm": "Haluatko poistaa salaisen arvon {{name}}?",
+    "save": "Tallenna",
+    "cancel": "Peruuta",
+    "namePlaceholder": "Nimi, esimerkiksi API_KEY",
+    "nameInvalid": "Käytä vain kirjaimia, numeroita ja alaviivaa (_), äläkä aloita numerolla.",
+    "valuePlaceholder": "Arvo",
+    "valueKeepPlaceholder": "Uusi arvo (jätä tyhjäksi, jos haluat pitää nykyisen)",
+    "descriptionPlaceholder": "Kuvaus (valinnainen)",
+    "saveFailed": "Salaisen arvon tallennus epäonnistui",
+    "deleteFailed": "Salaisen arvon poisto epäonnistui",
+    "missing": "Tämä snippet käyttää salaisia arvoja, joita et ole tallentanut: {{names}}",
+    "loadFailed": "Tämän snippetin käyttämien salaisten arvojen lataaminen epäonnistui",
+    "usesSecrets": "Käyttää tallennettuja salaisia arvoja"
   }
 }

@@ -152,7 +152,7 @@
   "settingsBehaviorTitle": "السلوك",
   "typeCommandHint": "يتم تشغيله في الطرفية النشطة.",
   "typeNoteHint": "يتم لصقه في الطرفية النشطة دون تشغيله.",
-  "variablesHint": "المتغيرات: $HOST، $USER، $PORT، $NAME، ${INPUT_1:Label}",
+  "variablesHint": "المتغيرات: $HOST، $USER، $PORT، $NAME، ${INPUT_1:Label}، {{secret}} لسر محفوظ",
   "sharedBadge": "مشترك",
   "copyToClipboard": "نسخ إلى الحافظة",
   "copyFailed": "فشل في النسخ إلى الحافظة",
@@ -294,5 +294,26 @@
   "card": {
     "title": "المقتطفات",
     "runsOn": "تعمل على {{hosts}}"
+  },
+  "secrets": {
+    "title": "الأسرار",
+    "description": "احفظ قيمة مرة واحدة واستخدمها في أي مقتطف كـ {{example}}. يتم تخزينها مشفرة وتُملأ عند تشغيل المقتطف. لن تظهر القيم مرة أخرى.",
+    "empty": "لا توجد أسرار بعد.",
+    "add": "إضافة سر",
+    "edit": "تعديل السر",
+    "delete": "حذف",
+    "deleteConfirm": "هل تريد حذف السر {{name}}؟",
+    "save": "حفظ",
+    "cancel": "إلغاء",
+    "namePlaceholder": "الاسم، على سبيل المثال API_KEY",
+    "nameInvalid": "استخدم الأحرف والأرقام و _ فقط، ولا تبدأ برقم.",
+    "valuePlaceholder": "القيمة",
+    "valueKeepPlaceholder": "القيمة الجديدة (اتركه فارغاً للحفاظ على القيمة الحالية)",
+    "descriptionPlaceholder": "الوصف (اختياري)",
+    "saveFailed": "تعذر حفظ السر",
+    "deleteFailed": "تعذر حذف السر",
+    "missing": "يستخدم هذا المقتطف أسراراً لم تقم بحفظها: {{names}}",
+    "loadFailed": "تعذر تحميل الأسرار التي يستخدمها هذا المقتطف",
+    "usesSecrets": "يستخدم أسراراً محفوظة"
   }
 }

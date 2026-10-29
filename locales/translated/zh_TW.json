@@ -137,7 +137,7 @@
   "settingsBehaviorTitle": "行為",
   "typeCommandHint": "在目前的終端機中執行。",
   "typeNoteHint": "貼上至目前的終端機但不執行。",
-  "variablesHint": "變數：$HOST、$USER、$PORT、$NAME、${INPUT_1:標籤}",
+  "variablesHint": "變數：$HOST、$USER、$PORT、$NAME、${INPUT_1:Label}，以及用於已儲存機密資訊的 {{secret}}",
   "sharedBadge": "已共用",
   "copyToClipboard": "複製到剪貼簿",
   "copyFailed": "複製到剪貼簿失敗",
@@ -269,5 +269,26 @@
   "card": {
     "title": "程式碼片段",
     "runsOn": "在 {{hosts}} 上執行"
+  },
+  "secrets": {
+    "title": "機密資訊",
+    "description": "只需儲存一次，即可在任何程式碼片段中以 {{example}} 的形式使用。機密資訊會以加密方式儲存，並在執行程式碼片段時自動填入。這些值絕不會再次顯示。",
+    "empty": "目前尚無機密資訊。",
+    "add": "新增機密資訊",
+    "edit": "編輯機密資訊",
+    "delete": "刪除",
+    "deleteConfirm": "確定要刪除機密資訊 {{name}} 嗎？",
+    "save": "儲存",
+    "cancel": "取消",
+    "namePlaceholder": "名稱，例如 API_KEY",
+    "nameInvalid": "僅可使用字母、數字和底線 (_)，且不能以數字開頭。",
+    "valuePlaceholder": "值",
+    "valueKeepPlaceholder": "新值（留空則保留目前的值）",
+    "descriptionPlaceholder": "描述（選填）",
+    "saveFailed": "無法儲存機密資訊",
+    "deleteFailed": "無法刪除機密資訊",
+    "missing": "此程式碼片段使用了您尚未儲存的機密資訊：{{names}}",
+    "loadFailed": "無法載入此程式碼片段所使用的機密資訊",
+    "usesSecrets": "使用已儲存的機密資訊"
   }
 }

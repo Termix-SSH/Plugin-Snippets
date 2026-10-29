@@ -43,6 +43,7 @@ export function SnippetRow({
   alwaysShowActions,
   folderNames,
   targetHostNames,
+  terminalsPicked,
   canEdit,
   canDelete,
   canShare,
@@ -69,6 +70,8 @@ export function SnippetRow({
   folderNames: string[];
   /** Hosts a command snippet runs on directly, instead of the active terminal. */
   targetHostNames: string[];
+  /** Terminals are picked in Run in, so running goes there instead of the target hosts. */
+  terminalsPicked: boolean;
   canEdit: boolean;
   canDelete: boolean;
   canShare: boolean;
@@ -101,10 +104,11 @@ export function SnippetRow({
   const deletable = canDelete && owned;
   const shareable = canShare && owned;
   const hasTargets = !snippet.isNote && targetHostNames.length > 0;
+  const runsOnTargets = hasTargets && !terminalsPicked;
   const TypeIcon = snippet.isNote ? StickyNote : Terminal;
-  const RunIcon = hasTargets ? Zap : snippet.isNote ? ClipboardPaste : Play;
+  const RunIcon = runsOnTargets ? Zap : snippet.isNote ? ClipboardPaste : Play;
   const runLabel = t(
-    hasTargets ? "runOnTargets" : snippet.isNote ? "pasteToTerminal" : "run",
+    runsOnTargets ? "runOnTargets" : snippet.isNote ? "pasteToTerminal" : "run",
   );
   const copy = () => {
     onCopy();

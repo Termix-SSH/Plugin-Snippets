@@ -7,6 +7,7 @@ import {
 } from "../shared/variables.js";
 import { askForInputs, shouldConfirmExecution } from "./prompt-store";
 import { createSnippetsApi } from "./snippets-api";
+import { MissingSecretsError, secretValuesFor } from "./secret-values";
 
 export interface RunnableSnippet {
   id: number;
@@ -22,19 +23,40 @@ export interface RunTarget {
 }
 
 /**
- * The snippet with its variables filled in, asking for $INPUT_n values when
- * it has any. Null when the user cancels.
+ * The snippet with its variables and secrets filled in, asking for $INPUT_n
+ * values when it has any. Null when the user cancels or a secret is missing.
  */
 async function resolveForRun(
-  snippet: { name: string; content: string },
+  app: Pick<TermixApp, "api" | "t">,
+  snippet: { id?: number; name: string; content: string },
   host: SnippetHostContext | null,
 ): Promise<string | null> {
-  if (!hasSnippetInputs(snippet.content)) {
-    return resolveSnippetContent(snippet.content, host);
+  let values: Record<string, string> = {};
+  if (hasSnippetInputs(snippet.content)) {
+    const asked = await askForInputs(snippet, host);
+    if (!asked) return null;
+    values = asked;
   }
-  const values = await askForInputs(snippet, host);
-  if (!values) return null;
-  return resolveSnippetContent(snippet.content, host, values);
+  const secrets = await loadSecrets(app, snippet);
+  if (!secrets) return null;
+  return resolveSnippetContent(snippet.content, host, values, secrets);
+}
+
+/** The snippet's {{NAME}} values, or null after telling the user why not. */
+export async function loadSecrets(
+  app: Pick<TermixApp, "api" | "t">,
+  snippet: { id?: number; content: string },
+): Promise<Record<string, string> | null> {
+  try {
+    return await secretValuesFor(app.api, snippet.content, snippet.id);
+  } catch (err) {
+    toast.error(
+      err instanceof MissingSecretsError
+        ? app.t("secrets.missing", { names: err.message })
+        : app.t("secrets.loadFailed"),
+    );
+    return null;
+  }
 }
 
 /** Runs `execute` now, or after the user confirms when they asked to. */
@@ -64,13 +86,13 @@ function confirmThenRun(
  * is pasted without running.
  */
 export async function runInSession(
-  app: Pick<TermixApp, "t" | "confirm">,
+  app: Pick<TermixApp, "api" | "t" | "confirm">,
   snippet: RunnableSnippet,
   target: RunTarget,
   host: SnippetHostContext | null,
   options: { pressEnter?: boolean; announce?: boolean } = {},
 ): Promise<void> {
-  const content = await resolveForRun(snippet, host);
+  const content = await resolveForRun(app, snippet, host);
   if (content === null) return;
   const run = !snippet.isNote && options.pressEnter !== false;
   const send = async () => {

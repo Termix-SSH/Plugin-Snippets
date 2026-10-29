@@ -140,7 +140,7 @@
   "settingsBehaviorTitle": "Käitumine",
   "typeCommandHint": "Käivitub aktiivses terminalis.",
   "typeNoteHint": "Kleepitakse aktiivsesse terminali ilma käivitamata.",
-  "variablesHint": "Muutujad: $HOST, $USER, $PORT, $NAME, ${INPUT_1:Silt}",
+  "variablesHint": "Muutujad: $HOST, $USER, $PORT, $NAME, ${INPUT_1:Silt}, {{secret}} salvestatud saladuse jaoks",
   "sharedBadge": "Jagatud",
   "copyToClipboard": "Kopeeri lõikelauale",
   "copyFailed": "Kopeerimine lõikelauale ebaõnnestus",
@@ -274,5 +274,26 @@
   "card": {
     "title": "Lõigud",
     "runsOn": "Töötab hostidel {{hosts}}"
+  },
+  "secrets": {
+    "title": "Saladused",
+    "description": "Salvestage väärtus üks kord ja kasutage seda mis tahes koodilõigus kujul {{example}}. See salvestatakse krüpteeritult ja täidetakse koodilõigu käivitamisel. Väärtusi ei kuvata kunagi uuesti.",
+    "empty": "Saladusi veel ei ole.",
+    "add": "Lisa saladus",
+    "edit": "Muuda saladust",
+    "delete": "Kustuta",
+    "deleteConfirm": "Kas kustutada saladus {{name}}?",
+    "save": "Salvesta",
+    "cancel": "Tühista",
+    "namePlaceholder": "Nimi, näiteks API_KEY",
+    "nameInvalid": "Kasuta ainult tähti, numbreid ja _, ning ära alusta numbriga.",
+    "valuePlaceholder": "Väärtus",
+    "valueKeepPlaceholder": "Uus väärtus (jäta tühjaks, kui soovid praegust säilitada)",
+    "descriptionPlaceholder": "Kirjeldus (valikuline)",
+    "saveFailed": "Saladuse salvestamine ei õnnestunud",
+    "deleteFailed": "Saladuse kustutamine ei õnnestunud",
+    "missing": "See koodilõik kasutab saladusi, mida pole salvestatud: {{names}}",
+    "loadFailed": "Selle koodilõigu kasutatavate saladuste laadimine ei õnnestunud",
+    "usesSecrets": "Kasutab salvestatud saladusi"
   }
 }

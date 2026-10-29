@@ -12,6 +12,7 @@ import {
   Textarea,
 } from "@termix-ssh/plugin-sdk/ui";
 import { parseHostFilter, type Snippet } from "./types";
+import { extractSecretNames } from "../shared/variables.js";
 
 export interface SnippetFormValues {
   name: string;
@@ -197,8 +198,14 @@ export function SnippetEditor({
               className="min-h-36 resize-y font-mono text-xs"
             />
             <span className="text-[10px] text-muted-foreground/70 font-mono">
-              {t("variablesHint")}
+              {t("variablesHint", { secret: "{{NAME}}" })}
             </span>
+            {extractSecretNames(values.content).length > 0 && (
+              <span className="text-[10px] text-accent-brand font-mono">
+                {t("secrets.usesSecrets")}:{" "}
+                {extractSecretNames(values.content).join(", ")}
+              </span>
+            )}
           </div>
         </div>
       </SectionCard>

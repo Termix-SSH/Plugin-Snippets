@@ -137,7 +137,7 @@
   "settingsBehaviorTitle": "Tingkah laku",
   "typeCommandHint": "Dijalankan dalam terminal aktif.",
   "typeNoteHint": "Dilekatkan ke dalam terminal aktif tanpa dijalankan.",
-  "variablesHint": "Pembolehubah: $HOST, $USER, $PORT, $NAME, ${INPUT_1:Label}",
+  "variablesHint": "Pembolehubah: $HOST, $USER, $PORT, $NAME, ${INPUT_1:Label}, {{secret}} untuk rahsia yang disimpan",
   "sharedBadge": "Dikongsi",
   "copyToClipboard": "Salin ke papan klip",
   "copyFailed": "Gagal menyalin ke papan klip",
@@ -269,5 +269,26 @@
   "card": {
     "title": "Petikan",
     "runsOn": "Dijalankan pada {{hosts}}"
+  },
+  "secrets": {
+    "title": "Rahsia",
+    "description": "Simpan nilai sekali dan gunakan dalam sebarang petikan sebagai {{example}}. Ia disimpan dalam keadaan terenkripsi dan diisi apabila petikan dijalankan. Nilai tidak akan dipaparkan semula.",
+    "empty": "Tiada rahsia lagi.",
+    "add": "Tambah rahsia",
+    "edit": "Sunting rahsia",
+    "delete": "Padam",
+    "deleteConfirm": "Padam rahsia {{name}}?",
+    "save": "Simpan",
+    "cancel": "Batal",
+    "namePlaceholder": "Nama, contohnya API_KEY",
+    "nameInvalid": "Gunakan huruf, nombor dan _ sahaja, dan jangan bermula dengan nombor.",
+    "valuePlaceholder": "Nilai",
+    "valueKeepPlaceholder": "Nilai baharu (biarkan kosong untuk mengekalkan nilai semasa)",
+    "descriptionPlaceholder": "Penerangan (pilihan)",
+    "saveFailed": "Gagal menyimpan rahsia",
+    "deleteFailed": "Gagal memadam rahsia",
+    "missing": "Petikan ini menggunakan rahsia yang belum anda simpan: {{names}}",
+    "loadFailed": "Gagal memuatkan rahsia yang digunakan oleh petikan ini",
+    "usesSecrets": "Menggunakan rahsia yang disimpan"
   }
 }

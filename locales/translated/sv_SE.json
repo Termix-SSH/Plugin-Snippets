@@ -140,7 +140,7 @@
   "settingsBehaviorTitle": "Beteende",
   "typeCommandHint": "Körs i den aktiva terminalen.",
   "typeNoteHint": "Klistras in i den aktiva terminalen utan att köras.",
-  "variablesHint": "Variabler: $HOST, $USER, $PORT, $NAME, ${INPUT_1:Etikett}",
+  "variablesHint": "Variabler: $HOST, $USER, $PORT, $NAME, ${INPUT_1:Etikett}, {{secret}} för ett sparade hemlighet",
   "sharedBadge": "Delad",
   "copyToClipboard": "Kopiera till urklipp",
   "copyFailed": "Misslyckades med att kopiera till urklipp",
@@ -274,5 +274,26 @@
   "card": {
     "title": "Kommandon",
     "runsOn": "Körs på {{hosts}}"
+  },
+  "secrets": {
+    "title": "Hemligheter",
+    "description": "Spara ett värde en gång och använd det i valfri kommandosnutt som {{example}}. Det lagras krypterat och fylls i när snutten körs. Värden visas aldrig igen.",
+    "empty": "Inga hemligheter ännu.",
+    "add": "Lägg till hemlighet",
+    "edit": "Redigera hemlighet",
+    "delete": "Ta bort",
+    "deleteConfirm": "Vill du ta bort hemligheten {{name}}?",
+    "save": "Spara",
+    "cancel": "Avbryt",
+    "namePlaceholder": "Namn, till exempel API_KEY",
+    "nameInvalid": "Använd endast bokstäver, siffror och _, och börja inte med en siffra.",
+    "valuePlaceholder": "Värde",
+    "valueKeepPlaceholder": "Nytt värde (lämna tomt för att behålla det nuvarande)",
+    "descriptionPlaceholder": "Beskrivning (valfritt)",
+    "saveFailed": "Kunde inte spara hemligheten",
+    "deleteFailed": "Kunde inte ta bort hemligheten",
+    "missing": "Denna snutt använder hemligheter som du inte har sparat: {{names}}",
+    "loadFailed": "Kunde inte läsa in hemligheterna som denna snutt använder",
+    "usesSecrets": "Använder sparade hemligheter"
   }
 }

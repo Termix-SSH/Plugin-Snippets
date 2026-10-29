@@ -59,7 +59,9 @@
       "indexes": [
         {
           "name": "idx_snippets_user_id",
-          "columns": ["userId"]
+          "columns": [
+            "userId"
+          ]
         }
       ],
       "adopts": "snippets"
@@ -145,18 +147,70 @@
       "indexes": [
         {
           "name": "idx_snippet_access_user_id",
-          "columns": ["userId"]
+          "columns": [
+            "userId"
+          ]
         },
         {
           "name": "idx_snippet_access_snippet_id",
-          "columns": ["snippetId"]
+          "columns": [
+            "snippetId"
+          ]
         },
         {
           "name": "idx_snippet_access_role_id",
-          "columns": ["roleId"]
+          "columns": [
+            "roleId"
+          ]
         }
       ],
       "adopts": "snippet_access"
+    },
+    "secrets": {
+      "columns": {
+        "id": {
+          "type": "id",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "userId": {
+          "type": "refUser",
+          "length": 255,
+          "notNull": true
+        },
+        "name": {
+          "type": "varchar",
+          "length": 255,
+          "notNull": true
+        },
+        "value": {
+          "type": "text",
+          "notNull": true
+        },
+        "description": {
+          "type": "text"
+        },
+        "createdAt": {
+          "type": "timestamp",
+          "notNull": true,
+          "defaultNow": true
+        },
+        "updatedAt": {
+          "type": "timestamp",
+          "notNull": true,
+          "defaultNow": true
+        }
+      },
+      "indexes": [
+        {
+          "name": "idx_snippets_secrets_user_name",
+          "columns": [
+            "userId",
+            "name"
+          ],
+          "unique": true
+        }
+      ]
     }
   }
 }

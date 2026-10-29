@@ -24,6 +24,23 @@ journalctl -u ${INPUT_1:Service} --since "${INPUT_2:Since}" -n 200
 
 When a snippet has inputs, Termix asks for them and shows a preview before running.
 
+## Secrets
+
+Keep keys and passwords out of your snippets. Open the snippet settings, add a secret under Secrets, then use it
+in any command as `{{NAME}}`:
+
+```bash
+SOPS_AGE_KEY={{SOPS_AGE_KEY}} sops -d secrets.enc.yaml
+```
+
+Secrets are stored encrypted on the server, belong to you only and are never shown again after you save them. They
+are not synced to the desktop app. When a snippet runs, Termix fills in your own value, so a shared snippet uses the
+secret of whoever runs it. Every use is written to the audit log with the names, never the values.
+
+A run on hosts fills the secret on the server and hides the value in the output it shows you. A run in a terminal
+types the value into the terminal, so the shell and its history can see it there. If a secret is missing, the
+snippet does not run.
+
 ## Run one
 
 - In a terminal: Click the snippet to send it to the terminal you are in. With several terminals selected, it goes to all of them.

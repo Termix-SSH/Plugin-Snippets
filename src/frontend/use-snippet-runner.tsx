@@ -13,6 +13,7 @@ import {
 } from "../shared/variables.js";
 import { SnippetVariablesDialog } from "./SnippetVariablesDialog";
 import { createSnippetsApi } from "./snippets-api";
+import { MissingSecretsError, secretValuesFor } from "./secret-values";
 import {
   ExecutionResultsDialog,
   type HostExecutionResult,
@@ -76,15 +77,34 @@ export function useSnippetRunner(confirmExecution = false) {
     [confirmExecution, confirm, t],
   );
 
+  // The snippet's {{NAME}} values, or null after a toast saying why not.
+  const loadSecrets = useCallback(
+    async (snippet: Snippet): Promise<Record<string, string> | null> => {
+      try {
+        return await secretValuesFor(api, snippet.content, snippet.id);
+      } catch (err) {
+        toast.error(
+          err instanceof MissingSecretsError
+            ? t("secrets.missing", { names: err.message })
+            : t("secrets.loadFailed"),
+        );
+        return null;
+      }
+    },
+    [api, t],
+  );
+
   async function sendResolvedToTarget(
     target: RunTarget,
     snippet: Snippet,
     inputValues: Record<string, string>,
+    secrets: Record<string, string>,
   ) {
     const content = resolveSnippetContent(
       snippet.content,
       target.host,
       inputValues,
+      secrets,
     );
     const run = !snippet.isNote;
     return (
@@ -97,10 +117,12 @@ export function useSnippetRunner(confirmExecution = false) {
   const runSnippet = useCallback(
     (snippet: Snippet, targets: RunTarget[]) => {
       const runWithInputs = (inputValues: Record<string, string>) => {
-        const doSend = () => {
+        const doSend = async () => {
+          const secrets = await loadSecrets(snippet);
+          if (!secrets) return;
           Promise.all(
             targets.map((target) =>
-              sendResolvedToTarget(target, snippet, inputValues),
+              sendResolvedToTarget(target, snippet, inputValues, secrets),
             ),
           )
             .then((results) => {
@@ -118,8 +140,8 @@ export function useSnippetRunner(confirmExecution = false) {
             })
             .catch(() => toast.error(t("noTerminalTabsOpen")));
         };
-        if (snippet.isNote) doSend();
-        else handleConfirmRun(snippet, doSend);
+        if (snippet.isNote) void doSend();
+        else handleConfirmRun(snippet, () => void doSend());
       };
 
       if (hasSnippetInputs(snippet.content)) {
@@ -135,18 +157,21 @@ export function useSnippetRunner(confirmExecution = false) {
         runWithInputs({});
       }
     },
-    [handleConfirmRun, t],
+    [handleConfirmRun, loadSecrets, t],
   );
 
   // Sends to the given session when it is a live terminal, else the active one.
   const runOnActive = useCallback(
     (snippet: Snippet, host: SnippetHostContext | null, sessionId?: string) => {
       const runWithInputs = (inputValues: Record<string, string>) => {
-        const doSend = () => {
+        const doSend = async () => {
+          const secrets = await loadSecrets(snippet);
+          if (!secrets) return;
           const content = resolveSnippetContent(
             snippet.content,
             host,
             inputValues,
+            secrets,
           );
           const opts = { run: !snippet.isNote };
           const sendToTarget = sessionId
@@ -172,8 +197,8 @@ export function useSnippetRunner(confirmExecution = false) {
               );
             });
         };
-        if (snippet.isNote) doSend();
-        else handleConfirmRun(snippet, doSend);
+        if (snippet.isNote) void doSend();
+        else handleConfirmRun(snippet, () => void doSend());
       };
 
       if (hasSnippetInputs(snippet.content)) {
@@ -189,7 +214,7 @@ export function useSnippetRunner(confirmExecution = false) {
         runWithInputs({});
       }
     },
-    [handleConfirmRun, t],
+    [handleConfirmRun, loadSecrets, t],
   );
 
   const runOnHosts = useCallback(

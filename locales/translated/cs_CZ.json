@@ -146,7 +146,7 @@
   "settingsBehaviorTitle": "Chování",
   "typeCommandHint": "Spustí se v aktivním terminálu.",
   "typeNoteHint": "Vloží se do aktivního terminálu bez spuštění.",
-  "variablesHint": "Proměnné: $HOST, $USER, $PORT, $NAME, ${INPUT_1:Štítek}",
+  "variablesHint": "Proměnné: $HOST, $USER, $PORT, $NAME, ${INPUT_1:Štítek}, {{secret}} pro uložené tajemství",
   "sharedBadge": "Sdílené",
   "copyToClipboard": "Kopírovat do schránky",
   "copyFailed": "Nepodařilo se zkopírovat do schránky",
@@ -284,5 +284,26 @@
   "card": {
     "title": "Záložky příkazů",
     "runsOn": "Spouští se na {{hosts}}"
+  },
+  "secrets": {
+    "title": "Tajemství",
+    "description": "Uložte hodnotu jednou a použijte ji v libovolném úryvku jako {{example}}. Je uložena šifrovaně a doplněna při spuštění úryvku. Hodnoty se nikdy nezobrazí znovu.",
+    "empty": "Zatím žádná tajemství.",
+    "add": "Přidat tajemství",
+    "edit": "Upravit tajemství",
+    "delete": "Smazat",
+    "deleteConfirm": "Smazat tajemství {{name}}?",
+    "save": "Uložit",
+    "cancel": "Zrušit",
+    "namePlaceholder": "Název, například API_KEY",
+    "nameInvalid": "Používejte pouze písmena, číslice a znak _. Název nesmí začínat číslicí.",
+    "valuePlaceholder": "Hodnota",
+    "valueKeepPlaceholder": "Nová hodnota (nechte prázdné pro zachování aktuální hodnoty)",
+    "descriptionPlaceholder": "Popis (volitelné)",
+    "saveFailed": "Tajný klíč se nepodařilo uložit",
+    "deleteFailed": "Tajný klíč se nepodařilo smazat",
+    "missing": "Tento úryvek používá tajné klíče, které jste neuložili: {{names}}",
+    "loadFailed": "Tajné klíče používané tímto úryvkem se nepodařilo načíst",
+    "usesSecrets": "Používá uložené tajné klíče"
   }
 }

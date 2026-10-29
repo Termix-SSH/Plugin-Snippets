@@ -1,9 +1,16 @@
 import type { Router } from "express";
 import type { PluginContext } from "@termix-ssh/plugin-sdk/backend";
-import { snippetAccess, snippetFolders, snippets } from "./tables.js";
+import {
+  snippetAccess,
+  snippetFolders,
+  snippetSecrets,
+  snippets,
+} from "./tables.js";
 import { createSnippetRepository } from "./repository.js";
 import { registerSnippetRoutes } from "./routes.js";
+import { createSecretStore, registerSecretRoutes } from "./secrets.js";
 import {
+  extractSecretNames,
   extractSnippetInputs,
   resolveSnippetContent,
 } from "../shared/variables.js";
@@ -63,6 +70,8 @@ export async function activate(ctx: PluginContext) {
   const snippetsTable = await ctx.db.define(snippets);
   const foldersTable = await ctx.db.define(snippetFolders);
   const accessTable = await ctx.db.define(snippetAccess);
+  const secretsTable = await ctx.db.define(snippetSecrets);
+  const secretStore = createSecretStore(ctx, secretsTable);
 
   const repo = createSnippetRepository(
     ctx.db,
@@ -71,7 +80,9 @@ export async function activate(ctx: PluginContext) {
     accessTable,
   );
 
-  registerSnippetRoutes(ctx.http.router<Router>(), repo, ctx);
+  const router = ctx.http.router<Router>();
+  registerSecretRoutes(router, secretStore, ctx);
+  registerSnippetRoutes(router, repo, ctx, secretStore);
 
   ctx.sync.registerEntity({
     type: "snippetFolders",
@@ -100,6 +111,10 @@ export async function activate(ctx: PluginContext) {
   ctx.registry.provide("snippets.variables", {
     resolve: resolveSnippetContent,
     extractInputs: extractSnippetInputs,
+    extractSecrets: extractSecretNames,
+    // The user's own {{NAME}} values. Throws when one is missing.
+    resolveSecrets: (userId: string, names: string[]) =>
+      secretStore.resolve(userId, names),
   });
 
   // The user row survives a password-reset data wipe, so it never triggers
@@ -107,7 +122,10 @@ export async function activate(ctx: PluginContext) {
   // our copy of that user's data too.
   ctx.events.on("user.data_wiped", (payload) => {
     const userId = (payload as { userId?: string } | null)?.userId;
-    if (userId) void repo.deleteByUserId(userId);
+    if (userId) {
+      void repo.deleteByUserId(userId);
+      void secretStore.removeAll(userId);
+    }
   });
 
   async function findAccessible(userId: string, id: number) {
@@ -157,7 +175,11 @@ export async function activate(ctx: PluginContext) {
       if (!userId) return null;
       const snippet = await findAccessible(userId, id);
       if (!snippet) return null;
-      return resolveSnippetContent(snippet.content, vars, inputValues);
+      const secrets = await secretStore.resolve(
+        userId,
+        extractSecretNames(snippet.content),
+      );
+      return resolveSnippetContent(snippet.content, vars, inputValues, secrets);
     },
     create: async (input) => {
       const userId = ctx.currentActor();

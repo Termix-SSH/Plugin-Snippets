@@ -137,7 +137,7 @@
   "settingsBehaviorTitle": "การทำงาน",
   "typeCommandHint": "ทำงานในเทอร์มินัลที่ใช้งานอยู่",
   "typeNoteHint": "วางลงในเทอร์มินัลที่ใช้งานอยู่โดยไม่เรียกใช้",
-  "variablesHint": "ตัวแปร: $HOST, $USER, $PORT, $NAME, ${INPUT_1:Label}",
+  "variablesHint": "ตัวแปร: $HOST, $USER, $PORT, $NAME, ${INPUT_1:Label}, {{secret}} สำหรับค่าลับที่บันทึกไว้",
   "sharedBadge": "แชร์แล้ว",
   "copyToClipboard": "คัดลอกไปยังคลิปบอร์ด",
   "copyFailed": "คัดลอกไปยังคลิปบอร์ดไม่สำเร็จ",
@@ -269,5 +269,26 @@
   "card": {
     "title": "Snippets",
     "runsOn": "ทำงานบน {{hosts}}"
+  },
+  "secrets": {
+    "title": "ค่าลับ",
+    "description": "บันทึกค่าเพียงครั้งเดียวแล้วนำไปใช้ในสคริปต์ใดก็ได้เป็น {{example}} ค่าจะถูกเข้ารหัสและเติมอัตโนมัติเมื่อสคริปต์ทำงาน ค่าจะไม่ถูกแสดงอีกเลย",
+    "empty": "ยังไม่มีค่าลับ",
+    "add": "เพิ่มค่าลับ",
+    "edit": "แก้ไขค่าลับ",
+    "delete": "ลบ",
+    "deleteConfirm": "ลบค่าลับ {{name}} หรือไม่?",
+    "save": "บันทึก",
+    "cancel": "ยกเลิก",
+    "namePlaceholder": "ชื่อ เช่น API_KEY",
+    "nameInvalid": "ใช้เฉพาะตัวอักษร ตัวเลข และ _ เท่านั้น และห้ามขึ้นต้นด้วยตัวเลข",
+    "valuePlaceholder": "ค่า",
+    "valueKeepPlaceholder": "ค่าใหม่ (เว้นว่างไว้เพื่อใช้ค่าปัจจุบัน)",
+    "descriptionPlaceholder": "คำอธิบาย (ไม่บังคับ)",
+    "saveFailed": "ไม่สามารถบันทึกค่าลับได้",
+    "deleteFailed": "ไม่สามารถลบค่าลับได้",
+    "missing": "สคริปต์นี้ใช้ค่าลับที่คุณยังไม่ได้บันทึก: {{names}}",
+    "loadFailed": "ไม่สามารถโหลดค่าลับที่สคริปต์นี้ใช้ได้",
+    "usesSecrets": "ใช้ค่าลับที่บันทึกไว้"
   }
 }

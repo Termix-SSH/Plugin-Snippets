@@ -140,7 +140,7 @@
   "settingsBehaviorTitle": "Verhalten",
   "typeCommandHint": "Wird im aktiven Terminal ausgeführt.",
   "typeNoteHint": "Wird in das aktive Terminal eingefügt, ohne ausgeführt zu werden.",
-  "variablesHint": "Variablen: $HOST, $USER, $PORT, $NAME, ${INPUT_1:Label}",
+  "variablesHint": "Variablen: $HOST, $USER, $PORT, $NAME, ${INPUT_1:Label}, {{secret}} für ein gespeichertes Geheimnis",
   "sharedBadge": "Geteilt",
   "copyToClipboard": "In die Zwischenablage kopieren",
   "copyFailed": "Kopieren in die Zwischenablage fehlgeschlagen",
@@ -274,5 +274,26 @@
   "card": {
     "title": "Snippets",
     "runsOn": "Wird auf {{hosts}} ausgeführt"
+  },
+  "secrets": {
+    "title": "Geheimnisse",
+    "description": "Speichern Sie einen Wert einmal und verwenden Sie ihn in jedem Snippet als {{example}}. Er wird verschlüsselt gespeichert und beim Ausführen des Snippets eingefügt. Werte werden niemals erneut angezeigt.",
+    "empty": "Noch keine Geheimnisse.",
+    "add": "Geheimnis hinzufügen",
+    "edit": "Geheimnis bearbeiten",
+    "delete": "Löschen",
+    "deleteConfirm": "Geheimnis {{name}} löschen?",
+    "save": "Speichern",
+    "cancel": "Abbrechen",
+    "namePlaceholder": "Name, z. B. API_KEY",
+    "nameInvalid": "Verwenden Sie nur Buchstaben, Zahlen und _, und beginnen Sie nicht mit einer Zahl.",
+    "valuePlaceholder": "Wert",
+    "valueKeepPlaceholder": "Neuer Wert (leer lassen, um den aktuellen zu behalten)",
+    "descriptionPlaceholder": "Beschreibung (optional)",
+    "saveFailed": "Geheimnis konnte nicht gespeichert werden",
+    "deleteFailed": "Geheimnis konnte nicht gelöscht werden",
+    "missing": "Dieses Snippet verwendet Geheimnisse, die Sie noch nicht gespeichert haben: {{names}}",
+    "loadFailed": "Die Geheimnisse, die dieses Snippet verwendet, konnten nicht geladen werden",
+    "usesSecrets": "Verwendet gespeicherte Geheimnisse"
   }
 }

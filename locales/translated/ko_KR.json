@@ -137,7 +137,7 @@
   "settingsBehaviorTitle": "동작",
   "typeCommandHint": "활성 터미널에서 실행됩니다.",
   "typeNoteHint": "실행하지 않고 활성 터미널에 붙여넣습니다.",
-  "variablesHint": "변수: $HOST, $USER, $PORT, $NAME, ${INPUT_1:Label}",
+  "variablesHint": "변수: $HOST, $USER, $PORT, $NAME, ${INPUT_1:Label}, 저장된 시크릿은 {{secret}}",
   "sharedBadge": "공유됨",
   "copyToClipboard": "클립보드에 복사",
   "copyFailed": "클립보드 복사에 실패했습니다",
@@ -269,5 +269,26 @@
   "card": {
     "title": "스니펫",
     "runsOn": "{{hosts}}에서 실행"
+  },
+  "secrets": {
+    "title": "시크릿",
+    "description": "값을 한 번 저장하면 스니펫에서 {{example}}처럼 사용할 수 있습니다. 암호화되어 저장되며, 스니펫 실행 시 자동으로 채워집니다. 값은 다시 표시되지 않습니다.",
+    "empty": "아직 시크릿이 없습니다.",
+    "add": "시크릿 추가",
+    "edit": "시크릿 수정",
+    "delete": "삭제",
+    "deleteConfirm": "시크릿 {{name}}을(를) 삭제하시겠습니까?",
+    "save": "저장",
+    "cancel": "취소",
+    "namePlaceholder": "이름 (예: API_KEY)",
+    "nameInvalid": "문자, 숫자, _만 사용하며 숫자로 시작할 수 없습니다.",
+    "valuePlaceholder": "값",
+    "valueKeepPlaceholder": "새 값 (현재 값을 유지하려면 비워두세요)",
+    "descriptionPlaceholder": "설명 (선택사항)",
+    "saveFailed": "시크릿을 저장할 수 없습니다",
+    "deleteFailed": "시크릿을 삭제할 수 없습니다",
+    "missing": "이 스니펫은 저장하지 않은 시크릿을 사용합니다: {{names}}",
+    "loadFailed": "이 스니펫이 사용하는 시크릿을 로드할 수 없습니다",
+    "usesSecrets": "저장된 시크릿 사용"
   }
 }

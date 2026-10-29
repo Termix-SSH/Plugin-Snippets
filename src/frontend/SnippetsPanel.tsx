@@ -275,8 +275,9 @@ export function SnippetsPanel({ targetTab }: PanelProps) {
   function handleRun(snippet: Snippet) {
     const targets = targetHostsOf(snippet);
     const terminalTargets = toRunTargets(openTerminals, selectedTerminals);
-    if (targets.length > 0 && !snippet.isNote) runOnHosts(snippet, targets);
-    else if (terminalTargets.length > 0) runSnippet(snippet, terminalTargets);
+    if (terminalTargets.length > 0) runSnippet(snippet, terminalTargets);
+    else if (targets.length > 0 && !snippet.isNote)
+      runOnHosts(snippet, targets);
     else
       runOnActive(
         snippet,
@@ -547,6 +548,7 @@ export function SnippetsPanel({ targetTab }: PanelProps) {
         targetHostNames={targetHostsOf(snippet).map(
           (host) => host.name || host.ip || String(host.id),
         )}
+        terminalsPicked={selectedTerminals.size > 0}
         canEdit={canEdit}
         canDelete={canDelete}
         canShare={canShare}

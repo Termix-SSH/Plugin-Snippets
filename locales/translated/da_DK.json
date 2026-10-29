@@ -140,7 +140,7 @@
   "settingsBehaviorTitle": "Adfærd",
   "typeCommandHint": "Kører i den aktive terminal.",
   "typeNoteHint": "Indsætter i den aktive terminal uden at køre.",
-  "variablesHint": "Variabler: $HOST, $USER, $PORT, $NAME, ${INPUT_1:Label}",
+  "variablesHint": "Variabler: $HOST, $USER, $PORT, $NAME, ${INPUT_1:Label}, {{secret}} for en gemt hemmelighed",
   "sharedBadge": "Delt",
   "copyToClipboard": "Kopiér til udklipsholder",
   "copyFailed": "Kunne ikke kopiere til udklipsholder",
@@ -274,5 +274,26 @@
   "card": {
     "title": "Snippets",
     "runsOn": "Kører på {{hosts}}"
+  },
+  "secrets": {
+    "title": "Hemmeligheder",
+    "description": "Gem en værdi én gang og brug den i ethvert uddrag som {{example}}. Den gemmes krypteret og udfyldes, når uddraget køres. Værdier vises aldrig igen.",
+    "empty": "Ingen hemmeligheder endnu.",
+    "add": "Tilføj hemmelighed",
+    "edit": "Rediger hemmelighed",
+    "delete": "Slet",
+    "deleteConfirm": "Slet hemmeligheden {{name}}?",
+    "save": "Gem",
+    "cancel": "Annuller",
+    "namePlaceholder": "Navn, f.eks. API_KEY",
+    "nameInvalid": "Brug kun bogstaver, tal og _, og start ikke med et tal.",
+    "valuePlaceholder": "Værdi",
+    "valueKeepPlaceholder": "Ny værdi (lad være tom for at beholde den nuværende)",
+    "descriptionPlaceholder": "Beskrivelse (valgfrit)",
+    "saveFailed": "Kunne ikke gemme hemmeligheden",
+    "deleteFailed": "Kunne ikke slette hemmeligheden",
+    "missing": "Denne snippet bruger hemmeligheder, du ikke har gemt: {{names}}",
+    "loadFailed": "Kunne ikke indlæse de hemmeligheder, denne snippet bruger",
+    "usesSecrets": "Bruger gemte hemmeligheder"
   }
 }

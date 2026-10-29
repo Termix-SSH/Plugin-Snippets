@@ -143,7 +143,7 @@
   "settingsBehaviorTitle": "Uzvedība",
   "typeCommandHint": "Izpildās aktīvajā terminālī.",
   "typeNoteHint": "Ielīmē aktīvajā terminālī, neizpildot.",
-  "variablesHint": "Mainīgie: $HOST, $USER, $PORT, $NAME, ${INPUT_1:Etikete}",
+  "variablesHint": "Mainīgie: $HOST, $USER, $PORT, $NAME, ${INPUT_1:Label}, {{secret}} glabātam noslēpumam",
   "sharedBadge": "Koplietots",
   "copyToClipboard": "Kopēt starpliktuvē",
   "copyFailed": "Neizdevās kopēt starpliktuvē",
@@ -279,5 +279,26 @@
   "card": {
     "title": "Fragmenti",
     "runsOn": "Izpildās uz {{hosts}}"
+  },
+  "secrets": {
+    "title": "Noslēpumi",
+    "description": "Saglabājiet vērtību vienu reizi un izmantojiet to jebkurā fragmentā kā {{example}}. Tā tiek glabāta šifrētā veidā un aizpildīta, kad fragments tiek palaists. Vērtības vairs netiek parādītas.",
+    "empty": "Vēl nav noslēpumu.",
+    "add": "Pievienot noslēpumu",
+    "edit": "Rediģēt noslēpumu",
+    "delete": "Dzēst",
+    "deleteConfirm": "Dzēst noslēpumu {{name}}?",
+    "save": "Saglabāt",
+    "cancel": "Atcelt",
+    "namePlaceholder": "Nosaukums, piemēram, API_KEY",
+    "nameInvalid": "Izmantojiet tikai burtus, ciparus un _, un nesāciet ar ciparu.",
+    "valuePlaceholder": "Vērtība",
+    "valueKeepPlaceholder": "Jaunā vērtība (atstājiet tukšu, lai saglabātu pašreizējo)",
+    "descriptionPlaceholder": "Apraksts (neobligāts)",
+    "saveFailed": "Neizdevās saglabāt noslēpumu",
+    "deleteFailed": "Neizdevās dzēst noslēpumu",
+    "missing": "Šis fragments izmanto noslēpumus, kurus neesat saglabājis: {{names}}",
+    "loadFailed": "Neizdevās ielādēt noslēpumus, kurus izmanto šis fragments",
+    "usesSecrets": "Izmanto saglabātos noslēpumus"
   }
 }

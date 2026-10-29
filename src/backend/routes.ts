@@ -7,11 +7,18 @@ import {
   createSnippetExecutionResult,
   endsWithSudoPrompt,
   getSnippetExecutionTimeoutMs,
+  maskSecrets,
   MAX_SUDO_ANSWERS,
   usesSudo,
   resolveSnippetCommand,
 } from "./execution.js";
 import { classifySshError, CommandTimeoutError } from "./ssh-errors.js";
+import {
+  MissingSecretsError,
+  recordSecretUse,
+  type SecretStore,
+} from "./secrets.js";
+import { extractSecretNames } from "../shared/variables.js";
 
 function isNonEmptyString(value: unknown): value is string {
   return typeof value === "string" && value.trim().length > 0;
@@ -73,6 +80,7 @@ export function registerSnippetRoutes(
   router: Router,
   repo: SnippetRepository,
   ctx: PluginContext,
+  secrets?: SecretStore,
 ): void {
   async function getAccessibleSnippet(snippetId: number, userId: string) {
     const owned = await repo.findOwnedById(userId, snippetId);
@@ -485,6 +493,8 @@ export function registerSnippetRoutes(
     }
 
     let connection: Awaited<ReturnType<typeof ctx.ssh.connect>> | undefined;
+    let secretValues: Record<string, string> = {};
+    const mask = (text: string) => maskSecrets(text, secretValues);
     try {
       const snippet = await getAccessibleSnippet(
         parseInt(snippetId, 10),
@@ -496,6 +506,24 @@ export function registerSnippetRoutes(
         return res
           .status(400)
           .json({ error: "Notes cannot be executed on a host" });
+      }
+
+      const secretNames = extractSecretNames(snippet.content);
+      if (secretNames.length > 0) {
+        try {
+          secretValues = secrets
+            ? await secrets.resolve(userId, secretNames)
+            : {};
+          await recordSecretUse(ctx, req, secretNames, snippet.id, true);
+        } catch (err) {
+          if (!(err instanceof MissingSecretsError)) throw err;
+          await recordSecretUse(ctx, req, secretNames, snippet.id, false);
+          return res.status(400).json({
+            error: err.message,
+            code: "MISSING_SECRETS",
+            missing: err.names,
+          });
+        }
       }
 
       connection = await ctx.ssh.connect(parseInt(hostId, 10), {
@@ -512,6 +540,7 @@ export function registerSnippetRoutes(
           name: connection.host.name as string | undefined,
         },
         stringValues(inputValues),
+        secretValues,
       );
 
       const client = connection.client as import("ssh2").Client;
@@ -575,7 +604,11 @@ export function registerSnippetRoutes(
         else client.exec(resolvedCommand, onExec);
       });
 
-      res.json(result);
+      res.json({
+        ...result,
+        output: mask(result.output),
+        ...(result.error ? { error: mask(result.error) } : {}),
+      });
     } catch (err) {
       // The command ran but outlived the limit: not an internal error, and
       // what it printed so far is still worth returning.
@@ -583,8 +616,8 @@ export function registerSnippetRoutes(
         return res.status(504).json({
           error: err.message,
           code: "COMMAND_TIMEOUT",
-          output: err.output,
-          errorOutput: err.errorOutput,
+          output: mask(err.output),
+          errorOutput: mask(err.errorOutput),
         });
       }
       const host = await ctx.ssh

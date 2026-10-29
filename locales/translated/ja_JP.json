@@ -137,7 +137,7 @@
   "settingsBehaviorTitle": "動作",
   "typeCommandHint": "アクティブなターミナルで実行されます。",
   "typeNoteHint": "実行せずにアクティブなターミナルに貼り付けられます。",
-  "variablesHint": "変数: $HOST, $USER, $PORT, $NAME, ${INPUT_1:ラベル}",
+  "variablesHint": "変数: $HOST、$USER、$PORT、$NAME、${INPUT_1:Label}、保存されたシークレットには {{secret}}",
   "sharedBadge": "共有済み",
   "copyToClipboard": "クリップボードにコピー",
   "copyFailed": "クリップボードへのコピーに失敗しました",
@@ -269,5 +269,26 @@
   "card": {
     "title": "スニペット",
     "runsOn": "{{hosts}} で実行"
+  },
+  "secrets": {
+    "title": "シークレット",
+    "description": "値を1回保存し、スニペットで {{example}} のように使用できます。値は暗号化されて保存され、スニペット実行時に埋め込まれます。値は二度と表示されません。",
+    "empty": "シークレットはまだありません。",
+    "add": "シークレットを追加",
+    "edit": "シークレットを編集",
+    "delete": "削除",
+    "deleteConfirm": "シークレット {{name}} を削除しますか？",
+    "save": "保存",
+    "cancel": "キャンセル",
+    "namePlaceholder": "名前（例: API_KEY）",
+    "nameInvalid": "英数字と _ のみを使用し、数字で始まらないようにしてください。",
+    "valuePlaceholder": "値",
+    "valueKeepPlaceholder": "新しい値（現在の値を維持する場合は空のままにしてください）",
+    "descriptionPlaceholder": "説明（オプション）",
+    "saveFailed": "シークレットを保存できませんでした",
+    "deleteFailed": "シークレットを削除できませんでした",
+    "missing": "このスニペットは、保存していないシークレットを使用しています: {{names}}",
+    "loadFailed": "このスニペットが使用するシークレットを読み込めませんでした",
+    "usesSecrets": "保存されたシークレットを使用"
   }
 }

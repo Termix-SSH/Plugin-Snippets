@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.2.0
+
+### Added
+
+- Secrets: save encrypted values in the snippet settings and use them in a command as `{{NAME}}`
+- Runs on hosts hide secret values in the output, and every secret use is audited
+
+### Fixed
+
+- Snippets with target hosts now run in the terminals picked in Run in, instead of always running on their target hosts
+
 ## 1.1.0
 
 ### Added

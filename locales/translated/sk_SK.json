@@ -146,7 +146,7 @@
   "settingsBehaviorTitle": "Správanie",
   "typeCommandHint": "Spustí sa v aktívnom termináli.",
   "typeNoteHint": "Vloží sa do aktívneho terminálu bez spustenia.",
-  "variablesHint": "Premenné: $HOST, $USER, $PORT, $NAME, ${INPUT_1:Štítok}",
+  "variablesHint": "Premenné: $HOST, $USER, $PORT, $NAME, ${INPUT_1:Label}, {{secret}} pre uložené tajomstvo",
   "sharedBadge": "Zdieľané",
   "copyToClipboard": "Kopírovať do schránky",
   "copyFailed": "Nepodarilo sa skopírovať do schránky",
@@ -284,5 +284,26 @@
   "card": {
     "title": "Úryvky",
     "runsOn": "Spúšťa sa na {{hosts}}"
+  },
+  "secrets": {
+    "title": "Tajomstvá",
+    "description": "Uložte hodnotu raz a používajte ju v ktoromkoľvek útržku ako {{example}}. Je uložená zašifrovaná a vyplní sa pri spustení útržku. Hodnoty sa nikdy nezobrazia znova.",
+    "empty": "Zatiaľ žiadne tajomstvá.",
+    "add": "Pridať tajomstvo",
+    "edit": "Upraviť tajomstvo",
+    "delete": "Odstrániť",
+    "deleteConfirm": "Odstrániť tajomstvo {{name}}?",
+    "save": "Uložiť",
+    "cancel": "Zrušiť",
+    "namePlaceholder": "Názov, napríklad API_KEY",
+    "nameInvalid": "Používajte iba písmená, čísla a podtržník a nezačínajte číslom.",
+    "valuePlaceholder": "Hodnota",
+    "valueKeepPlaceholder": "Nová hodnota (nechajte prázdne, ak chcete ponechať aktuálnu)",
+    "descriptionPlaceholder": "Popis (voliteľné)",
+    "saveFailed": "Tajomstvo sa nepodarilo uložiť",
+    "deleteFailed": "Tajomstvo sa nepodarilo odstrániť",
+    "missing": "Tento útržok používa tajomstvá, ktoré ste neuložili: {{names}}",
+    "loadFailed": "Nepodarilo sa načítať tajomstvá, ktoré tento útržok používa",
+    "usesSecrets": "Používa uložené tajomstvá"
   }
 }

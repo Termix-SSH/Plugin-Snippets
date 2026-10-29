@@ -143,7 +143,7 @@
   "settingsBehaviorTitle": "Comportament",
   "typeCommandHint": "Se execută în terminalul activ.",
   "typeNoteHint": "Se lipește în terminalul activ fără a fi executat.",
-  "variablesHint": "Variabile: $HOST, $USER, $PORT, $NAME, ${INPUT_1:Etichetă}",
+  "variablesHint": "Variabile: $HOST, $USER, $PORT, $NAME, ${INPUT_1:Etichetă}, {{secret}} pentru un secret salvat",
   "sharedBadge": "Partajat",
   "copyToClipboard": "Copiază în clipboard",
   "copyFailed": "Copierea în clipboard a eșuat",
@@ -279,5 +279,26 @@
   "card": {
     "title": "Fragmente",
     "runsOn": "Rulează pe {{hosts}}"
+  },
+  "secrets": {
+    "title": "Secrete",
+    "description": "Salvează o valoare o dată și folosește-o în orice fragment ca {{example}}. Este stocată criptată și completată când se execută fragmentul. Valorile nu sunt afișate niciodată din nou.",
+    "empty": "Încă nu există secrete.",
+    "add": "Adaugă secret",
+    "edit": "Editează secret",
+    "delete": "Șterge",
+    "deleteConfirm": "Ștergi secretul {{name}}?",
+    "save": "Salvează",
+    "cancel": "Anulează",
+    "namePlaceholder": "Nume, de exemplu API_KEY",
+    "nameInvalid": "Folosește doar litere, cifre și _, și nu începe cu o cifră.",
+    "valuePlaceholder": "Valoare",
+    "valueKeepPlaceholder": "Valoare nouă (lasă gol pentru a păstra cea actuală)",
+    "descriptionPlaceholder": "Descriere (opțional)",
+    "saveFailed": "Nu s-a putut salva secretul",
+    "deleteFailed": "Nu s-a putut șterge secretul",
+    "missing": "Acest fragment folosește secrete pe care nu le-ai salvat: {{names}}",
+    "loadFailed": "Nu s-au putut încărca secretele folosite de acest fragment",
+    "usesSecrets": "Folosește secrete salvate"
   }
 }

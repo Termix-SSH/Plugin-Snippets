@@ -137,7 +137,7 @@
   "settingsBehaviorTitle": "Perilaku",
   "typeCommandHint": "Dijalankan di terminal aktif.",
   "typeNoteHint": "Ditempelkan ke terminal aktif tanpa dijalankan.",
-  "variablesHint": "Variabel: $HOST, $USER, $PORT, $NAME, ${INPUT_1:Label}",
+  "variablesHint": "Variabel: $HOST, $USER, $PORT, $NAME, ${INPUT_1:Label}, {{secret}} untuk rahasia yang disimpan",
   "sharedBadge": "Dibagikan",
   "copyToClipboard": "Salin ke papan klip",
   "copyFailed": "Gagal menyalin ke papan klip",
@@ -269,5 +269,26 @@
   "card": {
     "title": "Cuplikan",
     "runsOn": "Berjalan di {{hosts}}"
+  },
+  "secrets": {
+    "title": "Rahasia",
+    "description": "Simpan nilai sekali dan gunakan di snippet apa pun sebagai {{example}}. Nilai disimpan dalam bentuk terenkripsi dan diisi saat snippet dijalankan. Nilai tidak akan pernah ditampilkan lagi.",
+    "empty": "Belum ada rahasia.",
+    "add": "Tambahkan rahasia",
+    "edit": "Edit rahasia",
+    "delete": "Hapus",
+    "deleteConfirm": "Hapus rahasia {{name}}?",
+    "save": "Simpan",
+    "cancel": "Batal",
+    "namePlaceholder": "Nama, misalnya API_KEY",
+    "nameInvalid": "Gunakan hanya huruf, angka, dan _, serta jangan dimulai dengan angka.",
+    "valuePlaceholder": "Nilai",
+    "valueKeepPlaceholder": "Nilai baru (kosongkan untuk mempertahankan nilai saat ini)",
+    "descriptionPlaceholder": "Deskripsi (opsional)",
+    "saveFailed": "Gagal menyimpan rahasia",
+    "deleteFailed": "Gagal menghapus rahasia",
+    "missing": "Snippet ini menggunakan rahasia yang belum Anda simpan: {{names}}",
+    "loadFailed": "Gagal memuat rahasia yang digunakan snippet ini",
+    "usesSecrets": "Menggunakan rahasia yang disimpan"
   }
 }

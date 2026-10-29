@@ -146,7 +146,7 @@
   "settingsBehaviorTitle": "Zachowanie",
   "typeCommandHint": "Wykonywane w aktywnym terminalu.",
   "typeNoteHint": "Wklejane do aktywnego terminalu bez wykonywania.",
-  "variablesHint": "Zmienne: $HOST, $USER, $PORT, $NAME, ${INPUT_1:Etykieta}",
+  "variablesHint": "Zmienne: $HOST, $USER, $PORT, $NAME, ${INPUT_1:Etykieta}, {{secret}} dla zapisanego hasła",
   "sharedBadge": "Udostępniony",
   "copyToClipboard": "Kopiuj do schowka",
   "copyFailed": "Nie udało się skopiować do schowka",
@@ -284,5 +284,26 @@
   "card": {
     "title": "Fragmenty",
     "runsOn": "Uruchamia się na {{hosts}}"
+  },
+  "secrets": {
+    "title": "Hasła",
+    "description": "Zapisz wartość raz i używaj jej w dowolnym fragmencie jako {{example}}. Jest przechowywana w zaszyfrowanej formie i uzupełniana podczas uruchamiania fragmentu. Wartości nigdy nie są ponownie wyświetlane.",
+    "empty": "Brak zapisanych haseł.",
+    "add": "Dodaj hasło",
+    "edit": "Edytuj hasło",
+    "delete": "Usuń",
+    "deleteConfirm": "Usunąć hasło {{name}}?",
+    "save": "Zapisz",
+    "cancel": "Anuluj",
+    "namePlaceholder": "Nazwa, np. API_KEY",
+    "nameInvalid": "Używaj tylko liter, cyfr i znaku _. Nazwa nie może zaczynać się od cyfry.",
+    "valuePlaceholder": "Wartość",
+    "valueKeepPlaceholder": "Nowa wartość (pozostaw puste, aby zachować obecną)",
+    "descriptionPlaceholder": "Opis (opcjonalnie)",
+    "saveFailed": "Nie udało się zapisać hasła",
+    "deleteFailed": "Nie udało się usunąć hasła",
+    "missing": "Ten fragment używa haseł, których nie zapisano: {{names}}",
+    "loadFailed": "Nie udało się załadować haseł używanych przez ten fragment",
+    "usesSecrets": "Używa zapisanych haseł"
   }
 }
