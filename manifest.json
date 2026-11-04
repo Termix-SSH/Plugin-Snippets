@@ -30,7 +30,7 @@
     }
   ],
   "engine": {
-    "termix": ">=26.10.0",
+    "termix": ">=26.11.1-0",
     "api": "^1.2"
   },
   "capabilities": [
@@ -43,7 +43,8 @@
     "ui:surface",
     "events:core",
     "db:core-refs",
-    "secrets:own"
+    "secrets:own",
+    "operations:provide"
   ],
   "provides": [
     {
@@ -242,6 +243,43 @@
         "titleKey": "card.title",
         "icon": "Play"
       }
-    ]
+    ],
+    "operations": {
+      "actions": [
+        {
+          "id": "snippets.list",
+          "titleKey": "operations.list.title",
+          "scope": "server",
+          "risk": "read",
+          "permission": "view",
+          "surfaces": {
+            "assistant": true,
+            "mcp": true,
+            "palette": false
+          }
+        },
+        {
+          "id": "snippets.run",
+          "titleKey": "operations.run.title",
+          "descriptionKey": "operations.run.description",
+          "icon": "TerminalSquare",
+          "scope": "host",
+          "risk": "change",
+          "permission": "view",
+          "hostAccess": "connect",
+          "dryRun": "describe",
+          "timeoutMs": 300000,
+          "inputs": [
+            {
+              "key": "snippet",
+              "type": "select",
+              "labelKey": "operations.snippet",
+              "required": true,
+              "optionsFrom": "snippets.list"
+            }
+          ]
+        }
+      ]
+    }
   }
 }

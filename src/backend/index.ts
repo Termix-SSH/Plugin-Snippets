@@ -7,6 +7,7 @@ import {
   snippets,
 } from "./tables.js";
 import { createSnippetRepository } from "./repository.js";
+import { registerOperations } from "./operations.js";
 import { registerSnippetRoutes } from "./routes.js";
 import { createSecretStore, registerSecretRoutes } from "./secrets.js";
 import {
@@ -204,6 +205,11 @@ export async function activate(ctx: PluginContext) {
     },
   };
   ctx.services.provide("snippets.access", service);
+  registerOperations(ctx, {
+    findAccessible,
+    listOwned: (userId) => repo.listOwnedSnippets(userId),
+    resolveSecrets: (userId, names) => secretStore.resolve(userId, names),
+  });
 
   ctx.log.info("Snippets routes mounted at /plugin-api/snippets");
 }

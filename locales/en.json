@@ -295,5 +295,15 @@
     "missing": "This snippet uses secrets you have not saved: {{names}}",
     "loadFailed": "Could not load the secrets this snippet uses",
     "usesSecrets": "Uses saved secrets"
+  },
+  "operations": {
+    "list": {
+      "title": "List snippets"
+    },
+    "run": {
+      "title": "Run a snippet",
+      "description": "Runs one of your snippets on the host. Secrets in it are filled in and never shown in history."
+    },
+    "snippet": "Snippet"
   }
 }

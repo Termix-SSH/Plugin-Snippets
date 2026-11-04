@@ -2,9 +2,17 @@
 
 ## 1.2.1
 
+### Added
+
+- Run a snippet as a Termix action, so it can roll out across hosts from Operations Center with a result per host. Saved secrets stay out of run history
+
 ### Fixed
 
 - Password fields with the show button are the same height as the other fields next to them
+
+### Changed
+
+- Needs Termix 26.11.1 or newer
 
 ## 1.2.0
 
