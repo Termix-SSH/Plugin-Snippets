@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.2.1
+
+### Fixed
+
+- Password fields with the show button are the same height as the other fields next to them
+
 ## 1.2.0
 
 ### Added

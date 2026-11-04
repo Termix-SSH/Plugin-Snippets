@@ -159,6 +159,7 @@ export function SnippetSecretsSection() {
             </p>
           )}
           <PasswordInput
+            className="h-8 pr-8 text-xs"
             placeholder={
               draft.id === null
                 ? t("secrets.valuePlaceholder")
