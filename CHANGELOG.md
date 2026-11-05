@@ -13,6 +13,7 @@
 ### Changed
 
 - Needs Termix 26.11.1 or newer
+- The editor and settings use the Termix tile look
 
 ## 1.2.0
 

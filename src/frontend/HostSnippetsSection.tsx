@@ -89,7 +89,7 @@ export function HostSnippetsSection({
                     : null,
                 })
               }
-              className="flex h-9 w-full border border-border bg-background px-3 py-1 text-xs outline-none focus:ring-1 focus:ring-ring"
+              className="h-8 w-full px-2.5 text-xs"
             >
               <option value="">{t("host.none")}</option>
               {options.map((snippet) => (
@@ -135,7 +135,7 @@ export function HostSnippetsSection({
             {quickActions.map((row, index) => (
               <div
                 key={index}
-                className="flex items-center gap-2 p-2 bg-muted/20 border border-border group"
+                className="flex items-center gap-2 border border-border p-2 group"
               >
                 <Input
                   className="h-7 text-xs flex-1"
