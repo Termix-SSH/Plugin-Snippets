@@ -21,6 +21,7 @@ import {
   PanelSearch,
   Segmented,
   useConfirm,
+  TOOLBAR_FIT,
 } from "@termix-ssh/plugin-sdk/ui";
 import type {
   ShareableRole,
@@ -201,7 +202,9 @@ export function SnippetShareView({
         </div>
       )}
 
-      <div className="flex flex-col gap-2 p-3 shrink-0 border-b border-border">
+      <div
+        className={`flex flex-col gap-2 shrink-0 px-3 py-2 border-b border-border ${TOOLBAR_FIT}`}
+      >
         <div className="flex items-center justify-between gap-2">
           <div className="flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">
             <Users className="size-3.5" />
@@ -220,7 +223,7 @@ export function SnippetShareView({
         <Segmented<"user" | "role">
           value={tab}
           onChange={setTab}
-          className="w-full [&>button]:flex-1"
+
           options={[
             {
               value: "user",
