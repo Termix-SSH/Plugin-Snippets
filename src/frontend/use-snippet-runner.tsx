@@ -160,7 +160,7 @@ export function useSnippetRunner(confirmExecution = false) {
     [handleConfirmRun, loadSecrets, t],
   );
 
-  // Sends to the given session when it is a live terminal, else the active one.
+  // An explicit target must never fall back to another terminal.
   const runOnActive = useCallback(
     (snippet: Snippet, host: SnippetHostContext | null, sessionId?: string) => {
       const runWithInputs = (inputValues: Record<string, string>) => {
@@ -176,13 +176,8 @@ export function useSnippetRunner(confirmExecution = false) {
           const opts = { run: !snippet.isNote };
           const sendToTarget = sessionId
             ? invokeAction("terminal.sendToSession", sessionId, content, opts)
-            : Promise.resolve(false);
+            : invokeAction("terminal.sendToActive", content, opts);
           void sendToTarget
-            .then((sent) =>
-              sent === true
-                ? true
-                : invokeAction("terminal.sendToActive", content, opts),
-            )
             .catch(() => false)
             .then((sent) => {
               if (sent !== true) {

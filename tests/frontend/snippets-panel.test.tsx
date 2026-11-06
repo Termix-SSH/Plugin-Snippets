@@ -331,6 +331,41 @@ describe("snippet target terminals", () => {
     expect(sendToActive).not.toHaveBeenCalled();
   });
 
+  it.each([true, false])(
+    "targets a local tab without falling back when accepted=%s",
+    async (accepted) => {
+      const content = "printf 'first\nsecond'";
+      const send = vi.fn(() => accepted);
+      const active = vi.fn(() => true);
+      rendered = await renderWithApp(plugin, {
+        manifest,
+        locales,
+        api: fakeApi([snippet({ content })]),
+        permissions: PERMISSIONS,
+      });
+      rendered.app.registerAction("terminal.listSessions", () => [
+        { id: "local", kind: "local", hostId: null, label: "Local" },
+      ]);
+      rendered.app.registerAction("terminal.sendToSession", send as never);
+      rendered.app.registerAction("terminal.sendToActive", active as never);
+      rendered.renderPanel("snippets", {
+        active: true,
+        targetTab: { id: "local", type: "local-terminal", label: "Local" },
+      } as never);
+      const error = vi.spyOn(toast, "error");
+      fireEvent.click((await screen.findAllByTitle(locales.run))[0]);
+      await waitFor(() =>
+        expect(send).toHaveBeenCalledWith("local", content, { run: true }),
+      );
+      if (!accepted)
+        await waitFor(() =>
+          expect(error).toHaveBeenCalledWith(locales.noTerminalTabsOpen),
+        );
+      expect(active).not.toHaveBeenCalled();
+      error.mockRestore();
+    },
+  );
+
   it("shows an error when no terminal takes the snippet", async () => {
     rendered = await renderWithApp(plugin, {
       manifest,

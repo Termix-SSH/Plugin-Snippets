@@ -5,6 +5,7 @@ import type { RunTarget } from "./use-snippet-runner";
 
 export interface OpenTerminal {
   id: string;
+  kind?: "local";
   label?: string;
   hostName?: string;
   ip?: string;
@@ -56,12 +57,15 @@ export function toRunTargets(
     .filter((terminal) => selected.has(terminal.id))
     .map((terminal) => ({
       sessionId: terminal.id,
-      host: {
-        name: terminal.hostName,
-        ip: terminal.ip,
-        username: terminal.username,
-        port: terminal.port,
-      },
+      host:
+        terminal.kind === "local"
+          ? null
+          : {
+              name: terminal.hostName,
+              ip: terminal.ip,
+              username: terminal.username,
+              port: terminal.port,
+            },
     }));
 }
 

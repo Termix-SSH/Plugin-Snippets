@@ -96,9 +96,11 @@ export function activate(app: TermixApp): void {
       icon: Play,
       titleKey: "nav.snippets",
       order: 60,
-      tabTypes: ["terminal"],
-      when: (_tab, host) =>
-        canView && !!host?.enableSsh && snippetsPanelEnabled(host),
+      tabTypes: ["terminal", "local-terminal"],
+      when: (tab, host) =>
+        canView &&
+        (tab.type === "local-terminal" ||
+          (!!host?.enableSsh && snippetsPanelEnabled(host))),
       useDefaults: useSnippetsCompanionDefaults,
     });
     app.registerAction("snippets.togglePanel", ((
@@ -118,8 +120,9 @@ export function activate(app: TermixApp): void {
           hostConfig?: unknown;
         } | null;
         return (
-          tab?.type === "terminal" &&
-          snippetsPanelEnabled((tab.host ?? tab.hostConfig) as object)
+          tab?.type === "local-terminal" ||
+          (tab?.type === "terminal" &&
+            snippetsPanelEnabled((tab.host ?? tab.hostConfig) as object))
         );
       },
     });
