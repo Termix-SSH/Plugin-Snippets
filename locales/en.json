@@ -305,5 +305,12 @@
       "description": "Runs one of your snippets on the host. Secrets in it are filled in and never shown in history."
     },
     "snippet": "Snippet"
+  },
+  "widget": {
+    "loading": "Loading...",
+    "empty": "No snippets yet",
+    "copy": "Copy",
+    "copied": "Copied",
+    "maxItems": "Snippets to show"
   }
 }

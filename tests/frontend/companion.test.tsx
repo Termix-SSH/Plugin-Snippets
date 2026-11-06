@@ -153,3 +153,26 @@ describe("snippets dashboard card", () => {
     expect(await screen.findByText("Deploy")).toBeTruthy();
   });
 });
+
+describe("snippets homepage widget", () => {
+  it("registers and lists snippets", async () => {
+    const api = { get: vi.fn(async () => ({ data: [deploy] })) };
+    rendered = await renderWithApp(plugin, {
+      manifest,
+      locales,
+      api: api as never,
+      permissions: ["snippets.view"],
+    });
+    expect(rendered.registered.extensions("homepage.widgets")).toEqual([
+      "snippets_widget",
+    ]);
+    const view = rendered.renderExtension(
+      "homepage.widgets",
+      "snippets_widget",
+      "view",
+      { widget: { title: null }, config: { maxItems: 5 } },
+    );
+    expect(await screen.findByText("Deploy")).toBeTruthy();
+    expect(view).toBeTruthy();
+  });
+});

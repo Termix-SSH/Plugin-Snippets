@@ -23,6 +23,7 @@ import {
   useSnippetsCompanionDefaults,
 } from "./SnippetsCompanion";
 import { SnippetsCard } from "./SnippetsCard";
+import { snippetsWidget } from "./SnippetsWidget";
 import { SnippetOverlay } from "./SnippetOverlay";
 import { HostSnippetsSection } from "./HostSnippetsSection";
 import { QuickActionButtons } from "./QuickActionButtons";
@@ -86,6 +87,8 @@ export function activate(app: TermixApp): void {
     frame: "framed",
     component: SnippetsCard,
   });
+
+  app.registerExtension("homepage.widgets", snippetsWidget);
 
   // Cores before 26.10.3 have no panels beside tabs.
   if (typeof app.registerCompanion === "function") {

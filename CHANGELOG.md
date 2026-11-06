@@ -5,6 +5,7 @@
 ### Added
 
 - Run a snippet as a Termix action, so it can roll out across hosts from Operations Center with a result per host. Saved secrets stay out of run history
+- A homepage widget with your snippets and a copy button
 
 ### Fixed
 

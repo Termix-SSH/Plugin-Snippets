@@ -232,6 +232,7 @@
       "adminImpersonation": true
     },
     "uses": [
+      "homepage.widgets",
       "host-metrics.toolbar",
       "terminal.sendToActive",
       "terminal.sendToSession",
