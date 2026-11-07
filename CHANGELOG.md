@@ -15,6 +15,7 @@
 
 - Needs Termix 26.11.1 or newer
 - The editor and settings use the Termix tile look
+- Toolbars, loading screens, back buttons and Save bars match the rest of Termix
 
 ## 1.2.0
 

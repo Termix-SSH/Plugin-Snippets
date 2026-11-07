@@ -13,6 +13,7 @@ import {
   ListRowAction,
   PanelList,
   PanelSearch,
+  LoadingState,
 } from "@termix-ssh/plugin-sdk/ui";
 import type { SnippetHostContext } from "../shared/variables.js";
 import { readSnippetSettings } from "./settings";
@@ -107,7 +108,7 @@ export function SnippetsCompanion({ tab, host, isVisible }: CompanionProps) {
       {failed ? (
         <p className="p-2 text-xs text-destructive">{failed}</p>
       ) : !snippets ? (
-        <p className="p-2 text-xs text-muted-foreground">{t("loading")}</p>
+        <LoadingState compact label={t("loading")} />
       ) : visible.length === 0 ? (
         <p className="p-2 text-xs text-muted-foreground">
           {snippets.length === 0 ? t("emptyTitle") : t("noSearchResults")}

@@ -8,6 +8,7 @@ import {
   ListRowAction,
   PanelList,
   WidgetTitle,
+  LoadingState,
 } from "@termix-ssh/plugin-sdk/ui";
 import {
   GRID_SIZE,
@@ -51,9 +52,7 @@ function SnippetsWidget({
     <div className="flex h-full w-full flex-col overflow-hidden">
       <WidgetTitle title={widget.title} icon={<Zap size={11} />} />
       {!snippets ? (
-        <p className="p-3 text-xs text-muted-foreground">
-          {t("widget.loading")}
-        </p>
+        <LoadingState compact label={t("widget.loading")} />
       ) : (
         <PanelList
           empty={

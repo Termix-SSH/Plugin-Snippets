@@ -32,6 +32,9 @@ Read the [docs](https://docs.termix.site/plugins/snippets) to set it up and use 
 - Run a snippet each time you connect to a host
 - Share snippets with users or roles
 - Import and export as JSON
+- Roll a snippet out across hosts from Operations Center, with a result per host
+- Secrets in snippets that stay out of run history
+- A homepage widget with a copy button
 
 <br />
 
