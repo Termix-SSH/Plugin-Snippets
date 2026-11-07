@@ -39,7 +39,7 @@ export function usesSudo(command: string): boolean {
 
 /** Whether output ends at sudo's password prompt ("Password:" on macOS). */
 export function endsWithSudoPrompt(output: string): boolean {
-  return /(?:\[sudo\] password for [^\n]*|(?:^|\n)Password):\s*$/.test(
+  return /(?:\[sudo\] (?:password for|Passwort für|Mot de passe de) [^\r\n]*|\[sudo: authenticate\] Password|(?:^|\n)Password):[^\S\r\n]*$/.test(
     output.slice(-200),
   );
 }

@@ -16,4 +16,21 @@ describe("sudo detection", () => {
     expect(endsWithSudoPrompt("[sudo] password for root: \nok\n")).toBe(false);
     expect(endsWithSudoPrompt("Enter the database Password: x")).toBe(false);
   });
+  it.each([
+    "[sudo: authenticate] Password: ",
+    "starting\r\n[sudo: authenticate] Password:",
+    "[sudo] Passwort für alice: ",
+    "[sudo] Mot de passe de alice : ",
+  ])("recognizes the sudo prompt %j", (prompt) => {
+    expect(endsWithSudoPrompt(prompt)).toBe(true);
+    expect(endsWithSudoPrompt(prompt + "\ncommand complete\n")).toBe(false);
+  });
+
+  it.each([
+    "Database Password: ",
+    "[sudo: authenticate] starting:",
+    "[sudo] running command:",
+  ])("does not treat ordinary output as a password prompt: %j", (output) => {
+    expect(endsWithSudoPrompt(output)).toBe(false);
+  });
 });
