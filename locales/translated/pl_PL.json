@@ -305,5 +305,22 @@
     "missing": "Ten fragment używa haseł, których nie zapisano: {{names}}",
     "loadFailed": "Nie udało się załadować haseł używanych przez ten fragment",
     "usesSecrets": "Używa zapisanych haseł"
+  },
+  "operations": {
+    "list": {
+      "title": "Lista fragmentów"
+    },
+    "run": {
+      "title": "Uruchom fragment",
+      "description": "Uruchamia jeden z Twoich fragmentów na hoście. Tajne dane są uzupełniane i nigdy nie są wyświetlane w historii."
+    },
+    "snippet": "Fragment"
+  },
+  "widget": {
+    "loading": "Ładowanie...",
+    "empty": "Brak fragmentów",
+    "copy": "Kopiuj",
+    "copied": "Skopiowano",
+    "maxItems": "Liczba wyświetlanych fragmentów"
   }
 }

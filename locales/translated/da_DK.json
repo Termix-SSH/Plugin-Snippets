@@ -295,5 +295,22 @@
     "missing": "Denne snippet bruger hemmeligheder, du ikke har gemt: {{names}}",
     "loadFailed": "Kunne ikke indlæse de hemmeligheder, denne snippet bruger",
     "usesSecrets": "Bruger gemte hemmeligheder"
+  },
+  "operations": {
+    "list": {
+      "title": "Vis snippets"
+    },
+    "run": {
+      "title": "Kør et snippet",
+      "description": "Kører et af dine snippets på værten. Hemmeligheder udfyldes og vises aldrig i historikken."
+    },
+    "snippet": "Snippet"
+  },
+  "widget": {
+    "loading": "Indlæser...",
+    "empty": "Ingen snippets endnu",
+    "copy": "Kopier",
+    "copied": "Kopieret",
+    "maxItems": "Antal snippets at vise"
   }
 }

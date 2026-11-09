@@ -300,5 +300,22 @@
     "missing": "Este fragmento usa secretos que no has guardado: {{names}}",
     "loadFailed": "No se han podido cargar los secretos que usa este fragmento",
     "usesSecrets": "Usa secretos guardados"
+  },
+  "operations": {
+    "list": {
+      "title": "Listar fragmentos"
+    },
+    "run": {
+      "title": "Ejecutar un fragmento",
+      "description": "Ejecuta uno de tus fragmentos en el host. Los secretos se rellenan automáticamente y nunca se muestran en el historial."
+    },
+    "snippet": "Fragmento"
+  },
+  "widget": {
+    "loading": "Cargando...",
+    "empty": "Aún no hay fragmentos",
+    "copy": "Copiar",
+    "copied": "Copiado",
+    "maxItems": "Fragmentos a mostrar"
   }
 }

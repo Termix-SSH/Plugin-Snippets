@@ -23,6 +23,7 @@ import {
   useSnippetsCompanionDefaults,
 } from "./SnippetsCompanion";
 import { SnippetsCard } from "./SnippetsCard";
+import { snippetsWidget } from "./SnippetsWidget";
 import { SnippetOverlay } from "./SnippetOverlay";
 import { HostSnippetsSection } from "./HostSnippetsSection";
 import { QuickActionButtons } from "./QuickActionButtons";
@@ -87,15 +88,19 @@ export function activate(app: TermixApp): void {
     component: SnippetsCard,
   });
 
+  app.registerExtension("homepage.widgets", snippetsWidget);
+
   // Cores before 26.10.3 have no panels beside tabs.
   if (typeof app.registerCompanion === "function") {
     app.registerCompanion("snippets", SnippetsCompanion, {
       icon: Play,
       titleKey: "nav.snippets",
       order: 60,
-      tabTypes: ["terminal"],
-      when: (_tab, host) =>
-        canView && !!host?.enableSsh && snippetsPanelEnabled(host),
+      tabTypes: ["terminal", "local-terminal"],
+      when: (tab, host) =>
+        canView &&
+        (tab.type === "local-terminal" ||
+          (!!host?.enableSsh && snippetsPanelEnabled(host))),
       useDefaults: useSnippetsCompanionDefaults,
     });
     app.registerAction("snippets.togglePanel", ((
@@ -115,8 +120,9 @@ export function activate(app: TermixApp): void {
           hostConfig?: unknown;
         } | null;
         return (
-          tab?.type === "terminal" &&
-          snippetsPanelEnabled((tab.host ?? tab.hostConfig) as object)
+          tab?.type === "local-terminal" ||
+          (tab?.type === "terminal" &&
+            snippetsPanelEnabled((tab.host ?? tab.hostConfig) as object))
         );
       },
     });

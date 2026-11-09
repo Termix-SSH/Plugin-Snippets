@@ -295,5 +295,22 @@
     "missing": "Bu kod parçası, henüz kaydetmediğiniz gizli değerleri kullanıyor: {{names}}",
     "loadFailed": "Bu kod parçasının kullandığı gizli değerler yüklenemedi",
     "usesSecrets": "Kaydedilmiş gizli değerler kullanıyor"
+  },
+  "operations": {
+    "list": {
+      "title": "Parçacıkları listele"
+    },
+    "run": {
+      "title": "Bir parçacık çalıştır",
+      "description": "Parçacıklarınızdan birini ana makinede çalıştırır. İçindeki gizli bilgiler doldurulur ve geçmişte asla gösterilmez."
+    },
+    "snippet": "Parçacık"
+  },
+  "widget": {
+    "loading": "Yükleniyor...",
+    "empty": "Henüz parçacık yok",
+    "copy": "Kopyala",
+    "copied": "Kopyalandı",
+    "maxItems": "Gösterilecek parçacıklar"
   }
 }

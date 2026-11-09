@@ -295,5 +295,22 @@
     "missing": "Denna snutt använder hemligheter som du inte har sparat: {{names}}",
     "loadFailed": "Kunde inte läsa in hemligheterna som denna snutt använder",
     "usesSecrets": "Använder sparade hemligheter"
+  },
+  "operations": {
+    "list": {
+      "title": "Lista kommandon"
+    },
+    "run": {
+      "title": "Kör ett kommando",
+      "description": "Kör ett av dina kommandon på värdens. Hemligheter i kommandot fylls i automatiskt och visas aldrig i historiken."
+    },
+    "snippet": "Kommando"
+  },
+  "widget": {
+    "loading": "Laddar...",
+    "empty": "Inga kommandon ännu",
+    "copy": "Kopiera",
+    "copied": "Kopierat",
+    "maxItems": "Kommandon att visa"
   }
 }

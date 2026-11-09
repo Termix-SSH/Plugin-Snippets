@@ -300,5 +300,22 @@
     "missing": "Ovaj isječak koristi tajne koje niste spremili: {{names}}",
     "loadFailed": "Tajne koje ovaj isječak koristi nisu se mogle učitati",
     "usesSecrets": "Koristi spremljene tajne"
+  },
+  "operations": {
+    "list": {
+      "title": "Popis isječaka"
+    },
+    "run": {
+      "title": "Izvrši isječak",
+      "description": "Izvršava jedan od vaših isječaka na hostu. Tajni podaci se automatski upisuju i nikada se ne prikazuju u povijesti."
+    },
+    "snippet": "Isječak"
+  },
+  "widget": {
+    "loading": "Učitavanje...",
+    "empty": "Još nema isječaka",
+    "copy": "Kopiraj",
+    "copied": "Kopirano",
+    "maxItems": "Broj prikazanih isječaka"
   }
 }

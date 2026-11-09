@@ -295,5 +295,22 @@
     "missing": "Dieses Snippet verwendet Geheimnisse, die Sie noch nicht gespeichert haben: {{names}}",
     "loadFailed": "Die Geheimnisse, die dieses Snippet verwendet, konnten nicht geladen werden",
     "usesSecrets": "Verwendet gespeicherte Geheimnisse"
+  },
+  "operations": {
+    "list": {
+      "title": "Snippets auflisten"
+    },
+    "run": {
+      "title": "Snippet ausführen",
+      "description": "Führt einen Ihrer Snippets auf dem Host aus. Geheimnisse darin werden automatisch eingefügt und niemals im Verlauf angezeigt."
+    },
+    "snippet": "Snippet"
+  },
+  "widget": {
+    "loading": "Wird geladen...",
+    "empty": "Noch keine Snippets",
+    "copy": "Kopieren",
+    "copied": "Kopiert",
+    "maxItems": "Anzuzeigende Snippets"
   }
 }

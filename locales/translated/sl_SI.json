@@ -305,5 +305,22 @@
     "missing": "Ta fragment uporablja skrivnosti, ki jih niste shranili: {{names}}",
     "loadFailed": "Skrivnosti, ki jih uporablja ta fragment, ni bilo mogoče naložiti",
     "usesSecrets": "Uporablja shranjene skrivnosti"
+  },
+  "operations": {
+    "list": {
+      "title": "Seznam odlomkov"
+    },
+    "run": {
+      "title": "Izvedi odlomek",
+      "description": "Izvede enega od vaših odlomkov na gostitelju. Skrivnosti v njem se izpolnijo in se nikoli ne prikažejo v zgodovini."
+    },
+    "snippet": "Odlomek"
+  },
+  "widget": {
+    "loading": "Nalaganje...",
+    "empty": "Še ni odlomkov",
+    "copy": "Kopiraj",
+    "copied": "Kopirano",
+    "maxItems": "Število prikazanih odlomkov"
   }
 }

@@ -300,5 +300,22 @@
     "missing": "Este snippet usa segredos que você não salvou: {{names}}",
     "loadFailed": "Não foi possível carregar os segredos usados por este snippet",
     "usesSecrets": "Usa segredos salvos"
+  },
+  "operations": {
+    "list": {
+      "title": "Listar snippets"
+    },
+    "run": {
+      "title": "Executar um snippet",
+      "description": "Executa um dos seus snippets no host. Os segredos nele são preenchidos e nunca aparecem no histórico."
+    },
+    "snippet": "Snippet"
+  },
+  "widget": {
+    "loading": "Carregando...",
+    "empty": "Nenhum snippet ainda",
+    "copy": "Copiar",
+    "copied": "Copiado",
+    "maxItems": "Snippets para exibir"
   }
 }

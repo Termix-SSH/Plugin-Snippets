@@ -290,5 +290,22 @@
     "missing": "Đoạn mã này sử dụng các bí mật bạn chưa lưu: {{names}}",
     "loadFailed": "Không thể tải các bí mật mà đoạn mã này sử dụng",
     "usesSecrets": "Sử dụng bí mật đã lưu"
+  },
+  "operations": {
+    "list": {
+      "title": "Danh sách đoạn lệnh"
+    },
+    "run": {
+      "title": "Chạy một đoạn lệnh",
+      "description": "Chạy một trong các đoạn lệnh của bạn trên máy chủ. Các bí mật trong đó sẽ được điền vào và không bao giờ hiển thị trong lịch sử."
+    },
+    "snippet": "Đoạn lệnh"
+  },
+  "widget": {
+    "loading": "Đang tải...",
+    "empty": "Chưa có đoạn lệnh nào",
+    "copy": "Sao chép",
+    "copied": "Đã sao chép",
+    "maxItems": "Số đoạn lệnh hiển thị"
   }
 }

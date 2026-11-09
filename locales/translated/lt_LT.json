@@ -305,5 +305,22 @@
     "missing": "Šis fragmentas naudoja slaptažodžius, kurių dar neišsaugojote: {{names}}",
     "loadFailed": "Nepavyko įkelti slaptažodžių, kurių naudoja šis fragmentas",
     "usesSecrets": "Naudoja išsaugotus slaptažodžius"
+  },
+  "operations": {
+    "list": {
+      "title": "Išvardinti komandas"
+    },
+    "run": {
+      "title": "Vykdyti komandą",
+      "description": "Vykdo vieną iš jūsų komandų serveryje. Jos slaptažodžiai yra įterpiami ir niekada nerodomi istorijoje."
+    },
+    "snippet": "Komanda"
+  },
+  "widget": {
+    "loading": "Įkeliama...",
+    "empty": "Dar nėra komandų",
+    "copy": "Kopijuoti",
+    "copied": "Nukopijuota",
+    "maxItems": "Rodomų komandų skaičius"
   }
 }

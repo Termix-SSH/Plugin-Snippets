@@ -8,7 +8,12 @@ import {
   useTranslation,
   type DashboardCardProps,
 } from "@termix-ssh/plugin-sdk/frontend";
-import { ListRow, ListRowAction, PanelList } from "@termix-ssh/plugin-sdk/ui";
+import {
+  ListRow,
+  ListRowAction,
+  PanelList,
+  LoadingState,
+} from "@termix-ssh/plugin-sdk/ui";
 import { readSnippetSettings } from "./settings";
 import { createSnippetsApi } from "./snippets-api";
 import { errorMessage, parseHostFilter, type Snippet } from "./types";
@@ -82,7 +87,7 @@ export function SnippetsCard({ isVisible, shell }: DashboardCardProps) {
       {failed ? (
         <p className="p-3 text-xs text-destructive">{failed}</p>
       ) : !snippets ? (
-        <p className="p-3 text-xs text-muted-foreground">{t("loading")}</p>
+        <LoadingState compact label={t("loading")} />
       ) : (
         <PanelList
           empty={

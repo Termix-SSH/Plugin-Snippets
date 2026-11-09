@@ -300,5 +300,22 @@
     "missing": "Ce snippet utilise des secrets que vous n'avez pas enregistrés : {{names}}",
     "loadFailed": "Impossible de charger les secrets utilisés par ce snippet",
     "usesSecrets": "Utilise des secrets enregistrés"
+  },
+  "operations": {
+    "list": {
+      "title": "Lister les extraits"
+    },
+    "run": {
+      "title": "Exécuter un extrait",
+      "description": "Exécute l'un de vos extraits sur l'hôte. Les secrets qu'il contient sont renseignés automatiquement et n'apparaissent jamais dans l'historique."
+    },
+    "snippet": "Extrait"
+  },
+  "widget": {
+    "loading": "Chargement...",
+    "empty": "Aucun extrait pour le moment",
+    "copy": "Copier",
+    "copied": "Copié",
+    "maxItems": "Nombre d'extraits à afficher"
   }
 }

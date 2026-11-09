@@ -295,5 +295,22 @@
     "missing": "Hierdie fragment gebruik geheime wat jy nie gestoor het nie: {{names}}",
     "loadFailed": "Kon nie die geheime laai wat hierdie fragment gebruik nie",
     "usesSecrets": "Gebruik gestoorde geheime"
+  },
+  "operations": {
+    "list": {
+      "title": "Lys snippette"
+    },
+    "run": {
+      "title": "Voer 'n snippie uit",
+      "description": "Voer een van jou snippette op die gasheer uit. Geheime daarin word ingevul en nooit in die geskiedenis vertoon nie."
+    },
+    "snippet": "Snippie"
+  },
+  "widget": {
+    "loading": "Laai tans...",
+    "empty": "Nog geen snippette nie",
+    "copy": "Kopieer",
+    "copied": "Gekopieer",
+    "maxItems": "Snippette om te wys"
   }
 }

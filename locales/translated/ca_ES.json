@@ -300,5 +300,22 @@
     "missing": "Aquest fragment utilitza secrets que no has desat: {{names}}",
     "loadFailed": "No s'han pogut carregar els secrets que utilitza aquest fragment",
     "usesSecrets": "Utilitza secrets desats"
+  },
+  "operations": {
+    "list": {
+      "title": "Llista de fragments"
+    },
+    "run": {
+      "title": "Executa un fragment",
+      "description": "Executa un dels teus fragments a l'amfitrió. Els secrets s'omplen automàticament i mai no es mostren a l'historial."
+    },
+    "snippet": "Fragment"
+  },
+  "widget": {
+    "loading": "S'està carregant...",
+    "empty": "Encara no hi ha fragments",
+    "copy": "Copia",
+    "copied": "Copiat",
+    "maxItems": "Fragments a mostrar"
   }
 }

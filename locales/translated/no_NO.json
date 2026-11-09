@@ -295,5 +295,22 @@
     "missing": "Dette utdraget bruker hemmeligheter du ikke har lagret: {{names}}",
     "loadFailed": "Kunne ikke laste inn hemmelighetene dette utdraget bruker",
     "usesSecrets": "Bruker lagrede hemmeligheter"
+  },
+  "operations": {
+    "list": {
+      "title": "Vis snutter"
+    },
+    "run": {
+      "title": "Kjør en snutt",
+      "description": "Kjører en av snuttene dine på verten. Hemmeligheter i den fylles ut og vises aldri i historikken."
+    },
+    "snippet": "Snutt"
+  },
+  "widget": {
+    "loading": "Laster inn...",
+    "empty": "Ingen snutter ennå",
+    "copy": "Kopier",
+    "copied": "Kopiert",
+    "maxItems": "Snutter som skal vises"
   }
 }

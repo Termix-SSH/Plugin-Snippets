@@ -305,5 +305,22 @@
     "missing": "Tento úryvek používá tajné klíče, které jste neuložili: {{names}}",
     "loadFailed": "Tajné klíče používané tímto úryvkem se nepodařilo načíst",
     "usesSecrets": "Používá uložené tajné klíče"
+  },
+  "operations": {
+    "list": {
+      "title": "Seznam úryvků"
+    },
+    "run": {
+      "title": "Spustit úryvek",
+      "description": "Spustí jeden z vašich úryvků na hostiteli. Tajné hodnoty v něm jsou doplněny a nikdy se nezobrazí v historii."
+    },
+    "snippet": "Úryvek"
+  },
+  "widget": {
+    "loading": "Načítání...",
+    "empty": "Zatím žádné úryvky",
+    "copy": "Kopírovat",
+    "copied": "Zkopírováno",
+    "maxItems": "Počet zobrazených úryvků"
   }
 }

@@ -1,7 +1,7 @@
 {
   "id": "snippets",
   "name": "Snippets",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "Save the commands you run often and run them in a terminal or on many hosts in one click.",
   "author": {
     "name": "Termix"
@@ -30,8 +30,8 @@
     }
   ],
   "engine": {
-    "termix": ">=26.10.0",
-    "api": "^1.2"
+    "termix": ">=26.11.1-0",
+    "api": "^1.15"
   },
   "capabilities": [
     "db:own",
@@ -43,7 +43,8 @@
     "ui:surface",
     "events:core",
     "db:core-refs",
-    "secrets:own"
+    "secrets:own",
+    "operations:provide"
   ],
   "provides": [
     {
@@ -231,6 +232,7 @@
       "adminImpersonation": true
     },
     "uses": [
+      "homepage.widgets",
       "host-metrics.toolbar",
       "terminal.sendToActive",
       "terminal.sendToSession",
@@ -242,6 +244,43 @@
         "titleKey": "card.title",
         "icon": "Play"
       }
-    ]
+    ],
+    "operations": {
+      "actions": [
+        {
+          "id": "snippets.list",
+          "titleKey": "operations.list.title",
+          "scope": "server",
+          "risk": "read",
+          "permission": "view",
+          "surfaces": {
+            "assistant": true,
+            "mcp": true,
+            "palette": false
+          }
+        },
+        {
+          "id": "snippets.run",
+          "titleKey": "operations.run.title",
+          "descriptionKey": "operations.run.description",
+          "icon": "TerminalSquare",
+          "scope": "host",
+          "risk": "change",
+          "permission": "view",
+          "hostAccess": "connect",
+          "dryRun": "describe",
+          "timeoutMs": 300000,
+          "inputs": [
+            {
+              "key": "snippet",
+              "type": "select",
+              "labelKey": "operations.snippet",
+              "required": true,
+              "optionsFrom": "snippets.list"
+            }
+          ]
+        }
+      ]
+    }
   }
 }

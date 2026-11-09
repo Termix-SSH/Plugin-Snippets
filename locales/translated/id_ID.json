@@ -290,5 +290,22 @@
     "missing": "Snippet ini menggunakan rahasia yang belum Anda simpan: {{names}}",
     "loadFailed": "Gagal memuat rahasia yang digunakan snippet ini",
     "usesSecrets": "Menggunakan rahasia yang disimpan"
+  },
+  "operations": {
+    "list": {
+      "title": "Daftar cuplikan"
+    },
+    "run": {
+      "title": "Jalankan cuplikan",
+      "description": "Menjalankan salah satu cuplikan Anda pada host. Rahasia di dalamnya akan diisi dan tidak pernah ditampilkan dalam riwayat."
+    },
+    "snippet": "Cuplikan"
+  },
+  "widget": {
+    "loading": "Memuat...",
+    "empty": "Belum ada cuplikan",
+    "copy": "Salin",
+    "copied": "Tersalin",
+    "maxItems": "Cuplikan yang ditampilkan"
   }
 }

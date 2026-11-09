@@ -300,5 +300,22 @@
     "missing": "Questo snippet utilizza segreti che non hai salvato: {{names}}",
     "loadFailed": "Impossibile caricare i segreti utilizzati da questo snippet",
     "usesSecrets": "Utilizza segreti salvati"
+  },
+  "operations": {
+    "list": {
+      "title": "Elencare gli snippet"
+    },
+    "run": {
+      "title": "Eseguire uno snippet",
+      "description": "Esegue uno dei tuoi snippet sull'host. I segreti al suo interno vengono compilati e non vengono mai mostrati nella cronologia."
+    },
+    "snippet": "Snippet"
+  },
+  "widget": {
+    "loading": "Caricamento...",
+    "empty": "Nessuno snippet ancora",
+    "copy": "Copia",
+    "copied": "Copiato",
+    "maxItems": "Snippet da mostrare"
   }
 }

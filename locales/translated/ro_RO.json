@@ -300,5 +300,22 @@
     "missing": "Acest fragment folosește secrete pe care nu le-ai salvat: {{names}}",
     "loadFailed": "Nu s-au putut încărca secretele folosite de acest fragment",
     "usesSecrets": "Folosește secrete salvate"
+  },
+  "operations": {
+    "list": {
+      "title": "Listează fragmentele"
+    },
+    "run": {
+      "title": "Execută un fragment",
+      "description": "Execută unul dintre fragmentele tale pe gazdă. Secretelor li se atribuie valorile și nu sunt afișate niciodată în istoric."
+    },
+    "snippet": "Fragment"
+  },
+  "widget": {
+    "loading": "Se încarcă...",
+    "empty": "Încă nu există fragmente",
+    "copy": "Copiază",
+    "copied": "Copiat",
+    "maxItems": "Fragmente de afișat"
   }
 }

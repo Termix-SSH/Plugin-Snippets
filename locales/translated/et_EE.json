@@ -295,5 +295,22 @@
     "missing": "See koodilõik kasutab saladusi, mida pole salvestatud: {{names}}",
     "loadFailed": "Selle koodilõigu kasutatavate saladuste laadimine ei õnnestunud",
     "usesSecrets": "Kasutab salvestatud saladusi"
+  },
+  "operations": {
+    "list": {
+      "title": "Näita koodilõike"
+    },
+    "run": {
+      "title": "Käivita koodilõige",
+      "description": "Käivitab ühe sinu koodilõike hostil. Salajased väärtused täidetakse automaatselt ja ei ilmu kunagi ajalukku."
+    },
+    "snippet": "Koodilõige"
+  },
+  "widget": {
+    "loading": "Laadimine...",
+    "empty": "Koodilõikeid pole veel",
+    "copy": "Kopeeri",
+    "copied": "Kopeeritud",
+    "maxItems": "Kuvamiseks koodilõike"
   }
 }

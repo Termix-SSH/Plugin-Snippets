@@ -300,5 +300,22 @@
     "missing": "Šis fragments izmanto noslēpumus, kurus neesat saglabājis: {{names}}",
     "loadFailed": "Neizdevās ielādēt noslēpumus, kurus izmanto šis fragments",
     "usesSecrets": "Izmanto saglabātos noslēpumus"
+  },
+  "operations": {
+    "list": {
+      "title": "Izrakstīt fragmentus"
+    },
+    "run": {
+      "title": "Izpildīt fragmentu",
+      "description": "Izpilda vienu no jūsu fragmentiem uz servera. Tajā iekļautie noslēpumi tiek aizpildīti un nekad netiek rādīti vēsturē."
+    },
+    "snippet": "Fragmenti"
+  },
+  "widget": {
+    "loading": "Ielādē...",
+    "empty": "Vēl nav fragmentu",
+    "copy": "Kopēt",
+    "copied": "Nokopēts",
+    "maxItems": "Rādāmo fragmentu skaits"
   }
 }

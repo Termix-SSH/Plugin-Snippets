@@ -295,5 +295,22 @@
     "missing": "Ez a kódrészlet olyan titkokat használ, amelyeket még nem mentett el: {{names}}",
     "loadFailed": "Nem sikerült betölteni a kódrészlet által használt titkokat",
     "usesSecrets": "Mentett titkokat használ"
+  },
+  "operations": {
+    "list": {
+      "title": "Darabok listázása"
+    },
+    "run": {
+      "title": "Darab futtatása",
+      "description": "Futtat egy darabot a gazdagépen. A benne lévő titkos adatok kitöltésre kerülnek, és soha nem jelennek meg az előzményekben."
+    },
+    "snippet": "Darab"
+  },
+  "widget": {
+    "loading": "Betöltés...",
+    "empty": "Még nincsenek darabok",
+    "copy": "Másolás",
+    "copied": "Másolva",
+    "maxItems": "Megjelenítendő darabok száma"
   }
 }

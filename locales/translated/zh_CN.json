@@ -290,5 +290,22 @@
     "missing": "此代码片段使用了您尚未保存的密钥：{{names}}",
     "loadFailed": "无法加载此代码片段使用的密钥",
     "usesSecrets": "使用已保存的密钥"
+  },
+  "operations": {
+    "list": {
+      "title": "列出代码片段"
+    },
+    "run": {
+      "title": "运行代码片段",
+      "description": "在主机上运行其中一个代码片段。其中的密钥会被自动填充，且不会显示在历史记录中。"
+    },
+    "snippet": "代码片段"
+  },
+  "widget": {
+    "loading": "加载中...",
+    "empty": "暂无代码片段",
+    "copy": "复制",
+    "copied": "已复制",
+    "maxItems": "显示的代码片段数量"
   }
 }

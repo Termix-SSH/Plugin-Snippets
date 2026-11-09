@@ -234,5 +234,14 @@
   "secrets.deleteFailed": "267af51d457e",
   "secrets.missing": "64796f49110d",
   "secrets.loadFailed": "d669fed363ea",
-  "secrets.usesSecrets": "64acb9acde45"
+  "secrets.usesSecrets": "64acb9acde45",
+  "operations.list.title": "f7eb471ccd4b",
+  "operations.run.title": "f6344bcedb5c",
+  "operations.run.description": "abea7dccc23b",
+  "operations.snippet": "657d1e134c33",
+  "widget.loading": "b04ba49f8486",
+  "widget.empty": "88fe3d2348df",
+  "widget.copy": "af74f7c5362a",
+  "widget.copied": "8e3df45a49db",
+  "widget.maxItems": "d8d6caa7be79"
 }

@@ -35,6 +35,7 @@ let rendered: RenderedPluginApp | null = null;
 afterEach(async () => {
   await rendered?.deactivate();
   rendered = null;
+  companionTabType = "terminal";
 });
 
 const deploy = {
@@ -58,6 +59,7 @@ const host = {
 };
 
 // Renders the panel inside the plugin's scope through a test slot.
+let companionTabType = "terminal";
 const withCompanion = {
   activate(app: TermixApp) {
     plugin.activate(app);
@@ -68,8 +70,13 @@ const withCompanion = {
       component: (() => (
         <SnippetsCompanion
           {...({
-            tab: { id: "tab-1", type: "terminal", label: "web", host },
-            host,
+            tab: {
+              id: "tab-1",
+              type: companionTabType,
+              label: "web",
+              host: companionTabType === "terminal" ? host : undefined,
+            },
+            host: companionTabType === "terminal" ? host : undefined,
             getHandle: () => null,
             side: "right",
             isVisible: true,
@@ -152,4 +159,72 @@ describe("snippets dashboard card", () => {
     rendered.renderDashboardCard("snippets");
     expect(await screen.findByText("Deploy")).toBeTruthy();
   });
+});
+
+describe("snippets homepage widget", () => {
+  it("registers and lists snippets", async () => {
+    const api = { get: vi.fn(async () => ({ data: [deploy] })) };
+    rendered = await renderWithApp(plugin, {
+      manifest,
+      locales,
+      api: api as never,
+      permissions: ["snippets.view"],
+    });
+    expect(rendered.registered.extensions("homepage.widgets")).toEqual([
+      "snippets_widget",
+    ]);
+    const view = rendered.renderExtension(
+      "homepage.widgets",
+      "snippets_widget",
+      "view",
+      { widget: { title: null }, config: { maxItems: 5 } },
+    );
+    expect(await screen.findByText("Deploy")).toBeTruthy();
+    expect(view).toBeTruthy();
+  });
+});
+
+it.each([true, false])(
+  "gates the local companion on view permission (%s)",
+  async (allowed) => {
+    let options: any;
+    const app = new Proxy(
+      {},
+      {
+        get: (_target, key: string) => {
+          if (key === "registerCompanion")
+            return (_id: unknown, _component: unknown, value: unknown) => {
+              options = value;
+            };
+          if (key === "hasPermission") return async () => allowed;
+          if (key === "t") return (text: string) => text;
+          return () => {};
+        },
+      },
+    );
+    plugin.activate(app as unknown as TermixApp);
+    await Promise.resolve();
+    expect(options.tabTypes).toContain("local-terminal");
+    expect(options.when({ type: "local-terminal" }, undefined)).toBe(allowed);
+    expect(options.when({ type: "terminal" }, undefined)).toBe(false);
+  },
+);
+
+it("runs in the local companion with no fabricated host context", async () => {
+  companionTabType = "local-terminal";
+  send.mockClear();
+  const text = "printf 'local text'";
+  rendered = await renderWithApp(withCompanion, {
+    manifest,
+    locales,
+    api: {
+      get: vi.fn(async () => ({ data: [{ ...deploy, content: text }] })),
+    } as never,
+    permissions: ["snippets.view"],
+  });
+  rendered.renderSlot("test.companion");
+  fireEvent.click(await screen.findByText("Deploy"));
+  await waitFor(() =>
+    expect(send).toHaveBeenCalledWith("tab-1", text, { run: true }),
+  );
 });

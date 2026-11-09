@@ -295,5 +295,22 @@
     "missing": "Tämä snippet käyttää salaisia arvoja, joita et ole tallentanut: {{names}}",
     "loadFailed": "Tämän snippetin käyttämien salaisten arvojen lataaminen epäonnistui",
     "usesSecrets": "Käyttää tallennettuja salaisia arvoja"
+  },
+  "operations": {
+    "list": {
+      "title": "Näytä komentosnippetit"
+    },
+    "run": {
+      "title": "Suorita komentosnippetti",
+      "description": "Suorittaa yhden komentosnippeteistäsi isäntälaitteella. Siinä olevat salasanat täytetään automaattisesti eivätkä näy komentohistoriassa."
+    },
+    "snippet": "Komentosnippetti"
+  },
+  "widget": {
+    "loading": "Ladataan...",
+    "empty": "Ei vielä komentosnippettejä",
+    "copy": "Kopioi",
+    "copied": "Kopioitu",
+    "maxItems": "Näytettävät komentosnippetit"
   }
 }

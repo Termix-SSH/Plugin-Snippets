@@ -102,6 +102,7 @@ export function SnippetEditor({
 
   return (
     <InlineView
+      stacked
       open
       onOpenChange={(open) => !open && onBack()}
       icon={<Code2 className="size-4" />}

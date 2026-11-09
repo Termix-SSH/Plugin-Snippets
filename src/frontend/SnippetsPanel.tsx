@@ -32,6 +32,8 @@ import {
   PanelSearch,
   copyToClipboard,
   useConfirm,
+  LoadingState,
+  TOOLBAR_FIT,
 } from "@termix-ssh/plugin-sdk/ui";
 import { createSnippetsApi } from "./snippets-api";
 import { useSnippetRunner, type TargetHost } from "./use-snippet-runner";
@@ -585,7 +587,9 @@ export function SnippetsPanel({ targetTab }: PanelProps) {
 
     return (
       <div className="flex flex-col flex-1 min-h-0 overflow-hidden">
-        <div className="flex shrink-0 flex-col gap-2 border-b border-border px-3 py-2">
+        <div
+          className={`flex shrink-0 flex-col gap-2 border-b border-border px-3 py-2 ${TOOLBAR_FIT}`}
+        >
           <PanelSearch
             value={search}
             onChange={setSearch}
@@ -686,9 +690,7 @@ export function SnippetsPanel({ targetTab }: PanelProps) {
 
         <PanelList>
           {loading ? (
-            <div className="p-4 text-xs text-muted-foreground">
-              {t("loading")}
-            </div>
+            <LoadingState compact label={t("loading")} />
           ) : isEmpty ? (
             <EmptyState
               icon={Code2}

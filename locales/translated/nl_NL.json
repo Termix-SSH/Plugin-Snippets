@@ -295,5 +295,22 @@
     "missing": "Dit snippet gebruikt geheimen die je nog niet hebt opgeslagen: {{names}}",
     "loadFailed": "De geheimen die dit snippet gebruikt, konden niet worden geladen",
     "usesSecrets": "Gebruikt opgeslagen geheimen"
+  },
+  "operations": {
+    "list": {
+      "title": "Snippetlijst"
+    },
+    "run": {
+      "title": "Snippet uitvoeren",
+      "description": "Voert een van je snippets uit op de host. Geheimen worden ingevuld en nooit in de geschiedenis weergegeven."
+    },
+    "snippet": "Snippet"
+  },
+  "widget": {
+    "loading": "Laden...",
+    "empty": "Nog geen snippets",
+    "copy": "Kopiëren",
+    "copied": "Gekopieerd",
+    "maxItems": "Aantal te tonen snippets"
   }
 }

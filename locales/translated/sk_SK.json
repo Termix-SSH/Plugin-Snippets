@@ -305,5 +305,22 @@
     "missing": "Tento útržok používa tajomstvá, ktoré ste neuložili: {{names}}",
     "loadFailed": "Nepodarilo sa načítať tajomstvá, ktoré tento útržok používa",
     "usesSecrets": "Používa uložené tajomstvá"
+  },
+  "operations": {
+    "list": {
+      "title": "Zobraziť útržky"
+    },
+    "run": {
+      "title": "Spustiť útržok",
+      "description": "Spustí jeden z vašich útržkov na hostiteľovi. Tajomstvá v ňom sa doplnia a nikdy sa nezobrazia v histórii."
+    },
+    "snippet": "Útržok"
+  },
+  "widget": {
+    "loading": "Načítava sa...",
+    "empty": "Zatiaľ žiadne útržky",
+    "copy": "Kopírovať",
+    "copied": "Skopírované",
+    "maxItems": "Počet zobrazených útržkov"
   }
 }

@@ -290,5 +290,22 @@
     "missing": "Petikan ini menggunakan rahsia yang belum anda simpan: {{names}}",
     "loadFailed": "Gagal memuatkan rahsia yang digunakan oleh petikan ini",
     "usesSecrets": "Menggunakan rahsia yang disimpan"
+  },
+  "operations": {
+    "list": {
+      "title": "Senaraikan petikan"
+    },
+    "run": {
+      "title": "Jalankan petikan",
+      "description": "Menjalankan salah satu petikan anda pada hos. Rahsia di dalamnya akan diisi dan tidak pernah dipaparkan dalam sejarah."
+    },
+    "snippet": "Petikan"
+  },
+  "widget": {
+    "loading": "Memuatkan...",
+    "empty": "Tiada petikan lagi",
+    "copy": "Salin",
+    "copied": "Disalin",
+    "maxItems": "Petikan untuk dipaparkan"
   }
 }
