@@ -1,0 +1,222 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Termix-SSH/Termix/main/scripts/authz/authz.schema.json",
+  "seed": [
+    {
+      "as": "owner",
+      "method": "POST",
+      "path": "/plugin-api/snippets",
+      "body": {
+        "name": "authz-own-snippet",
+        "content": "echo authz"
+      },
+      "capture": {
+        "snippets.item": "id"
+      }
+    },
+    {
+      "as": "owner",
+      "method": "POST",
+      "path": "/plugin-api/snippets/folders",
+      "body": {
+        "name": "authz-own-name"
+      },
+      "capture": {
+        "snippets.folders": "id"
+      }
+    },
+    {
+      "as": "owner",
+      "method": "POST",
+      "path": "/plugin-api/snippets/secrets",
+      "body": {
+        "name": "AUTHZ_OWN",
+        "value": "authz-secret"
+      },
+      "capture": {
+        "snippets.secrets": "id"
+      }
+    }
+  ],
+  "routes": {
+    "GET /plugin-api/snippets": {
+      "access": "user",
+      "permission": "snippets.view"
+    },
+    "POST /plugin-api/snippets": {
+      "access": "user",
+      "permission": "snippets.create"
+    },
+    "DELETE /plugin-api/snippets/:id": {
+      "access": "user",
+      "permission": "snippets.delete",
+      "resource": {
+        "kind": "own",
+        "fixture": "snippets.item"
+      },
+      "params": {
+        "id": "snippets.item"
+      },
+      "destructive": true
+    },
+    "GET /plugin-api/snippets/:id": {
+      "access": "user",
+      "permission": "snippets.view",
+      "resource": {
+        "kind": "own",
+        "fixture": "snippets.item"
+      },
+      "params": {
+        "id": "snippets.item"
+      }
+    },
+    "PUT /plugin-api/snippets/:id": {
+      "access": "user",
+      "permission": "snippets.edit",
+      "resource": {
+        "kind": "own",
+        "fixture": "snippets.item"
+      },
+      "params": {
+        "id": "snippets.item"
+      }
+    },
+    "GET /plugin-api/snippets/:id/access": {
+      "access": "user",
+      "resource": {
+        "kind": "own",
+        "fixture": "snippets.item"
+      },
+      "params": {
+        "id": "snippets.item"
+      }
+    },
+    "DELETE /plugin-api/snippets/:id/access/:accessId": {
+      "access": "user",
+      "resource": {
+        "kind": "own",
+        "fixture": "snippets.item"
+      },
+      "params": {
+        "id": "snippets.item"
+      },
+      "destructive": true
+    },
+    "POST /plugin-api/snippets/:id/share": {
+      "access": "user",
+      "permission": "snippets.share",
+      "resource": {
+        "kind": "own",
+        "fixture": "snippets.item"
+      },
+      "params": {
+        "id": "snippets.item"
+      },
+      "body": {
+        "targetType": "user",
+        "targetUserId": "{{user:other}}"
+      }
+    },
+    "POST /plugin-api/snippets/bulk-import": {
+      "access": "user",
+      "permission": "snippets.create"
+    },
+    "POST /plugin-api/snippets/execute": {
+      "access": "user",
+      "destructive": true
+    },
+    "GET /plugin-api/snippets/export": {
+      "access": "user",
+      "permission": "snippets.view"
+    },
+    "PUT /plugin-api/snippets/folder/share": {
+      "access": "user",
+      "permission": "snippets.share"
+    },
+    "GET /plugin-api/snippets/folders": {
+      "access": "user",
+      "permission": "snippets.view"
+    },
+    "POST /plugin-api/snippets/folders": {
+      "access": "user",
+      "permission": "snippets.create"
+    },
+    "DELETE /plugin-api/snippets/folders/:name": {
+      "access": "user",
+      "permission": "snippets.delete",
+      "resource": {
+        "kind": "own",
+        "fixture": "snippets.folders"
+      },
+      "params": {
+        "name": "snippets.folders"
+      },
+      "destructive": true,
+      "filtered": true,
+      "note": "Folder names are per user, so this reaches only the caller own folder"
+    },
+    "PUT /plugin-api/snippets/folders/:name/metadata": {
+      "access": "user",
+      "permission": "snippets.edit",
+      "resource": {
+        "kind": "own",
+        "fixture": "snippets.folders"
+      },
+      "params": {
+        "name": "snippets.folders"
+      }
+    },
+    "PUT /plugin-api/snippets/folders/rename": {
+      "access": "user",
+      "permission": "snippets.edit"
+    },
+    "PUT /plugin-api/snippets/reorder": {
+      "access": "user",
+      "permission": "snippets.edit"
+    },
+    "GET /plugin-api/snippets/secrets": {
+      "access": "user",
+      "permission": "snippets.view"
+    },
+    "POST /plugin-api/snippets/secrets": {
+      "access": "user",
+      "permission": "snippets.create"
+    },
+    "DELETE /plugin-api/snippets/secrets/:id": {
+      "access": "user",
+      "permission": "snippets.delete",
+      "resource": {
+        "kind": "own",
+        "fixture": "snippets.secrets"
+      },
+      "params": {
+        "id": "snippets.secrets"
+      },
+      "destructive": true
+    },
+    "PUT /plugin-api/snippets/secrets/:id": {
+      "access": "user",
+      "permission": "snippets.edit",
+      "resource": {
+        "kind": "own",
+        "fixture": "snippets.secrets"
+      },
+      "params": {
+        "id": "snippets.secrets"
+      }
+    },
+    "POST /plugin-api/snippets/secrets/resolve": {
+      "access": "user"
+    },
+    "GET /plugin-api/snippets/share-targets/roles": {
+      "access": "user",
+      "permission": "snippets.share"
+    },
+    "GET /plugin-api/snippets/share-targets/users": {
+      "access": "user",
+      "permission": "snippets.share"
+    },
+    "GET /plugin-api/snippets/shared": {
+      "access": "user"
+    }
+  }
+}
