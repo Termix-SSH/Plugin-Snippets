@@ -6,6 +6,10 @@
 
 - Runs in its own process on Termix 26.11.2 and later, with no access to the server beyond what Termix allows it
 
+### Fixed
+
+- The API docs describe the bulk import body
+
 ## 1.3.0
 
 ### Added
