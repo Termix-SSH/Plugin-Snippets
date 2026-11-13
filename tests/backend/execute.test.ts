@@ -53,6 +53,7 @@ async function startExecuteServer(
   const mock = createMockCtx({
     pluginId: manifest.id,
     manifest,
+    sandbox: true,
     capabilities: manifest.capabilities,
     db: db.database,
     router: () => (router = express.Router()),

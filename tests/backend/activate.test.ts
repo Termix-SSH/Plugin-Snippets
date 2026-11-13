@@ -106,9 +106,9 @@ describe("snippets activate", () => {
       "snippets.hostPayloadLegacy",
       "snippets.hostSettingsSync",
     ]) {
-      expect(registry.consume(key), key).toBeDefined();
+      expect(await registry.consume(key), key).toBeDefined();
     }
-    const variables = registry.consume<{
+    const variables = await registry.consume<{
       resolve: (c: string, h: { ip?: string } | null) => string;
       extractInputs: (c: string) => Array<{ key: string }>;
     }>("snippets.variables");

@@ -45,6 +45,8 @@ export async function startServer(
   const mock = createMockCtx({
     pluginId: manifest.id,
     manifest,
+    // The rules of the plugin process it runs in.
+    sandbox: true,
     capabilities: options.capabilities ?? manifest.capabilities,
     db: db.database,
     shareableUsers: options.shareableUsers,
