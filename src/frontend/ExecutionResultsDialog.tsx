@@ -57,9 +57,15 @@ export function ExecutionResultsDialog({
                 </span>
               )}
             </div>
-            {(result.output || result.error) && (
+            {/* A command writes to both streams; show what each one said. */}
+            {result.output && (
               <pre className="text-[11px] bg-muted/30 p-2 overflow-x-auto whitespace-pre-wrap font-mono text-muted-foreground max-h-40">
-                {result.error || result.output}
+                {result.output}
+              </pre>
+            )}
+            {result.error && (
+              <pre className="text-[11px] bg-destructive/5 p-2 overflow-x-auto whitespace-pre-wrap font-mono text-destructive max-h-40">
+                {result.error}
               </pre>
             )}
           </div>
