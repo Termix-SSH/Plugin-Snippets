@@ -45,6 +45,14 @@ export function classifySshError(
       error: `Cannot authenticate to ${target}: its stored credentials are missing or unusable`,
     };
   }
+  // Core names the reason since 26.11.2; older cores pass on ssh2's text.
+  if (/host's key (is not trusted yet|has changed)/i.test(err.message)) {
+    return {
+      status: 409,
+      code: "SSH_HOST_KEY_REJECTED",
+      error: `${target}: ${err.message}`,
+    };
+  }
   if (/Host denied \(verification failed\)/i.test(err.message)) {
     return {
       status: 409,

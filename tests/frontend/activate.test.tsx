@@ -54,6 +54,7 @@ describe(`${manifest.id} activate`, () => {
     expect(rendered.registered.paletteGroups()).toEqual(["snippets"]);
     expect(rendered.registered.keybindingActions()).toEqual(["runSnippet"]);
     expect(rendered.registered.hostEditorSections()).toEqual(["snippets"]);
+    expect(rendered.registered.settingsComponents()).toEqual(["secrets"]);
     expect(rendered.registered.slot("host-metrics.toolbar")).toEqual([
       "snippets.quickActions",
     ]);

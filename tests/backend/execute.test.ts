@@ -53,6 +53,7 @@ async function startExecuteServer(
   const mock = createMockCtx({
     pluginId: manifest.id,
     manifest,
+    sandbox: true,
     capabilities: manifest.capabilities,
     db: db.database,
     router: () => (router = express.Router()),
@@ -250,6 +251,16 @@ describe("POST /execute", () => {
       409,
       "SSH_HOST_KEY_REJECTED",
       "Host key for root@10.0.0.5 was rejected. If it changed, open a Terminal connection to the host to verify and accept the new key.",
+    ],
+    [
+      "host key not trusted yet",
+      sshError(
+        "This host's key is not trusted yet. Open a terminal to the host once to check and trust it.",
+        { level: "handshake" },
+      ),
+      409,
+      "SSH_HOST_KEY_REJECTED",
+      "root@10.0.0.5: This host's key is not trusted yet. Open a terminal to the host once to check and trust it.",
     ],
     [
       "unknown host",

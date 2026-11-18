@@ -38,7 +38,7 @@ export function RunSnippetEditor({
             appendEnter: true,
           })
         }
-        className="h-8 border border-border bg-background px-2 text-xs outline-none focus:ring-1 focus:ring-ring"
+        className="h-8 border border-border bg-(--field) px-2 text-xs outline-none focus:ring-1 focus:ring-ring"
       >
         <option value="">{t("keybindings.selectSnippet")}</option>
         {options.map((snippet) => (

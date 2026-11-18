@@ -149,7 +149,7 @@ export function HostSnippetsSection({
                 />
                 <Select2
                   aria-label={t("host.selectSnippet")}
-                  className="h-7 text-xs flex-1 border border-border bg-background px-2 outline-none focus:ring-1 focus:ring-ring"
+                  className="h-7 text-xs flex-1 border border-border bg-(--field) px-2 outline-none focus:ring-1 focus:ring-ring"
                   value={row.snippetId ?? ""}
                   onChange={(e) => {
                     const next = [...quickActions];

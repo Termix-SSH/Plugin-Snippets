@@ -152,7 +152,7 @@ describe("snippets panel", () => {
     ).toBeGreaterThan(0);
   });
 
-  it("opens the settings page and goes back", async () => {
+  it("opens its page in Settings", async () => {
     await renderPanel(fakeApi([]));
     await screen.findByText(locales.emptyTitle);
     fireEvent.pointerDown(screen.getByTitle(locales.moreActions), {
@@ -160,15 +160,10 @@ describe("snippets panel", () => {
       ctrlKey: false,
     });
     fireEvent.click(await screen.findByText(locales.settingsTitle));
-    const label = await screen.findByText(
-      locales.settings.foldersCollapsed.label,
-    );
-    fireEvent.keyDown(label, { key: "Escape" });
-    await waitFor(() =>
-      expect(
-        screen.queryByText(locales.settings.foldersCollapsed.label),
-      ).toBeNull(),
-    );
+    expect(rendered!.shellCalls).toContainEqual({
+      method: "openSingletonTab",
+      args: ["settings", { data: { section: "plugin:snippets" } }],
+    });
   });
 
   it("shares a snippet with a user", async () => {

@@ -29,6 +29,7 @@ import { HostSnippetsSection } from "./HostSnippetsSection";
 import { QuickActionButtons } from "./QuickActionButtons";
 import { resetPrompts } from "./prompt-store";
 import { fetchSnippet, loadSecrets, runInSession } from "./run-flows";
+import { SnippetSecretsSection } from "./SnippetSecretsSection";
 import {
   RUN_SNIPPET_ACTION,
   RunSnippetEditor,
@@ -89,6 +90,7 @@ export function activate(app: TermixApp): void {
   });
 
   app.registerExtension("homepage.widgets", snippetsWidget);
+  app.registerSettingsComponent("secrets", SnippetSecretsSection);
 
   // Cores before 26.10.3 have no panels beside tabs.
   if (typeof app.registerCompanion === "function") {

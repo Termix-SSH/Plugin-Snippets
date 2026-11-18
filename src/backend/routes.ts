@@ -702,8 +702,12 @@ export function registerSnippetRoutes(
    *             properties:
    *               snippets:
    *                 type: array
+   *                 items:
+   *                   type: object
    *               folders:
    *                 type: array
+   *                 items:
+   *                   type: object
    *               overwrite:
    *                 type: boolean
    *     responses:

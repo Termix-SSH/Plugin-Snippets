@@ -1,3 +1,5 @@
+import { usePluginId, useTabs } from "@termix-ssh/plugin-sdk/frontend";
+
 export interface SnippetDisplaySettings {
   foldersCollapsed: boolean;
   showCommands: boolean;
@@ -16,4 +18,14 @@ export function readSnippetSettings(
     confirmExecution: values.confirmExecution === true,
     fillSudoPassword: values.fillSudoPassword === true,
   };
+}
+
+/** Opens this plugin's page in Settings. */
+export function useOpenSettingsPage() {
+  const tabs = useTabs();
+  const pluginId = usePluginId();
+  return () =>
+    tabs.openSingletonTab("settings", {
+      data: { section: `plugin:${pluginId}` },
+    });
 }
