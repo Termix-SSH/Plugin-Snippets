@@ -123,7 +123,11 @@ describe("POST /execute", () => {
         hostId: 42,
       });
       expect(result.status).toBe(200);
-      expect(result.body).toEqual({ success: true, output: "deployed ok" });
+      expect(result.body).toEqual({
+        success: true,
+        exitCode: 0,
+        output: "deployed ok",
+      });
     } finally {
       await server.close();
     }
@@ -143,6 +147,7 @@ describe("POST /execute", () => {
       });
       expect(result.status).toBe(200);
       expect(result.body.success).toBe(false);
+      expect(result.body.exitCode).toBe(1);
     } finally {
       await server.close();
     }

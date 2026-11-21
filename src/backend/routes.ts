@@ -447,7 +447,8 @@ export function registerSnippetRoutes(
    *       200:
    *         description: >
    *           Snippet ran. A nonzero exit is not an error here: success is
-   *           false and output/error carry what the command printed.
+   *           false, exitCode holds the code (null if the host sent none) and
+   *           output/error carry what the command printed.
    *       400:
    *         description: Snippet ID and host ID are required, or the snippet is a note.
    *       404:

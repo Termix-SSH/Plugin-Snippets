@@ -29,6 +29,7 @@ export interface SnippetReorderUpdate {
 
 export interface SnippetExecutionResult {
   success: boolean;
+  exitCode?: number | null;
   output: string;
   error?: string;
 }

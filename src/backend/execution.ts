@@ -1,5 +1,7 @@
 export interface SnippetExecutionResult {
   success: boolean;
+  /** The command's exit code, or null when the host sent none. */
+  exitCode: number | null;
   output: string;
   error?: string;
 }
@@ -24,6 +26,7 @@ export function createSnippetExecutionResult(
   const success = exitCode === 0 || (exitCode === null && !errorOutput);
   return {
     success,
+    exitCode,
     output,
     ...(errorOutput ? { error: errorOutput } : {}),
   };

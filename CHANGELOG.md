@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.4.1
+
+### Added
+
+- Running a snippet through the API also returns the command's exit code
+
 ## 1.4.0
 
 ### Changed
